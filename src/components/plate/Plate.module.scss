@@ -1,0 +1,8 @@
+@import 'src/styles/mixin.scss';
+@import 'src/styles/theme.scss';
+
+@each $type, $color in $type-colors {
+  .plate.#{$type} {
+    @include plate_style($color);
+  }
+}
