@@ -5,12 +5,20 @@ import { fetchData } from '@/lib/api';
 import { getPokemonData } from '@/lib/poketApi';
 import { AbilityType, PokemonType, TypeType } from '@/lib/type';
 
+export interface Stat {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
+}
+
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonType | null>(null);
-  /*  const [pokemonName, setPokemonName] = useState(null); */
   const [abilities, setAbilities] = useState<string[]>([]);
   const [types, setTypes] = useState<string[]>([]);
-  const [baseStats, setBaseStats] = useState([]);
+  const [baseStats, setBaseStats] = useState<Stat[]>([]);
 
   useEffect(() => {
     const fetchDataAPI = async () => {

@@ -4,7 +4,6 @@ import styles from './Detail.module.scss';
 interface PokemonInfoProps {
   pokemon: PokemonType | null;
   abilities: string[];
-  ㅁ;
   types: string[];
 }
 
