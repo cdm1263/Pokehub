@@ -1,0 +1,10 @@
+@mixin plate_style($color) {
+  width: 150px;
+  background-color: $color;
+
+  img {
+  }
+
+  span {
+  }
+}
