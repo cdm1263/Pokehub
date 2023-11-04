@@ -4,6 +4,7 @@ import Status from './Status';
 import {
   getPokemonAbility,
   getPokemonData,
+  getPokemonSpecies,
   getPokemonType,
 } from '@/lib/poketApi';
 import { AbilitysType, PokemonType, Stat, TypesType } from '@/lib/type';
@@ -14,6 +15,8 @@ const Detail = () => {
   const [abilities, setAbilities] = useState<string[]>([]);
   const [types, setTypes] = useState<string[]>([]);
   const [baseStats, setBaseStats] = useState<Stat[]>([]);
+  const [flavorText, setFlavorText] = useState('');
+  const [genus, setGenus] = useState('');
 
   useEffect(() => {
     const fetchDataAPI = async () => {
@@ -24,28 +27,43 @@ const Detail = () => {
           pokemonData.abilities.map(async ({ ability }: AbilitysType) => {
             const abilityData = await getPokemonAbility(ability.url);
             const koreanAbilityData = abilityData.names.find(
-              (name: { name: string; language: { name: string } }) =>
+              (name: { language: { name: string } }) =>
                 name.language.name === 'ko',
             );
+
             return koreanAbilityData ? koreanAbilityData.name : ability.name;
           }),
         );
 
         const typesData = await Promise.all(
-          pokemonData.types.map(async (typeData: TypesType) => {
-            const typeDetailData = await getPokemonType(typeData.type.url);
+          pokemonData.types.map(async ({ type }: TypesType) => {
+            const typeDetailData = await getPokemonType(type.url);
             const koreanTypeData = typeDetailData.names.find(
-              (name: { name: string; language: { name: string } }) =>
-                name.language.name === 'ko',
+              (names: { language: { name: string } }) =>
+                names.language.name === 'ko',
             );
-            return koreanTypeData ? koreanTypeData.name : typeData.type.name;
+
+            return koreanTypeData ? koreanTypeData.name : type.name;
           }),
+        );
+
+        const speciesUrl = pokemonData.species.url;
+        const speciesDetailData = await getPokemonSpecies(speciesUrl);
+        const koreanSpeciesData = speciesDetailData.flavor_text_entries.find(
+          (flavor_text_entries: { language: { name: string } }) =>
+            flavor_text_entries.language.name === 'ko',
+        );
+        const koreanGenusData = speciesDetailData.genera.find(
+          (genera: { language: { name: string } }) =>
+            genera.language.name === 'ko',
         );
 
         setBaseStats(pokemonData.stats);
         setPokemon(pokemonData);
         setAbilities(abilitiesData);
         setTypes(typesData);
+        setFlavorText(koreanSpeciesData.flavor_text);
+        setGenus(koreanGenusData.genus);
       } catch (error) {
         console.error(error);
       }
@@ -58,7 +76,7 @@ const Detail = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <PokemonInfo pokemon={pokemon} abilities={abilities} types={types} />
-        <PokemonImg pokemon={pokemon} />
+        <PokemonImg pokemon={pokemon} flavorText={flavorText} genus={genus} />
         <Status baseStats={baseStats} />
       </div>
     </>
