@@ -1,4 +1,6 @@
-export const POKEMON_NAME = {
+import { PokemonNameType } from './type';
+
+export const POKEMON_NAME: PokemonNameType = {
   이상해씨: 'bulbasaur',
   이상해풀: 'ivysaur',
   이상해꽃: 'venusaur',
