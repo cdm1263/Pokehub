@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 import PokemonInfo from './PokemonInfo';
 import Status from './Status';
-import { fetchData } from '@/lib/api';
-import { getPokemonData } from '@/lib/poketApi';
-import { AbilityType, PokemonType, TypeType } from '@/lib/type';
-
-export interface Stat {
-  base_stat: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-}
+import {
+  getPokemonAbility,
+  getPokemonData,
+  getPokemonType,
+} from '@/lib/poketApi';
+import { AbilitysType, PokemonType, Stat, TypesType } from '@/lib/type';
+import PokemonImg from './PokemonImg';
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonType | null>(null);
@@ -23,11 +18,11 @@ const Detail = () => {
   useEffect(() => {
     const fetchDataAPI = async () => {
       try {
-        const pokemonData = await getPokemonData(149);
+        const pokemonData = await getPokemonData(485);
 
         const abilitiesData = await Promise.all(
-          pokemonData.abilities.map(async ({ ability }: AbilityType) => {
-            const abilityData = await fetchData(ability.url, 'get');
+          pokemonData.abilities.map(async ({ ability }: AbilitysType) => {
+            const abilityData = await getPokemonAbility(ability.url);
             const koreanAbilityData = abilityData.names.find(
               (name: { name: string; language: { name: string } }) =>
                 name.language.name === 'ko',
@@ -37,8 +32,8 @@ const Detail = () => {
         );
 
         const typesData = await Promise.all(
-          pokemonData.types.map(async (typeData: TypeType) => {
-            const typeDetailData = await fetchData(typeData.type.url, 'get');
+          pokemonData.types.map(async (typeData: TypesType) => {
+            const typeDetailData = await getPokemonType(typeData.type.url);
             const koreanTypeData = typeDetailData.names.find(
               (name: { name: string; language: { name: string } }) =>
                 name.language.name === 'ko',
@@ -61,9 +56,11 @@ const Detail = () => {
 
   return (
     <>
-      <PokemonInfo pokemon={pokemon} abilities={abilities} types={types} />
-
-      <Status pokemon={pokemon} baseStats={baseStats} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <PokemonInfo pokemon={pokemon} abilities={abilities} types={types} />
+        <PokemonImg pokemon={pokemon} />
+        <Status baseStats={baseStats} />
+      </div>
     </>
   );
 };
