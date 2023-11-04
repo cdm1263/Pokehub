@@ -2,6 +2,9 @@ export interface PokemonInfoProps {
   pokemon: PokemonType | null;
   abilities?: string[];
   types?: string[];
+  species?: string[];
+  flavorText?: string;
+  genus?: string;
 }
 export interface Stat {
   base_stat: number;
@@ -16,9 +19,13 @@ export interface StatusProps {
   baseStats: Stat[];
 }
 
-export interface StatName {
+export type StatNameType = {
   [key: string]: string;
-}
+};
+
+export type PokemonNameType = {
+  [key: string]: string;
+};
 
 export type AbilitysType = {
   ability: {
