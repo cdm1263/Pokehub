@@ -1,23 +1,23 @@
-import { PokemonType } from '@/lib/type';
+import { PokemonInfoProps } from '@/lib/type';
 import styles from './Detail.module.scss';
 
-interface PokemonInfoProps {
-  pokemon: PokemonType | null;
-  abilities: string[];
-  types: string[];
-}
-
 const PokemonInfo = ({ pokemon, abilities, types }: PokemonInfoProps) => {
-  let feet = 0;
-  let inches = 0;
+  let feet;
+  let inches;
   let pokemonHeight: string | null = null;
+  let weightKg;
+  let weightLbs;
   let pokemonWeight: string | null = null;
 
   if (pokemon) {
     feet = Math.floor((pokemon.height * 10) / 2.54 / 12);
     inches = Math.round(((pokemon.height * 10) / 2.54) % 12);
-    pokemonHeight = `${pokemon.height * 0.1}m (${feet}".${inches}')`;
-    pokemonWeight = `${pokemon.weight * 0.1}kg (${feet}".${inches}')`;
+    pokemonHeight = `${(pokemon.height * 0.1).toFixed(
+      1,
+    )}m (${feet}'${inches}")`;
+    weightKg = (pokemon.weight * 0.1).toFixed(1);
+    weightLbs = (pokemon.weight * 0.1 * 2.20462).toFixed(1);
+    pokemonWeight = `${weightKg}kg (${weightLbs}lb)`;
   }
 
   return (
@@ -44,7 +44,9 @@ const PokemonInfo = ({ pokemon, abilities, types }: PokemonInfoProps) => {
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>타입</div>
-            <div className={styles.pokemon__info__data}>{types.join(', ')}</div>
+            <div className={styles.pokemon__info__data}>
+              {types?.join(', ')}
+            </div>
           </div>
         </div>
       </div>
