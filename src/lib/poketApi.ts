@@ -27,3 +27,7 @@ export const getPokemonAbility = async (url: string) => {
 export const getPokemonType = async (url: string) => {
   return fetchData(`${url}`, 'get');
 };
+
+export const getPokemonSpecies = async (url: string) => {
+  return fetchData(`${url}`, 'get');
+};
