@@ -14,7 +14,6 @@
 .pokemon__info__Box {
   perspective: 400px;
   margin: auto 0;
-  width: 250px;
 }
 
 .pokemon__info__container {
@@ -125,4 +124,14 @@
   to {
     background-position: 0 0;
   }
+}
+
+/*Pokemon - image*/
+
+.detail__center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
