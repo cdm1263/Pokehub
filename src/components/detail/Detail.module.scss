@@ -21,6 +21,10 @@
   margin-top: 50px;
   margin-left: 100px;
   width: 250px;
+  height: 322px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
   transition: 0.3s;
   transform: rotateY(30deg);
@@ -32,13 +36,27 @@
 
 .pokemon__info {
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 /*Pokemon - status*/
+
+.stats__container {
+  perspective: 400px;
+  margin: auto 0;
+  width: 250px;
+  height: 322px;
+  margin-right: 100px;
+}
 .stats {
   width: 250px;
-  font-family: Arial, sans-serif;
+  transition: 0.3s;
+  transform: rotateY(-30deg);
+
+  &:hover {
+    transform: rotateY(0deg);
+  }
 
   &__total {
     font-weight: bold;
@@ -58,6 +76,7 @@
     height: 20px;
     border-radius: 4px;
     margin-top: 5px;
+    margin-bottom: 10px;
   }
 
   &__barFilled {
@@ -94,7 +113,8 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
-    color: black;
+    color: #000000;
+    line-height: initial;
   }
 }
 
