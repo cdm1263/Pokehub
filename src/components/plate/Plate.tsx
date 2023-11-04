@@ -10,29 +10,17 @@ const Plate = () => {
 
   const renderTypes = (types: string[]) =>
     types.map((koreanType) => {
-      if (selectedPlate.includes(koreanType)) {
-        return (
-          <div
-            onClick={() => {
-              setSelectedPlate(koreanType);
-            }}
-            className={`${styles.click_plate} ${styles[koreanType]}`}
-            key={koreanType}
-            data-type={koreanType}
-          >
-            <img
-              src={`/src/assets/${koreanType}.svg`}
-              alt={`${koreanType}타입 아이콘`}
-            />
-          </div>
-        );
-      }
+      const isPlateSelected = selectedPlate.includes(koreanType);
+      const plateClassName = isPlateSelected
+        ? styles.click_plate
+        : styles.unclick_plate;
+
       return (
         <div
           onClick={() => {
             setSelectedPlate(koreanType);
           }}
-          className={`${styles.unclick_plate} ${styles[koreanType]}`}
+          className={`${plateClassName} ${styles[koreanType]}`}
           key={koreanType}
           data-type={koreanType}
         >
@@ -40,7 +28,7 @@ const Plate = () => {
             src={`/src/assets/${koreanType}.svg`}
             alt={`${koreanType}타입 아이콘`}
           />
-          <span>{koreanType}</span>
+          {isPlateSelected ? null : <span>{koreanType}</span>}
         </div>
       );
     });
