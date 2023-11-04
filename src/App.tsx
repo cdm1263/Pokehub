@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '@/pages/home/home';
 import Layout from '@/components/Layout';
-import Detail from './components/detail/Detail';
+import Detail from './pages/detail.tsx/detail';
 
 const App = () => {
   return (

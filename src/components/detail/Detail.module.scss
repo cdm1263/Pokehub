@@ -1,0 +1,108 @@
+/*Detail - main*/
+
+/*Pokemon - info*/
+.pokemon__info__title {
+  text-align: right;
+  width: 100px;
+}
+
+.pokemon__info__data {
+  text-align: left;
+  width: 100%;
+}
+
+.pokemon__info__Box {
+  perspective: 400px;
+  margin: auto 0;
+  width: 250px;
+}
+
+.pokemon__info__container {
+  margin-top: 50px;
+  margin-left: 100px;
+  width: 250px;
+
+  transition: 0.3s;
+  transform: rotateY(30deg);
+
+  &:hover {
+    transform: rotateY(0deg);
+  }
+}
+
+.pokemon__info {
+  display: flex;
+  gap: 10px;
+}
+
+/*Pokemon - status*/
+.stats {
+  width: 250px;
+  font-family: Arial, sans-serif;
+
+  &__total {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}
+
+.stat {
+  &__label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  &__barBg {
+    position: relative;
+    background-color: #e4e4e4;
+    height: 20px;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  &__barFilled {
+    height: 100%;
+    background-color: #3498db;
+    transition: width 0.3s;
+    position: relative;
+    z-index: 0;
+  }
+
+  &__striped {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 1rem 1rem;
+    animation: progress-bar-stripes 1s linear infinite;
+  }
+
+  &__value {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    color: black;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}

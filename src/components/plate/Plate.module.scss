@@ -1,0 +1,21 @@
+@import 'src/styles/mixin.scss';
+@import 'src/styles/theme.scss';
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #d9d9d9;
+}
+
+@each $type, $color in $type-colors {
+  .click_plate.#{$type} {
+    @include plate_click_style($color);
+  }
+
+  .unclick_plate.#{$type} {
+    @include plate_unclick_style($color);
+
+    display: flex;
+    gap: 3px;
+  }
+}
