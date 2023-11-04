@@ -6,8 +6,6 @@ const Plate = () => {
   const koreanTypes = Object.values(POKEMON_TYPES);
   const { selectedPlate, setSelectedPlate } = useSelectedStore();
 
-  console.log(selectedPlate);
-
   const renderTypes = (types: string[]) =>
     types.map((koreanType) => {
       const isPlateSelected = selectedPlate.includes(koreanType);
