@@ -25,7 +25,9 @@ const Plate = () => {
           data-type={koreanType}
         >
           <img
-            src={`/src/assets/${koreanType}.svg`}
+            src={`/src/assets/icons/${koreanType}_${
+              isPlateSelected ? 'on' : 'off'
+            }.svg`}
             alt={`${koreanType}타입 아이콘`}
           />
           {isPlateSelected ? null : <span>{koreanType}</span>}
