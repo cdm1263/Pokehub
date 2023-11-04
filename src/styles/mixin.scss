@@ -1,10 +1,25 @@
-@mixin plate_style($color) {
-  width: 150px;
-  background-color: $color;
+@mixin plate_style {
+  cursor: pointer;
+  width: 100px;
+  display: flex;
+  padding: 5px 0;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
 
   img {
+    width: 20px;
   }
+}
 
-  span {
-  }
+@mixin plate_click_style($color) {
+  @include plate_style;
+  color: #fff;
+  background-color: $color;
+}
+
+@mixin plate_unclick_style($color) {
+  @include plate_style;
+  color: $color;
+  background-color: #fff;
 }
