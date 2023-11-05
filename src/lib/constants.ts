@@ -1,6 +1,6 @@
-import { StatName } from './type';
+import { KeyValueType } from './type';
 
-export const POKEMON_TYPES = {
+export const POKEMON_TYPES: KeyValueType = {
   normal: '노말',
   fighting: '격투',
   flying: '비행',
@@ -21,7 +21,7 @@ export const POKEMON_TYPES = {
   fairy: '페어리',
 };
 
-export const STAT_NAME: StatName = {
+export const STAT_NAME: KeyValueType = {
   hp: '체력',
   attack: '공격',
   defense: '방어',

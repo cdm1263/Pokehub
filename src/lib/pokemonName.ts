@@ -1,6 +1,6 @@
-import { PokemonNameType } from './type';
+import { KeyValueType } from './type';
 
-export const POKEMON_NAME: PokemonNameType = {
+export const POKEMON_NAME: KeyValueType = {
   이상해씨: 'bulbasaur',
   이상해풀: 'ivysaur',
   이상해꽃: 'venusaur',

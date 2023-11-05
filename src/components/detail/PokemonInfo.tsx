@@ -1,7 +1,9 @@
 import { PokemonInfoProps } from '@/lib/type';
 import styles from './Detail.module.scss';
+import { POKEMON_TYPES } from '@/lib/constants';
+import { ABILITY_NAMES } from '@/lib/abilityNames';
 
-const PokemonInfo = ({ pokemon, abilities, types }: PokemonInfoProps) => {
+const PokemonInfo = ({ pokemon }: PokemonInfoProps) => {
   let feet;
   let inches;
   let pokemonHeight: string | null = null;
@@ -39,13 +41,38 @@ const PokemonInfo = ({ pokemon, abilities, types }: PokemonInfoProps) => {
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>특성</div>
             <div className={styles.pokemon__info__data}>
-              {abilities?.join(', ')}
+              {pokemon?.abilities.map((abilityInfo) => {
+                const koreanAbilityName =
+                  ABILITY_NAMES[abilityInfo.ability.name];
+
+                return (
+                  <div
+                    className={`${styles.detail__plate} ${styles[koreanAbilityName]}`}
+                  >
+                    {koreanAbilityName}
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>타입</div>
             <div className={styles.pokemon__info__data}>
-              {types?.join(', ')}
+              {pokemon?.types.map((typeInfo) => {
+                const koreanPokemonName = POKEMON_TYPES[typeInfo.type.name];
+
+                return (
+                  <div
+                    className={`${styles.detail__plate} ${styles[koreanPokemonName]}`}
+                  >
+                    <img
+                      src={`/src/assets/icons/${koreanPokemonName}_on.svg`}
+                      alt={`${koreanPokemonName}타입 아이콘`}
+                    />
+                    {koreanPokemonName}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
