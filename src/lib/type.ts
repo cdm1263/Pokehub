@@ -19,11 +19,7 @@ export interface StatusProps {
   baseStats: Stat[];
 }
 
-export type StatNameType = {
-  [key: string]: string;
-};
-
-export type PokemonNameType = {
+export type KeyValueType = {
   [key: string]: string;
 };
 
