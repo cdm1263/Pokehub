@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import styles from './Detail.module.scss';
-import { PokemonType } from '@/lib/type';
-import { Stat } from './Detail';
 
-interface StatusProps {
-  pokemon: PokemonType | null;
-  baseStats: Stat[];
-}
+import { STAT_NAME } from '@/lib/constants';
+import { StatusProps } from '@/lib/type';
 
-const Status = ({ pokemon, baseStats }: StatusProps) => {
+const Status = ({ baseStats }: StatusProps) => {
   const [percentages, setPercentages] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -42,24 +38,28 @@ const Status = ({ pokemon, baseStats }: StatusProps) => {
   }, [baseStats]);
 
   return (
-    <div className={styles.stats}>
-      {baseStats.map((baseStat) => (
-        <div key={baseStat.stat.name} className={styles.stat}>
-          <label className={styles.stat__label}>{baseStat.stat.name}</label>
-          <div className={styles.stat__barBg}>
-            <div
-              className={styles.stat__barFilled}
-              style={{ width: `${percentages[baseStat.stat.name] || 0}%` }}
-            >
-              <div className={styles.stat__striped}></div>
+    <div className={styles.stats__container}>
+      <div className={styles.stats}>
+        {baseStats.map((baseStat) => (
+          <div key={baseStat.stat.name} className={styles.stat}>
+            <label className={styles.stat__label}>
+              {STAT_NAME[baseStat.stat.name]}
+            </label>
+            <div className={styles.stat__barBg}>
+              <div
+                className={styles.stat__barFilled}
+                style={{ width: `${percentages[baseStat.stat.name] || 0}%` }}
+              >
+                <div className={styles.stat__striped}></div>
+              </div>
+              <span className={styles.stat__value}>{baseStat.base_stat}</span>
             </div>
-            <span className={styles.stat__value}>{baseStat.base_stat}</span>
           </div>
+        ))}
+        <div className={styles.stats__total}>
+          Total:{' '}
+          {baseStats.reduce((acc, baseStat) => acc + baseStat.base_stat, 0)}
         </div>
-      ))}
-      <div className={styles.stats__total}>
-        Total:{' '}
-        {baseStats.reduce((acc, baseStat) => acc + baseStat.base_stat, 0)}
       </div>
     </div>
   );

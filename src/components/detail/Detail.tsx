@@ -1,56 +1,69 @@
 import { useEffect, useState } from 'react';
 import PokemonInfo from './PokemonInfo';
 import Status from './Status';
-import { fetchData } from '@/lib/api';
-import { getPokemonData } from '@/lib/poketApi';
-import { AbilityType, PokemonType, TypeType } from '@/lib/type';
-
-export interface Stat {
-  base_stat: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-}
+import {
+  getPokemonAbility,
+  getPokemonData,
+  getPokemonSpecies,
+  getPokemonType,
+} from '@/lib/poketApi';
+import { AbilitysType, PokemonType, Stat, TypesType } from '@/lib/type';
+import PokemonImg from './PokemonImg';
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonType | null>(null);
   const [abilities, setAbilities] = useState<string[]>([]);
   const [types, setTypes] = useState<string[]>([]);
   const [baseStats, setBaseStats] = useState<Stat[]>([]);
+  const [flavorText, setFlavorText] = useState('');
+  const [genus, setGenus] = useState('');
 
   useEffect(() => {
     const fetchDataAPI = async () => {
       try {
-        const pokemonData = await getPokemonData(149);
+        const pokemonData = await getPokemonData(485);
 
         const abilitiesData = await Promise.all(
-          pokemonData.abilities.map(async ({ ability }: AbilityType) => {
-            const abilityData = await fetchData(ability.url, 'get');
+          pokemonData.abilities.map(async ({ ability }: AbilitysType) => {
+            const abilityData = await getPokemonAbility(ability.url);
             const koreanAbilityData = abilityData.names.find(
-              (name: { name: string; language: { name: string } }) =>
+              (name: { language: { name: string } }) =>
                 name.language.name === 'ko',
             );
+
             return koreanAbilityData ? koreanAbilityData.name : ability.name;
           }),
         );
 
         const typesData = await Promise.all(
-          pokemonData.types.map(async (typeData: TypeType) => {
-            const typeDetailData = await fetchData(typeData.type.url, 'get');
+          pokemonData.types.map(async ({ type }: TypesType) => {
+            const typeDetailData = await getPokemonType(type.url);
             const koreanTypeData = typeDetailData.names.find(
-              (name: { name: string; language: { name: string } }) =>
-                name.language.name === 'ko',
+              (names: { language: { name: string } }) =>
+                names.language.name === 'ko',
             );
-            return koreanTypeData ? koreanTypeData.name : typeData.type.name;
+
+            return koreanTypeData ? koreanTypeData.name : type.name;
           }),
+        );
+
+        const speciesUrl = pokemonData.species.url;
+        const speciesDetailData = await getPokemonSpecies(speciesUrl);
+        const koreanSpeciesData = speciesDetailData.flavor_text_entries.find(
+          (flavor_text_entries: { language: { name: string } }) =>
+            flavor_text_entries.language.name === 'ko',
+        );
+        const koreanGenusData = speciesDetailData.genera.find(
+          (genera: { language: { name: string } }) =>
+            genera.language.name === 'ko',
         );
 
         setBaseStats(pokemonData.stats);
         setPokemon(pokemonData);
         setAbilities(abilitiesData);
         setTypes(typesData);
+        setFlavorText(koreanSpeciesData.flavor_text);
+        setGenus(koreanGenusData.genus);
       } catch (error) {
         console.error(error);
       }
@@ -61,9 +74,11 @@ const Detail = () => {
 
   return (
     <>
-      <PokemonInfo pokemon={pokemon} abilities={abilities} types={types} />
-
-      <Status pokemon={pokemon} baseStats={baseStats} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <PokemonInfo pokemon={pokemon} abilities={abilities} types={types} />
+        <PokemonImg pokemon={pokemon} flavorText={flavorText} genus={genus} />
+        <Status baseStats={baseStats} />
+      </div>
     </>
   );
 };
