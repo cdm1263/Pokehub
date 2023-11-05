@@ -1,12 +1,32 @@
+@import 'src/styles/mixin.scss';
+@import 'src/styles/theme.scss';
+
 /*Detail - main*/
 
 /*Pokemon - info*/
 .pokemon__info__title {
   text-align: right;
-  width: 100px;
+  width: 50px;
+  font-weight: bold;
 }
 
 .pokemon__info__data {
+  display: flex;
+  gap: 10px;
+
+  @each $type, $color in $type-colors {
+    .detail__plate.#{$type} {
+      @include plate_unclick_style($color);
+
+      gap: 3px;
+      background-color: ($color);
+      color: #fff;
+      width: 84px;
+      cursor: none;
+      padding: 5px;
+    }
+  }
+
   text-align: left;
   width: 100%;
 }
@@ -37,6 +57,7 @@
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 /*Pokemon - status*/

@@ -16,10 +16,12 @@
   @include plate_style;
   color: #fff;
   background-color: $color;
+  transition: all 1s ease;
 }
 
 @mixin plate_unclick_style($color) {
   @include plate_style;
   color: $color;
   background-color: #fff;
+  transition: all 1s ease;
 }
