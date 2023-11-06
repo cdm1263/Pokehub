@@ -26,7 +26,7 @@ const PokemonImg = ({ pokemon, flavorText, genus }: PokemonInfoProps) => {
         >
           {koreanName}
         </div>
-        <div>{genus}</div>
+        <div style={{ marginTop: '20px' }}>{genus}</div>
         <img
           loading="lazy"
           src={pokemonOfficialImage || undefined}
