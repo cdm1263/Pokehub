@@ -5,6 +5,8 @@ export interface PokemonInfoProps {
   species?: string[];
   flavorText?: string;
   genus?: string;
+  onFormChange?: (formName: string) => void;
+  formName?: string;
 }
 export interface Stat {
   base_stat: number;
@@ -72,4 +74,7 @@ export type PokemonType = {
   name: string;
   moves: MovesType[];
   sprites: Sprites;
+  forms: {
+    name: string;
+  };
 };
