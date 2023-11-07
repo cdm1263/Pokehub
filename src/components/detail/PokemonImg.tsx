@@ -1,8 +1,14 @@
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { PokemonInfoProps } from '@/lib/type';
 import styles from './Detail.module.scss';
+import { FORM_NAMES } from '@/lib/pokemonFormNames';
 
-const PokemonImg = ({ pokemon, flavorText, genus }: PokemonInfoProps) => {
+const PokemonImg = ({
+  pokemon,
+  flavorText,
+  genus,
+  formName,
+}: PokemonInfoProps) => {
   const pokemonOfficialImage =
     pokemon?.sprites.other?.['official-artwork'].front_default;
 
@@ -12,7 +18,14 @@ const PokemonImg = ({ pokemon, flavorText, genus }: PokemonInfoProps) => {
     );
   };
 
-  const koreanName = getKoreanName(pokemon?.name);
+  const getKoreanFormName = (englishName: string | undefined) => {
+    return FORM_NAMES[englishName as string];
+  };
+
+  const koreanName =
+    formName ||
+    getKoreanName(pokemon?.name) ||
+    getKoreanFormName(pokemon?.name);
 
   return (
     <>

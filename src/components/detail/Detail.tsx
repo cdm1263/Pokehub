@@ -5,21 +5,21 @@ import { getPokemonData, getPokemonSpecies } from '@/lib/poketApi';
 import { PokemonType, Stat } from '@/lib/type';
 import PokemonImg from './PokemonImg';
 import { useParams } from 'react-router-dom';
+import { FORM_NAMES } from '@/lib/pokemonFormNames';
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonType | null>(null);
   const [baseStats, setBaseStats] = useState<Stat[]>([]);
   const [flavorText, setFlavorText] = useState('');
   const [genus, setGenus] = useState('');
+  const [selectedFormName, setSelectedFormName] = useState('');
 
   const params = useParams();
-
-  console.log(params.id);
 
   useEffect(() => {
     const fetchDataAPI = async () => {
       try {
-        const pokemonData = await getPokemonData(6);
+        const pokemonData = await getPokemonData(params.id ?? '');
 
         const speciesUrl = pokemonData.species.url;
         const speciesDetailData = await getPokemonSpecies(speciesUrl);
@@ -44,13 +44,32 @@ const Detail = () => {
     };
 
     fetchDataAPI();
-  }, []);
+  }, [params.id]);
+
+  const onFormChange = async (formName: string) => {
+    try {
+      const FormChangeData = await getPokemonData(formName);
+
+      const koreanFormName = FORM_NAMES[formName];
+
+      setSelectedFormName(koreanFormName);
+      setPokemon({ ...FormChangeData, id: pokemon?.id, name: pokemon?.name });
+      setBaseStats(FormChangeData.stats);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <PokemonInfo pokemon={pokemon} />
-        <PokemonImg pokemon={pokemon} flavorText={flavorText} genus={genus} />
+        <PokemonInfo pokemon={pokemon} onFormChange={onFormChange} />
+        <PokemonImg
+          pokemon={pokemon}
+          flavorText={flavorText}
+          genus={genus}
+          formName={selectedFormName}
+        />
         <Status baseStats={baseStats} />
       </div>
     </>
