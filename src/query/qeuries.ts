@@ -5,8 +5,8 @@ interface QueryOptions {
   [key: string]: unknown;
 }
 
-export const useGetAllPokemon = (options?: QueryOptions) => {
-  return useQuery('allPokemon', () => getAllPokemonDetails(100000), {
+export const useGetAllPokemon = (limit: number, options?: QueryOptions) => {
+  return useQuery('allPokemon', () => getAllPokemonDetails(limit), {
     ...options,
   });
 };
