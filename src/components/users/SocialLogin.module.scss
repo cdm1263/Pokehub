@@ -1,0 +1,46 @@
+// SocialLogin.module.scss
+.socialLogin {
+  position: relative;
+
+  &__loginButton {
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 160px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 20px;
+
+    &__visible {
+      display: block;
+    }
+
+    &__button {
+      color: black;
+      text-decoration: none;
+      display: block;
+      padding: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      border-radius: 9999px;
+      border: 2px solid #e2e8f0;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
