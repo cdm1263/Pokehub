@@ -1,4 +1,4 @@
-import { getAllPokemonDatas } from '@/lib/poketApi';
+import { getAllPokemonDetails } from '@/lib/poketApi';
 import { useQuery } from 'react-query';
 
 interface QueryOptions {
@@ -6,7 +6,7 @@ interface QueryOptions {
 }
 
 export const useGetAllPokemon = (options?: QueryOptions) => {
-  return useQuery('allPokemon', () => getAllPokemonDatas(100000), {
+  return useQuery('allPokemon', () => getAllPokemonDetails(100000), {
     ...options,
   });
 };
