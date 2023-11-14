@@ -6,7 +6,7 @@ import { POKEMON_TYPES } from '@/lib/constants';
 import { TypesType } from '@/lib/type';
 
 const PokemonList = () => {
-  const { isLoading, data: pokemonData } = useGetAllPokemon(1017);
+  const { isLoading, data: pokemonDatas } = useGetAllPokemon(1017);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -14,7 +14,7 @@ const PokemonList = () => {
 
   return (
     <div className={styles.pokemon_grid}>
-      {pokemonData?.map((data) => (
+      {pokemonDatas?.map((data) => (
         <div
           key={data.name}
           onClick={() => {
