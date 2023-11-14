@@ -18,4 +18,8 @@
     display: flex;
     gap: 3px;
   }
+
+  .type_plate.#{$type} {
+    @include plate_pokemon_type($color);
+  }
 }
