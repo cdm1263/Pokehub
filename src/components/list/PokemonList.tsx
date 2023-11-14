@@ -6,7 +6,7 @@ import { POKEMON_TYPES } from '@/lib/constants';
 import { TypesType } from '@/lib/type';
 
 const PokemonList = () => {
-  const { isLoading, data: pokemonData } = useGetAllPokemon();
+  const { isLoading, data: pokemonData } = useGetAllPokemon(1017);
 
   if (isLoading) {
     return <div>Loading...</div>;
