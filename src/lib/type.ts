@@ -78,3 +78,8 @@ export type PokemonType = {
     name: string;
   };
 };
+
+export interface Pokemon {
+  name: string;
+  url: string;
+}

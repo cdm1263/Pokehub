@@ -1,39 +1,26 @@
-import { POKEMON_TYPES } from '@/lib/constants';
 import styles from './Plate.module.scss';
-import useSelectedStore from '@/store/useSelectedStore';
 
-const Plate = () => {
-  const koreanTypes = Object.values(POKEMON_TYPES);
-  const { selectedPlate, setSelectedPlate } = useSelectedStore();
+interface PlateProp {
+  pokemonTypeProp: string;
+}
 
-  const renderTypes = (types: string[]) =>
-    types.map((koreanType) => {
-      const isPlateSelected = selectedPlate.includes(koreanType);
-      const plateClassName = isPlateSelected
-        ? styles.click_plate
-        : styles.unclick_plate;
+const Plate = ({ pokemonTypeProp }: PlateProp) => {
+  const renderTypes = (koreanType: string) => (
+    <div
+      className={`${styles.type_plate} ${styles[koreanType]}`}
+      key={koreanType}
+      data-type={koreanType}
+    >
+      <img
+        loading="lazy"
+        src={`/src/assets/icons/${koreanType}_on.svg`}
+        alt={`${koreanType}타입 아이콘`}
+      />
+      <span>{koreanType}</span>
+    </div>
+  );
 
-      return (
-        <div
-          onClick={() => {
-            setSelectedPlate(koreanType);
-          }}
-          className={`${plateClassName} ${styles[koreanType]}`}
-          key={koreanType}
-          data-type={koreanType}
-        >
-          <img
-            src={`/src/assets/icons/${koreanType}_${
-              isPlateSelected ? 'on' : 'off'
-            }.svg`}
-            alt={`${koreanType}타입 아이콘`}
-          />
-          {isPlateSelected ? null : <span>{koreanType}</span>}
-        </div>
-      );
-    });
-
-  return <div className={styles.wrapper}>{renderTypes(koreanTypes)}</div>;
+  return <div className={styles.wrapper}>{renderTypes(pokemonTypeProp)}</div>;
 };
 
 export default Plate;
