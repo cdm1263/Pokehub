@@ -6,6 +6,8 @@
   border-radius: 16.5px;
   align-items: center;
   justify-content: center;
+  display: flex;
+  gap: 3px;
 
   img {
     width: 20px;
@@ -14,17 +16,18 @@
 
 @mixin plate_click_style($color) {
   @include plate_style;
-  color: $color;
+  color: #fff;
   cursor: pointer;
-  background-color: #fff;
+  background-color: $color;
   transition: all 0.2s ease-in-out;
 }
 
 @mixin plate_unclick_style($color) {
   @include plate_style;
-  color: #fff;
+  color: $color;
   cursor: pointer;
-  background-color: $color;
+  background-color: #fff;
+  border: 2px solid $color;
   transition: all 0.2s ease-in-out;
 }
 

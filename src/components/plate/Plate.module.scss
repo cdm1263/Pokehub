@@ -8,12 +8,16 @@
   margin-bottom: 35px;
 }
 
+.type_outer_container {
+  width: 100vw;
+  border-bottom: 4px solid #000;
+}
+
 .type_container {
   padding: 25px 0;
   gap: 15px;
   display: flex;
   flex-direction: column;
-  border-bottom: 4px solid #000;
 
   > span {
     align-self: flex-start;
@@ -35,9 +39,6 @@
 
   .unclick_plate.#{$type} {
     @include plate_unclick_style($color);
-
-    display: flex;
-    gap: 3px;
   }
 
   .type_plate.#{$type} {
