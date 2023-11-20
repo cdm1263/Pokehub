@@ -5,17 +5,15 @@ import { FaRegAddressCard } from 'react-icons/fa6';
 import { BsFilePlus } from 'react-icons/bs';
 import { RiUserVoiceFill } from 'react-icons/ri';
 import { FiLogIn } from 'react-icons/fi';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { useGetAllPokemon } from '@/query/qeuries';
+import SearchInput from '../search/Search';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  useGetAllPokemon(1017);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert('기능 준비 중 입니다.');
-  };
 
   return (
     <>
@@ -31,18 +29,7 @@ const Header = () => {
               />
             </Link>
             <div className={styles.menu__group}>
-              <form className={styles.main__search} onSubmit={onSubmit}>
-                <label className={styles.search__inner}>
-                  <input
-                    type="text"
-                    placeholder="검색어를 입력해주세요."
-                    className={styles.main__search__bar}
-                  />
-                  <button type="submit" className={styles.search__btn}>
-                    <img src="/src/assets/search_icon.png" alt="" />
-                  </button>
-                </label>
-              </form>
+              <SearchInput />
               <nav className={styles.nav__box}>
                 <Link to="/">
                   <div className={styles.nav__item}>

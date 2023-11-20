@@ -1,10 +1,13 @@
 @mixin plate_style {
-  width: 100px;
+  width: 95px;
+  height: 33px;
   display: flex;
   padding: 5px 0;
-  border-radius: 10px;
+  border-radius: 16.5px;
   align-items: center;
   justify-content: center;
+  display: flex;
+  gap: 3px;
 
   img {
     width: 20px;
@@ -16,7 +19,7 @@
   color: #fff;
   cursor: pointer;
   background-color: $color;
-  transition: all 1s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 @mixin plate_unclick_style($color) {
@@ -24,7 +27,8 @@
   color: $color;
   cursor: pointer;
   background-color: #fff;
-  transition: all 1s ease;
+  border: 2px solid $color;
+  transition: all 0.2s ease-in-out;
 }
 
 @mixin plate_pokemon_type($color) {

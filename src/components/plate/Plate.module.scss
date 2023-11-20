@@ -3,8 +3,33 @@
 
 .wrapper {
   display: flex;
-  flex-wrap: wrap;
-  background-color: #d9d9d9;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.type_outer_container {
+  width: 100vw;
+  border-bottom: 4px solid #000;
+}
+
+.type_container {
+  padding: 25px 0;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+
+  > span {
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .type_plates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
 
 @each $type, $color in $type-colors {
@@ -14,12 +39,21 @@
 
   .unclick_plate.#{$type} {
     @include plate_unclick_style($color);
-
-    display: flex;
-    gap: 3px;
   }
 
   .type_plate.#{$type} {
     @include plate_pokemon_type($color);
   }
+}
+
+.hide_button {
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 0px;
+  justify-self: center;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 24px solid #000;
+  width: 111px;
 }
