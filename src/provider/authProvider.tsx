@@ -7,7 +7,6 @@ import useUserStore from '@/store/useUsersStore';
 const useAuthState = () => {
   const auth = getAuth(app);
   const setUser = useUserStore((state) => state.setUser);
-  console.log(auth);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
