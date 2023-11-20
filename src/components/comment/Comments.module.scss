@@ -1,0 +1,48 @@
+@import '/src/styles/mixin.scss';
+@import '/src/styles/theme.scss';
+
+.comments {
+  &__label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  &__input__text {
+    width: 600px;
+    height: 50px;
+    border-radius: 8px;
+    outline: none;
+    font-size: 18px;
+    @include input_box_type(#000);
+  }
+
+  @each $type, $color in $type-colors {
+    &__input__text--#{$type} {
+      @include input_box_type($color);
+    }
+  }
+
+  &__input__btn__box {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+  }
+
+  &__input__btn {
+    border: none;
+    background: #a2c3e7;
+    border-radius: 8px;
+    color: white;
+    width: 70px;
+    height: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &__input__btn:disabled {
+    cursor: not-allowed;
+    background: #999;
+  }
+}
