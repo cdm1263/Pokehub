@@ -5,8 +5,18 @@ import { FaRegAddressCard } from 'react-icons/fa6';
 import { BsFilePlus } from 'react-icons/bs';
 import { RiUserVoiceFill } from 'react-icons/ri';
 import { FiLogIn } from 'react-icons/fi';
+import { FormEvent, useState } from 'react';
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    alert('기능 준비 중 입니다.');
+  };
+
   return (
     <>
       <header className={styles.main__header}>
@@ -21,7 +31,7 @@ const Header = () => {
               />
             </Link>
             <div className={styles.menu__group}>
-              <form className={styles.main__search}>
+              <form className={styles.main__search} onSubmit={onSubmit}>
                 <label className={styles.search__inner}>
                   <input
                     type="text"
@@ -52,9 +62,9 @@ const Header = () => {
                     커뮤니티
                   </div>
                 </Link>
-                <div className={styles.nav__item}>
+                <div className={styles.nav__item} onClick={toggleDropdown}>
                   <FiLogIn />
-                  <SocialLogin />
+                  <SocialLogin isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
               </nav>
             </div>

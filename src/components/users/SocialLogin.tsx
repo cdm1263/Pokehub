@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 import { app } from '@/firebase';
 import {
   signInWithPopup,
@@ -10,12 +10,15 @@ import {
 import styles from './SocialLogin.module.scss';
 import useUserStore from '@/store/useUsersStore';
 
-const SocialLogin = () => {
-  const auth = getAuth(app);
-  const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useUserStore();
+interface SocialLoginProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
+  const auth = getAuth(app);
+
+  const { user, setUser } = useUserStore();
 
   const onlLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -61,19 +64,13 @@ const SocialLogin = () => {
       {user ? (
         <>
           <div onClick={onLogout} className={styles.socialLogin__loginButton}>
-            {/*   <div>{auth}</div> */}
             로그아웃
           </div>
         </>
       ) : (
         <>
           <div className={styles.socialLogin}>
-            <div
-              className={styles.socialLogin__loginButton}
-              onClick={toggleDropdown}
-            >
-              로그인
-            </div>
+            <div className={styles.socialLogin__loginButton}>로그인</div>
             <div
               className={`${styles.socialLogin__dropdown} ${
                 isOpen ? styles.socialLogin__dropdown__visible : ''
@@ -87,7 +84,7 @@ const SocialLogin = () => {
               >
                 <img
                   className={styles.socialLogin__icon}
-                  src="/src/assets/google_icon.svg"
+                  src="/src/assets/socialLoginIcons/google_icon.svg"
                   alt="구글 로그인"
                 />
               </button>
@@ -99,7 +96,7 @@ const SocialLogin = () => {
               >
                 <img
                   className={styles.socialLogin__icon}
-                  src="/src/assets/github_icon.svg"
+                  src="/src/assets/socialLoginIcons/github_icon.svg"
                   alt="깃허브 로그인"
                 />
               </button>

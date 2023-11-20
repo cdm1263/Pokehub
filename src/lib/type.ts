@@ -7,6 +7,7 @@ export interface PokemonInfoProps {
   genus?: string;
   onFormChange?: (formName: string) => void;
   formName?: string;
+  formId?: number;
 }
 export interface Stat {
   base_stat: number;
@@ -51,16 +52,16 @@ export type MovesType = {
 };
 
 export type Sprites = {
-  front_default: string | null;
-  back_default: string | null;
+  front_default: string | undefined;
+  back_default: string | undefined;
   other?: {
     'official-artwork': {
-      front_default: string | null;
+      front_default: string | undefined;
     };
   };
   animated?: {
-    front_default: string | null;
-    back_default: string | null;
+    front_default: string | undefined;
+    back_default: string | undefined;
   };
 };
 
