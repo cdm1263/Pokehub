@@ -1,20 +1,12 @@
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
+
 import SocialLogin from '../users/SocialLogin';
 import { FaRegAddressCard } from 'react-icons/fa6';
 import { BsFilePlus } from 'react-icons/bs';
 import { RiUserVoiceFill } from 'react-icons/ri';
 import { FiLogIn } from 'react-icons/fi';
 import { FormEvent, useState } from 'react';
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +32,6 @@ const Header = () => {
               />
             </Link>
             <div className={styles.menu__group}>
-<<<<<<< Updated upstream
               <form className={styles.main__search} onSubmit={onSubmit}>
                 <label className={styles.search__inner}>
                   <input
@@ -54,29 +45,6 @@ const Header = () => {
                 </label>
               </form>
               <nav className={styles.nav__box}>
-=======
-<<<<<<< Updated upstream
-              <nav className={styles.nav__box}>
-                <div>
-                  <Link to="/">도감</Link>
-                </div>
-                <div>
-                  <Link to={`/pokemon/${1}`}>카드 제작</Link>
-=======
-              <form className={styles.main__search} onSubmit={onSubmit}>
-                <label className={styles.search__inner}>
-                  <input
-                    type="text"
-                    placeholder="검색어를 입력해주세요."
-                    className={styles.main__search__bar}
-                  />
-                  <button type="submit" className={styles.search__btn}>
-                    <img src="/src/assets/search_icon.png" alt="" />
-                  </button>
-                </label>
-              </form>
-              <nav className={styles.nav__box}>
->>>>>>> Stashed changes
                 <Link to="/">
                   <div className={styles.nav__item}>
                     <FaRegAddressCard />
@@ -98,10 +66,6 @@ const Header = () => {
                 <div className={styles.nav__item} onClick={toggleDropdown}>
                   <FiLogIn />
                   <SocialLogin isOpen={isOpen} setIsOpen={setIsOpen} />
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
                 </div>
               </nav>
             </div>

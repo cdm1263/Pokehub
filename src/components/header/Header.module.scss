@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid #dce1e6;
   width: 100%;
   flex-shrink: 0;
   border-bottom: 4px solid #000;
@@ -83,8 +84,7 @@
   border-right: 1px solid #000;
   cursor: pointer;
 }
-
-<<<<<<< Updated upstream ======= .nav__item {
+.nav__item {
   width: 80px;
   height: 80px;
   flex-shrink: 0;
@@ -103,41 +103,54 @@
   cursor: pointer;
 }
 
->>>>>>>Stashed changes .logo {
+.logo {
   flex-shrink: 0;
 }
 
-.main__search {
-  margin-right: 22px;
-  flex-shrink: 0;
-}
-
-.main__search__bar {
-  outline: none;
-  border: none;
-  border-bottom: 1px solid #000;
-  width: 310px;
-  height: 36px;
-}
-
-::placeholder {
-  color: #cacaca;
-  font-family: Gmarket Sans;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.search__inner {
-  position: relative;
-}
-
-.search__btn {
-  background: none;
-  border: none;
-  position: absolute;
-  padding: 0;
-  right: 0;
+.nav__item:nth-child(4) {
+  border-right: 1px solid #000;
   cursor: pointer;
+}
+
+.logo {
+  margin-right: 60px;
+}
+
+.util__menu {
+  margin-right: 20px;
+
+  .main__search {
+    margin-right: 22px;
+    flex-shrink: 0;
+  }
+
+  .main__search__bar {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #000;
+    width: 310px;
+    height: 36px;
+  }
+
+  ::placeholder {
+    color: #cacaca;
+    font-family: Gmarket Sans;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .search__inner {
+    position: relative;
+  }
+
+  .search__btn {
+    background: none;
+    border: none;
+    position: absolute;
+    padding: 0;
+    right: 0;
+    cursor: pointer;
+  }
 }

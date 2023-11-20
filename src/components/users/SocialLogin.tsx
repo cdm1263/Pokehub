@@ -59,6 +59,8 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
     }
   };
 
+  console.log(user);
+
   return (
     <>
       {user ? (
