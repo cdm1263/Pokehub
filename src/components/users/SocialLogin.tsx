@@ -59,14 +59,32 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
     }
   };
 
-  console.log(user);
-
   return (
     <>
       {user ? (
         <>
-          <div onClick={onLogout} className={styles.socialLogin__loginButton}>
-            로그아웃
+          <div className={styles.socialLogin}>
+            <div className={styles.socialLogin__loginButton}>내 정보</div>
+            <div
+              className={`${styles.socialLogin__dropdown} ${
+                isOpen ? styles.socialLogin__dropdown__visible : ''
+              }`}
+            >
+              <button
+                type="button"
+                className={styles.socialLogin__dropdown__button__mypage}
+                onClick={() => {}}
+              >
+                마이페이지
+              </button>
+              <button
+                type="button"
+                className={styles.socialLogin__dropdown__button__logout}
+                onClick={onLogout}
+              >
+                로그아웃
+              </button>
+            </div>
           </div>
         </>
       ) : (
