@@ -1,30 +1,46 @@
-import { getAllPokemonDatas, getPokemonTypesDatas } from '@/lib/poketApi';
+import { FormEvent, useState } from 'react';
 import styles from './Search.module.scss';
-import { useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import useSearchInputText from '@/store/useSearchInputText';
+import useSelectedStore from '@/store/useSelectedStore';
 
-const Search = () => {
-  // 임시 포켓몬 데이터 추출
-  const getData = useCallback(async () => {
-    const { results: data } = await getAllPokemonDatas(100000);
-    const enPokemonArray = data.map((v: { [key: string]: string }) => v.name);
-    console.log(enPokemonArray);
-  }, []);
+const SearchInput = () => {
+  const location = useLocation();
+  const [text, setText] = useState<string>('');
+  const { setInputText } = useSearchInputText();
+  const { clearSelectedPlate } = useSelectedStore();
 
-  // 영문 포켓몬 타입 20개 추출
-  const getType = useCallback(async () => {
-    const { results: data } = await getPokemonTypesDatas(1);
-    const enPokemonTypeArray = data.map(
-      (v: { [key: string]: string }) => v.name,
-    );
-    console.log(enPokemonTypeArray);
-  }, []);
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setInputText(text);
+    clearSelectedPlate();
+    switch (location.pathname) {
+      case '/':
+        console.log(text);
+        break;
+      case 'pathname':
+        return;
+    }
+  };
 
-  useEffect(() => {
-    getData();
-    getType();
-  }, [getData, getType]);
-
-  return <input className={styles.search} />;
+  return (
+    <form className={styles.main__search} onSubmit={onSubmit}>
+      <label className={styles.search__inner}>
+        <input
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          value={text}
+          type="text"
+          placeholder="검색어를 입력해주세요."
+          className={styles.main__search__bar}
+        />
+        <button type="submit" className={styles.search__btn}>
+          <img src="/src/assets/search_icon.png" alt="" />
+        </button>
+      </label>
+    </form>
+  );
 };
 
-export default Search;
+export default SearchInput;
