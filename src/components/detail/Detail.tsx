@@ -6,6 +6,8 @@ import { PokemonType, Stat } from '@/lib/type';
 import PokemonImg from './PokemonImg';
 import { useParams } from 'react-router-dom';
 import { FORM_NAMES } from '@/lib/pokemonFormNames';
+import Comments from '@/components/comment/Comments';
+import styles from './Detail.module.scss';
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonType | null>(null);
@@ -13,8 +15,11 @@ const Detail = () => {
   const [flavorText, setFlavorText] = useState('');
   const [genus, setGenus] = useState('');
   const [selectedFormName, setSelectedFormName] = useState('');
+  const [selectedFormId, setSelectedFormId] = useState();
 
   const params = useParams();
+
+  console.log(params);
 
   useEffect(() => {
     const fetchDataAPI = async () => {
@@ -55,6 +60,7 @@ const Detail = () => {
       setSelectedFormName(koreanFormName);
       setPokemon({ ...FormChangeData, id: pokemon?.id, name: pokemon?.name });
       setBaseStats(FormChangeData.stats);
+      setSelectedFormId(FormChangeData.id);
     } catch (error) {
       console.log(error);
     }
@@ -62,15 +68,19 @@ const Detail = () => {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <PokemonInfo pokemon={pokemon} onFormChange={onFormChange} />
-        <PokemonImg
+      <div className={styles.detail__main}>
+        <PokemonInfo
           pokemon={pokemon}
-          flavorText={flavorText}
+          onFormChange={onFormChange}
+          formId={selectedFormId}
           genus={genus}
-          formName={selectedFormName}
+          flavorText={flavorText}
         />
+        <PokemonImg pokemon={pokemon} formName={selectedFormName} />
         <Status baseStats={baseStats} />
+      </div>
+      <div className={styles.detail__comments}>
+        <Comments pokemon={pokemon} />
       </div>
     </>
   );

@@ -40,6 +40,15 @@ const Status = ({ baseStats }: StatusProps) => {
   return (
     <div className={styles.stats__container}>
       <div className={styles.stats}>
+        <div className={styles.stats__top}>
+          <span>스탯</span>
+        </div>
+        <img
+          src="/src/assets/Rectangle 47.png"
+          alt=""
+          width={13}
+          height={425}
+        />
         {baseStats.map((baseStat) => (
           <div key={baseStat.stat.name} className={styles.stat}>
             <label className={styles.stat__label}>

@@ -42,3 +42,7 @@
     width: 15px;
   }
 }
+
+@mixin input_box_type($color) {
+  border: 3px solid $color;
+}

@@ -1,39 +1,50 @@
 import { PokemonInfoProps } from '@/lib/type';
 import styles from './Detail.module.scss';
-import { POKEMON_TYPES } from '@/lib/constants';
 import { ABILITY_NAMES } from '@/lib/abilityNames';
 import { FORM_NAMES } from '@/lib/pokemonFormNames';
 import { POKEMON_NAME } from '@/lib/pokemonName';
+import { useMemo } from 'react';
+import { POKEMON_GENUS } from '@/lib/genus';
+import { POKEMON_FLAVOR_TEXTS } from '@/lib/flavorText';
 
-const PokemonInfo = ({ pokemon, onFormChange }: PokemonInfoProps) => {
-  let feet;
-  let inches;
-  let pokemonHeight: string | null = null;
-  let weightKg;
-  let weightLbs;
-  let pokemonWeight: string | null = null;
+const PokemonInfo = ({
+  pokemon,
+  onFormChange,
+  formId,
+  genus,
+  flavorText,
+}: PokemonInfoProps) => {
+  const pokemonHeight = useMemo(() => {
+    if (pokemon) {
+      const feet = Math.floor((pokemon.height * 10) / 2.54 / 12);
+      const inches = Math.round(((pokemon.height * 10) / 2.54) % 12);
+      return `${(pokemon.height * 0.1).toFixed(1)}m (${feet}"${inches}')`;
+    }
+    return null;
+  }, [pokemon]);
 
-  if (pokemon) {
-    feet = Math.floor((pokemon.height * 10) / 2.54 / 12);
-    inches = Math.round(((pokemon.height * 10) / 2.54) % 12);
-    pokemonHeight = `${(pokemon.height * 0.1).toFixed(
-      1,
-    )}m (${feet}"${inches}')`;
-    weightKg = (pokemon.weight * 0.1).toFixed(1);
-    weightLbs = (pokemon.weight * 0.1 * 2.20462).toFixed(1);
-    pokemonWeight = `${weightKg}kg (${weightLbs}lb)`;
-  }
+  const pokemonWeight = useMemo(() => {
+    if (pokemon) {
+      const weightKg = (pokemon.weight * 0.1).toFixed(1);
+      const weightLbs = (pokemon.weight * 0.1 * 2.20462).toFixed(1);
+      return `${weightKg}kg (${weightLbs}lb)`;
+    }
+    return null;
+  }, [pokemon]);
 
-  const formsData: string[] = pokemon?.name
-    ? [pokemon.name].concat(
-        Object.keys(FORM_NAMES).reduce<string[]>((acc, key) => {
-          if (key.includes(pokemon.name) && key !== pokemon.name) {
-            return acc.concat(key);
-          }
-          return acc;
-        }, []),
-      )
-    : [];
+  const formsData = useMemo(() => {
+    const baseName = pokemon?.name.split('-')[0];
+    return pokemon?.name
+      ? [pokemon.name].concat(
+          Object.keys(FORM_NAMES).reduce<string[]>((acc, key) => {
+            if (key.startsWith(baseName as string) && key !== pokemon.name) {
+              return acc.concat(key);
+            }
+            return acc;
+          }, []),
+        )
+      : [];
+  }, [pokemon]);
 
   const getKoreanFormName = (englishName: string | undefined) => {
     let koreanName: string | undefined = FORM_NAMES[englishName as string];
@@ -47,15 +58,28 @@ const PokemonInfo = ({ pokemon, onFormChange }: PokemonInfoProps) => {
     return koreanName;
   };
 
-  console.log(formsData);
-
   return (
     <>
       <div className={styles.pokemon__info__Box}>
         <div className={styles.pokemon__info__container}>
+          <div className={styles.pokemon__info__top}>
+            <span>정보</span>
+          </div>
+          <img
+            src="/src/assets/Rectangle 47.png"
+            alt=""
+            width={13}
+            height={425}
+          />
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>ID</div>
             <div className={styles.pokemon__info__data}>#{pokemon?.id}</div>
+          </div>
+          <div className={styles.pokemon__info}>
+            <div className={styles.pokemon__info__title}>분류</div>
+            <div className={styles.pokemon__info__data}>
+              {(formId && POKEMON_GENUS[formId]) || genus}
+            </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>신장</div>
@@ -83,25 +107,13 @@ const PokemonInfo = ({ pokemon, onFormChange }: PokemonInfoProps) => {
               })}
             </div>
           </div>
-          <div className={styles.pokemon__info}>
-            <div className={styles.pokemon__info__title}>타입</div>
-            <div className={styles.pokemon__info__data}>
-              {pokemon?.types.map((typeInfo, index) => {
-                const koreanPokemonName = POKEMON_TYPES[typeInfo.type.name];
 
-                return (
-                  <div
-                    key={index}
-                    className={`${styles.detail__plate} ${styles[koreanPokemonName]}`}
-                  >
-                    <img
-                      src={`/src/assets/icons/${koreanPokemonName}_on.svg`}
-                      alt={`${koreanPokemonName}타입 아이콘`}
-                    />
-                    {koreanPokemonName}
-                  </div>
-                );
-              })}
+          <div className={styles.pokemon__info}>
+            <div className={styles.pokemon__info__title}>설명</div>
+            <div className={styles.pokemon__info__data}>
+              {(formId && POKEMON_FLAVOR_TEXTS[formId]) ||
+                (pokemon && POKEMON_FLAVOR_TEXTS[pokemon?.id]) ||
+                flavorText}
             </div>
           </div>
           <div className={styles.pokemon__info}>
