@@ -7,6 +7,7 @@ export interface PokemonInfoProps {
   genus?: string;
   onFormChange?: (formName: string) => void;
   formName?: string;
+  formId?: number;
 }
 export interface Stat {
   base_stat: number;
