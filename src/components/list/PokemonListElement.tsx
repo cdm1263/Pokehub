@@ -25,7 +25,7 @@ const PokemonListElement = ({ data }: PokemonListElementProp) => {
       <img
         className={styles.pokemon_image}
         src={data.sprites?.other?.['official-artwork']?.front_default}
-        alt=""
+        alt="포켓몬 이미지"
       />
       <span className={styles.pokemon_name}>
         {reverseObject(POKEMON_NAME)[data.name]}
