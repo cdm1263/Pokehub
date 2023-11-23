@@ -12,9 +12,11 @@ const CardsRowLayout = ({ pokemonArray }: CardsRowLayout) => {
   return (
     <div className={styles.cards__row_cards}>
       {pokemonArray.map((randomPokemon) => (
-        <div className={styles.cards__row_cards__column}>
+        <div
+          key={randomPokemon?.id}
+          className={styles.cards__row_cards__column}
+        >
           <PokemonSelectImage
-            key={randomPokemon?.id}
             pokemonImage={
               randomPokemon?.sprites?.other?.['official-artwork']?.front_default
             }
