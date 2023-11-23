@@ -42,8 +42,9 @@ const FilterPlates = () => {
       <div className={styles.type_outer_container}>
         <Inner>
           <div
-            className={styles.type_container}
-            style={{ display: isOpen ? 'flex' : 'none' }}
+            className={`${styles.type_container} ${
+              isOpen ? '' : styles.closed
+            }`}
           >
             <span>*속성을 선택해주세요.</span>
             <div className={styles.type_plates}>{renderTypes(koreanTypes)}</div>

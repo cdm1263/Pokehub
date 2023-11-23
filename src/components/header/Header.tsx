@@ -54,7 +54,7 @@ const Header = () => {
                     도감
                   </div>
                 </Link>
-                <Link to={`/pokemon/${1}`}>
+                <Link to="cardEdit">
                   <div className={styles.nav__item}>
                     <BsFilePlus size={31} />
                     카드 제작

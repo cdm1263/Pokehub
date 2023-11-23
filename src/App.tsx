@@ -4,12 +4,13 @@ import { getAuth } from '@firebase/auth';
 import { app } from '@/firebase';
 import DEX from '@/pages/dex/Dex';
 import Layout from '@/components/Layout';
-import Detail from './pages/detail.tsx/detail';
+import Detail from './pages/detail/detail';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './query/queryClient';
 import useAuthState from './provider/authProvider';
 import useUserStore from './store/useUsersStore';
 import MyPage from './pages/mypage/myPage';
+import Card from './pages/card/card';
 
 const App = () => {
   useAuthState();
@@ -35,7 +36,7 @@ const App = () => {
                     <Route path="/" element={<DEX />} />
                     <Route path="/pokemon/:id" element={<Detail />} />
                     <Route path="/mypage" element={<MyPage />} />
-                    {/*나중에 프로필 라우터 추가*/}
+                    <Route path="/cardEdit" element={<Card />} />
                   </>
                 ) : (
                   <>
