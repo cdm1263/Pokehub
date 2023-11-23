@@ -9,6 +9,7 @@ import { QueryClientProvider } from 'react-query';
 import { queryClient } from './query/queryClient';
 import useAuthState from './provider/authProvider';
 import useUserStore from './store/useUsersStore';
+import MyPage from './pages/mypage/myPage';
 
 const App = () => {
   useAuthState();
@@ -19,6 +20,8 @@ const App = () => {
   useEffect(() => {
     setInit(true);
   }, [auth]);
+
+  console.log(auth);
 
   return (
     <BrowserRouter>
@@ -31,6 +34,7 @@ const App = () => {
                   <>
                     <Route path="/" element={<DEX />} />
                     <Route path="/pokemon/:id" element={<Detail />} />
+                    <Route path="/mypage" element={<MyPage />} />
                     {/*나중에 프로필 라우터 추가*/}
                   </>
                 ) : (
