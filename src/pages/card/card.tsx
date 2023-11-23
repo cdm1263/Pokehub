@@ -1,7 +1,13 @@
+import CardsRowLike from '@/components/card/CardsRowLike';
 import CardsRowRandom from '@/components/card/CardsRowRandom';
 
 const Card = () => {
-  return <CardsRowRandom />;
+  return (
+    <>
+      <CardsRowLike />
+      <CardsRowRandom />;
+    </>
+  );
 };
 
 export default Card;
