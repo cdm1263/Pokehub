@@ -5,6 +5,7 @@ import { POKEMON_NAME } from '@/lib/pokemonName';
 import { POKEMON_TYPES } from '@/lib/constants';
 import Plate from '../plate/Plate';
 import { PokemonType, TypesType } from '@/lib/type';
+import PokemonListElementLayout from './PokemonListElementLayout';
 
 interface PokemonListElementProp {
   data: PokemonType;
@@ -13,19 +14,16 @@ interface PokemonListElementProp {
 const PokemonListElement = ({ data }: PokemonListElementProp) => {
   const navigate = useNavigate();
   return (
-    <li
-      className={styles.pokemon_list_element}
+    <PokemonListElementLayout
+      data={data}
       onClick={() => {
         navigate(`/pokemon/${data.id}`);
       }}
     >
-      <div className={styles.pokemon_number}>
-        <span>{`No.${data.id}`}</span>
-      </div>
       <img
         className={styles.pokemon_image}
         src={data.sprites?.other?.['official-artwork']?.front_default}
-        alt=""
+        alt="포켓몬 이미지"
       />
       <span className={styles.pokemon_name}>
         {reverseObject(POKEMON_NAME)[data.name]}
@@ -38,7 +36,7 @@ const PokemonListElement = ({ data }: PokemonListElementProp) => {
           />
         ))}
       </div>
-    </li>
+    </PokemonListElementLayout>
   );
 };
 
