@@ -29,3 +29,7 @@ export const STAT_NAME: KeyValueType = {
   'special-defense': '특수방어',
   speed: '스피드',
 };
+
+export const PROFILE_DEFAULT_IMG = '/src/assets/default_profile.svg';
+
+export const STORAGE_DOWNLOAD_URL = 'https://firebasestorage.googleapis.com';
