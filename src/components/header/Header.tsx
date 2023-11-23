@@ -9,10 +9,12 @@ import { useEffect, useRef, useState } from 'react';
 import useUserStore from '@/store/useUsersStore';
 import { useGetAllPokemon } from '@/query/qeuries';
 import SearchInput from '../search/Search';
+import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUserStore();
+  const { imgUrl } = useUserInfoChangeStore();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   useGetAllPokemon(1017);
 
@@ -28,7 +30,7 @@ const Header = () => {
     return () => {
       document.removeEventListener('mousedown', onClickOutSide);
     };
-  }, []);
+  }, [imgUrl]);
 
   return (
     <>
@@ -37,7 +39,7 @@ const Header = () => {
           <div>
             <Link to="/" className={styles.logo}>
               <img
-                src="https://github.com/side-project-cdmnkh/my-pokemon/assets/115094069/fd0a37a3-f3ba-479c-a3f2-f58f55e0286c"
+                src="/src/assets/logo-pokehub.png"
                 alt="logo"
                 width={132}
                 height={59}
