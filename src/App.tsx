@@ -4,9 +4,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import { app } from '@/firebase';
 import DEX from '@/pages/dex/Dex';
 import Layout from '@/components/Layout';
-import Detail from './pages/detail.tsx/detail';
+import Detail from './pages/detail/detail';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './query/queryClient';
+import Card from './pages/card/card';
 // import useAuthState from './provider/authProvider';
 // import useUserStore from './store/useUsersStore';
 
@@ -29,6 +30,7 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<DEX />} />
             <Route path="/pokemon/:id" element={<Detail />} />
+            <Route path="/cardEdit" element={<Card />} />
           </Route>
         </Routes>
       </QueryClientProvider>

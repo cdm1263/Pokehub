@@ -18,6 +18,17 @@
   gap: 15px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  max-height: 500px;
+  opacity: 1;
+  transition: 0.3s ease-out;
+
+  &.closed {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+  }
 
   > span {
     align-self: flex-start;
