@@ -1,12 +1,12 @@
 import { getAllPokemonDetails } from '@/lib/poketApi';
 import { useQuery } from 'react-query';
 
-interface QueryOptions {
+/* interface QueryOptions {
   [key: string]: unknown;
-}
+} */
 
-export const useGetAllPokemon = (limit: number, options?: QueryOptions) => {
+export const useGetAllPokemon = (limit: number) => {
   return useQuery('allPokemon', () => getAllPokemonDetails(limit), {
-    ...options,
+    refetchOnWindowFocus: false,
   });
 };

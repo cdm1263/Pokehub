@@ -309,3 +309,12 @@
   height: 300px;
   margin-top: 154px;
 }
+.pokemon__info__Box,
+.detail__center,
+.stats__container {
+  -webkit-touch-callout: none;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}

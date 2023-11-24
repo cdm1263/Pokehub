@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import styles from './SocialLogin.module.scss';
 import useUserStore from '@/store/useUsersStore';
+import { useNavigate } from 'react-router-dom';
 
 interface SocialLoginProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
   const auth = getAuth(app);
 
   const { user, setUser } = useUserStore();
+  const navigate = useNavigate();
 
   const onlLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -54,19 +56,42 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
       await signOut(auth);
       setUser(null);
       console.log('로그아웃');
+      navigate('/');
     } catch (error) {
       console.error('로그아웃 중 오류 발생:', error);
     }
   };
 
-  console.log(user);
+  const onMoveMyPage = () => {
+    navigate('/mypage');
+  };
 
   return (
     <>
       {user ? (
         <>
-          <div onClick={onLogout} className={styles.socialLogin__loginButton}>
-            로그아웃
+          <div className={styles.socialLogin}>
+            <div className={styles.socialLogin__loginButton}>내 정보</div>
+            <div
+              className={`${styles.socialLogin__dropdown} ${
+                isOpen ? styles.socialLogin__dropdown__visible : ''
+              }`}
+            >
+              <button
+                type="button"
+                className={styles.socialLogin__dropdown__button__mypage}
+                onClick={onMoveMyPage}
+              >
+                마이페이지
+              </button>
+              <button
+                type="button"
+                className={styles.socialLogin__dropdown__button__logout}
+                onClick={onLogout}
+              >
+                로그아웃
+              </button>
+            </div>
           </div>
         </>
       ) : (
@@ -80,7 +105,7 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
             >
               <button
                 type="button"
-                className={styles.socialLogin__dropdown__button}
+                className={styles.socialLogin__dropdown__button__google}
                 name="google"
                 onClick={onlLogin}
               >
@@ -89,10 +114,11 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
                   src="/src/assets/socialLoginIcons/google_icon.svg"
                   alt="구글 로그인"
                 />
+                <span>구글 로그인 </span>
               </button>
               <button
                 type="button"
-                className={styles.socialLogin__dropdown__button}
+                className={styles.socialLogin__dropdown__button__github}
                 name="github"
                 onClick={onlLogin}
               >
@@ -101,6 +127,7 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
                   src="/src/assets/socialLoginIcons/github_icon.svg"
                   alt="깃허브 로그인"
                 />
+                <span>깃허브 로그인</span>
               </button>
             </div>
           </div>

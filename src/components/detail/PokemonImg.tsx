@@ -53,8 +53,6 @@ const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
   );
   const someFormName = formNameMatch ? formNameMatch[1] : '';
 
-  console.log(formNameMatch);
-
   return (
     <>
       <div className={styles.detail__center}>
@@ -67,7 +65,9 @@ const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
           <img
             className={styles.official__img}
             loading="lazy"
-            src={pokemonOfficialImage || getLocalImagePath(formName)}
+            src={
+              pokemonOfficialImage || getLocalImagePath(formName || koreanName)
+            }
             alt="Official Artwork"
             width={300}
             height={300}
