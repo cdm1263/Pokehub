@@ -64,7 +64,6 @@ const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
         <div className={styles.detail__img__box}>
           <img
             className={styles.official__img}
-            loading="lazy"
             src={
               pokemonOfficialImage || getLocalImagePath(formName || koreanName)
             }

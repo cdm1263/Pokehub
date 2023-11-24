@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 import PokemonInfo from './PokemonInfo';
 import Status from './Status';
-import { getPokemonData, getPokemonSpecies } from '@/lib/poketApi';
+import {
+  getPokemonData,
+  getPokemonSpecies,
+  getEvolvesDatas,
+} from '@/lib/poketApi';
 import { PokemonType, Stat } from '@/lib/type';
 import PokemonImg from './PokemonImg';
 import { useParams } from 'react-router-dom';
 import { FORM_NAMES } from '@/lib/pokemonFormNames';
 import Comments from '@/components/comment/Comments';
 import styles from './Detail.module.scss';
+import EvolovesChain from './EvolovesChain';
+import { POKEMON_TYPES } from '@/lib/constants';
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonType | null>(null);
@@ -16,10 +22,9 @@ const Detail = () => {
   const [genus, setGenus] = useState('');
   const [selectedFormName, setSelectedFormName] = useState('');
   const [selectedFormId, setSelectedFormId] = useState();
+  const [evolvesChain, setEvolvesChain] = useState(null);
 
   const params = useParams();
-
-  console.log(params);
 
   useEffect(() => {
     const fetchDataAPI = async () => {
@@ -28,6 +33,11 @@ const Detail = () => {
 
         const speciesUrl = pokemonData.species.url;
         const speciesDetailData = await getPokemonSpecies(speciesUrl);
+
+        const evolvesChainUrl = speciesDetailData.evolution_chain.url;
+        const evolvesChainData = await getEvolvesDatas(evolvesChainUrl);
+
+        console.log(evolvesChainUrl);
 
         const koreanSpeciesData = speciesDetailData.flavor_text_entries.find(
           (flavor_text_entries: { language: { name: string } }) =>
@@ -43,6 +53,7 @@ const Detail = () => {
         setPokemon(pokemonData);
         setFlavorText(koreanSpeciesData.flavor_text);
         setGenus(koreanGenusData.genus);
+        setEvolvesChain(evolvesChainData);
       } catch (error) {
         console.error(error);
       }
@@ -66,6 +77,10 @@ const Detail = () => {
     }
   };
 
+  const typeColor = pokemon?.types.map((typeInfo) => {
+    return POKEMON_TYPES[typeInfo.type.name];
+  });
+
   return (
     <>
       <div className={styles.detail__main}>
@@ -77,8 +92,9 @@ const Detail = () => {
           flavorText={flavorText}
         />
         <PokemonImg pokemon={pokemon} formName={selectedFormName} />
-        <Status baseStats={baseStats} />
+        <Status baseStats={baseStats} typeColor={typeColor} />
       </div>
+      <EvolovesChain evolvesChain={evolvesChain} />
       <div className={styles.detail__comments}>
         <Comments pokemon={pokemon} />
       </div>
