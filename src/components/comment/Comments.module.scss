@@ -21,7 +21,7 @@
   }
 
   &__input__text {
-    width: 611px;
+    width: 610px;
     height: 50px;
     border-radius: 10px 0 0 10px;
     border: 3px solid #000;
@@ -31,15 +31,7 @@
     font-size: 18px;
     flex-shrink: 0;
     padding: 0 10px 0 17px;
-
-    /*  @include input_box_type(#000); */
   }
-
-  // @each $type, $color in $type-colors {
-  //   &__input__text--#{$type} {
-  //     @include input_box_type($color);
-  //   }
-  // }
 
   &__length {
     border: 3px solid #000;
@@ -50,6 +42,11 @@
     padding-right: 17px;
     width: 100%;
     justify-content: flex-end;
+    background-color: #fff;
+  }
+
+  &__length__max {
+    color: red;
   }
 
   &__input__btn {
@@ -83,14 +80,14 @@
 
   &__list {
     width: 818px;
-    height: 50px;
+    height: 60px;
     flex-shrink: 0;
     border-radius: 10px;
     border: 1px solid #e1e1e1;
     background: #fff;
     display: flex;
     align-items: center;
-    padding: 0 12px 0 19px;
+    padding: 5px 12px 5px 19px;
     justify-content: space-between;
   }
 

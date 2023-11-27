@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import styles from './Detail.module.scss';
 
-import { STAT_NAME } from '@/lib/constants';
-import { StatusProps } from '@/lib/type';
+import { POKEMON_TYPES, STAT_NAME } from '@/lib/constants';
+import { PokemonInfoProps } from '@/lib/type';
 
-const Status = ({ baseStats, typeColor }: StatusProps) => {
+const Status = ({ pokemonState }: PokemonInfoProps) => {
   const [percentages, setPercentages] = useState<Record<string, number>>({});
+
+  const { baseStats, pokemon } = pokemonState;
 
   useEffect(() => {
     const maxStatValue = 255;
     const newPercentages: Record<string, number> = {};
 
-    baseStats.forEach((baseStat) => {
+    baseStats?.forEach((baseStat) => {
       let currentPercentage = 0;
       const targetPercentage = (baseStat.base_stat / maxStatValue) * 100;
 
@@ -31,11 +33,15 @@ const Status = ({ baseStats, typeColor }: StatusProps) => {
     });
 
     return () => {
-      baseStats.forEach((baseStat) => {
+      baseStats?.forEach((baseStat) => {
         clearInterval(newPercentages[baseStat.stat.name]);
       });
     };
   }, [baseStats]);
+
+  const typeColor = pokemon?.types.map((typeInfo) => {
+    return POKEMON_TYPES[typeInfo.type.name];
+  });
 
   return (
     <div className={styles.stats__container}>
@@ -49,7 +55,7 @@ const Status = ({ baseStats, typeColor }: StatusProps) => {
           width={13}
           height={425}
         />
-        {baseStats.map((baseStat) => (
+        {baseStats?.map((baseStat) => (
           <div key={baseStat.stat.name} className={styles.stat}>
             <label className={styles.stat__label}>
               {STAT_NAME[baseStat.stat.name]}
@@ -82,7 +88,7 @@ const Status = ({ baseStats, typeColor }: StatusProps) => {
         ))}
         <div className={styles.stats__total}>
           Total:{' '}
-          {baseStats.reduce((acc, baseStat) => acc + baseStat.base_stat, 0)}
+          {baseStats?.reduce((acc, baseStat) => acc + baseStat.base_stat, 0)}
         </div>
       </div>
     </div>
