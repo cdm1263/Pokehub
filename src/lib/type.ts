@@ -1,13 +1,6 @@
 export interface PokemonInfoProps {
-  pokemon: PokemonType | null;
-  abilities?: string[];
-  types?: string[];
-  species?: string[];
-  flavorText?: string;
-  genus?: string;
+  pokemonState: PokemonState;
   onFormChange?: (formName: string) => void;
-  formName?: string;
-  formId?: number;
 }
 export interface Stat {
   base_stat: number;
@@ -16,10 +9,6 @@ export interface Stat {
     name: string;
     url: string;
   };
-}
-
-export interface StatusProps {
-  baseStats: Stat[];
 }
 
 export type KeyValueType = {
@@ -83,4 +72,24 @@ export type PokemonType = {
 export interface Pokemon {
   name: string;
   url: string;
+}
+
+export interface PokemonState {
+  pokemon?: PokemonType | null;
+  baseStats?: Stat[];
+  flavorText?: string;
+  genus?: string;
+  selectedFormName?: string;
+  selectedFormId?: number | null;
+  evolvesChain?: string[][];
+}
+
+export interface PokemonSprites {
+  sprites: {
+    other: {
+      'official-artwork': {
+        front_default: string;
+      };
+    };
+  };
 }

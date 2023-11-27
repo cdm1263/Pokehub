@@ -32,3 +32,7 @@ export const getAllPokemonDetails = async (limit: number) => {
   );
   return pokemonDetailDatas;
 };
+
+export const getEvolvesDatas = async (url: string) => {
+  return fetchData(`${url}`, 'get');
+};

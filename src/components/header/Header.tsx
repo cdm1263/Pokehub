@@ -72,7 +72,7 @@ const Header = () => {
                   onClick={toggleDropdown}
                 >
                   {user ? (
-                    <div style={{ width: '31px', height: '31px' }}>
+                    <div className={styles.nav__profile__img}>
                       <img
                         style={{ borderRadius: '50%' }}
                         src={user?.photoURL || undefined}

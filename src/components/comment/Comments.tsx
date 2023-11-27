@@ -7,6 +7,7 @@ import {
   getDocs,
   query,
   orderBy,
+  limit,
 } from 'firebase/firestore';
 import { PokemonInfoProps } from '@/lib/type';
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
@@ -22,29 +23,30 @@ interface CommentProps {
   id: string;
 }
 
-const Comments = ({ pokemon }: PokemonInfoProps) => {
+const Comments = ({ pokemonState }: PokemonInfoProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [comment, setComment] = useState('');
   const [commentList, setCommentList] = useState<CommentProps[]>([]);
-  const [isAlert, setIsAlert] = useState(false);
   const { user } = useUserStore();
 
+  const { pokemon } = pokemonState;
+
   const getComments = async () => {
-    if (pokemon?.id) {
-      const commentsRef = collection(
-        db,
-        'comments',
-        `${pokemon?.id}`,
-        'pokemonComments',
-      );
-      const q = query(commentsRef, orderBy('createdAt', 'desc'));
-      const querySnapshot = await getDocs(q);
-      const fetchedComments = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as CommentProps[];
-      setCommentList(fetchedComments);
-    }
+    const commentsRef = collection(
+      db,
+      'comments',
+      `${pokemon?.id}`,
+      'pokemonComments',
+    );
+    const q = query(commentsRef, orderBy('createdAt', 'desc'), limit(10));
+    const querySnapshot = await getDocs(q);
+    /*  const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]; */
+
+    const fetchedComments = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as CommentProps[];
+    setCommentList(fetchedComments);
   };
 
   useEffect(() => {
@@ -84,13 +86,6 @@ const Comments = ({ pokemon }: PokemonInfoProps) => {
   };
 
   const onCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const commentLength = e.target.value.length;
-    if (commentLength > 100 && !isAlert) {
-      alert('글자수가 100자를 초과했습니다.');
-      setIsAlert(true);
-    } else if (commentLength <= 100 && isAlert) {
-      setIsAlert(false);
-    }
     setComment(e.target.value);
   };
 
@@ -108,6 +103,14 @@ const Comments = ({ pokemon }: PokemonInfoProps) => {
   const type = pokemon?.types?.[0]?.type?.name ?? '기본값';
   const typeColor = POKEMON_TYPES[type];
 
+  const formatDate = (date: string) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <>
       <div className={styles.comments__container}>
@@ -120,7 +123,6 @@ const Comments = ({ pokemon }: PokemonInfoProps) => {
               required
               value={comment}
               onChange={onCommentChange}
-              maxLength={100}
               placeholder={
                 user?.uid ? '댓글을 입력해주세요' : '로그인을 해주세요'
               }
@@ -128,7 +130,11 @@ const Comments = ({ pokemon }: PokemonInfoProps) => {
                 styles[`comments__input__text--${typeColor}`]
               }`}
             />
-            <span className={styles.comments__length}>
+            <span
+              className={`${styles.comments__length} ${
+                comment.length > 100 ? styles['comments__length__max'] : ''
+              }`}
+            >
               {comment.length} / 100
             </span>
             <div className={styles.comments__input__btn__box}>
@@ -144,11 +150,7 @@ const Comments = ({ pokemon }: PokemonInfoProps) => {
         <ul className={styles.comments__list__inner}>
           {commentList.length > 0 ? (
             commentList.map(({ id, comment, displayName, createdAt, uid }) => {
-              const date = new Date(createdAt);
-              const createdDate = `${date.getFullYear()}-${String(
-                date.getMonth() + 1,
-              ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-
+              const createdDate = formatDate(createdAt);
               return (
                 <li key={id} className={styles.comments__list}>
                   <span className={styles.comments__comment__list}>

@@ -4,9 +4,18 @@ import styles from './Detail.module.scss';
 import { FORM_NAMES } from '@/lib/pokemonFormNames';
 import { POKEMON_TYPES } from '@/lib/constants';
 
-const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
+const PokemonImg = ({ pokemonState }: PokemonInfoProps) => {
+  const { pokemon, selectedFormName } = pokemonState;
+
   const pokemonOfficialImage =
     pokemon?.sprites.other?.['official-artwork'].front_default;
+
+  const getLocalImagePath = (name: string | undefined) => {
+    if (!name) {
+      return;
+    }
+    return `/src/assets/pokemonImg/${name}.png`;
+  };
 
   const getKoreanName = (englishName: string | undefined) => {
     return Object.keys(POKEMON_NAME).find(
@@ -14,16 +23,12 @@ const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
     );
   };
 
-  const getLocalImagePath = (name: string | undefined) => {
-    return `/src/assets/pokemonImg/${name}.png`;
-  };
-
   const getKoreanFormName = (englishName: string | undefined) => {
     return FORM_NAMES[englishName as string];
   };
 
   const koreanName =
-    formName
+    selectedFormName
       ?.replace('-거다이맥스', '')
       .replace('-무한다이맥스', '')
       .replace('-팔데아', '')
@@ -48,7 +53,7 @@ const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
     someFormName = '알로라';
   } */
 
-  const formNameMatch = formName?.match(
+  const formNameMatch = selectedFormName?.match(
     /-(거다이맥스|무한다이맥스|팔데아|가라르|히스이|알로라)/,
   );
   const someFormName = formNameMatch ? formNameMatch[1] : '';
@@ -64,9 +69,10 @@ const PokemonImg = ({ pokemon, formName }: PokemonInfoProps) => {
         <div className={styles.detail__img__box}>
           <img
             className={styles.official__img}
-            loading="lazy"
             src={
-              pokemonOfficialImage || getLocalImagePath(formName || koreanName)
+              pokemonOfficialImage
+                ? pokemonOfficialImage
+                : getLocalImagePath(selectedFormName || koreanName)
             }
             alt="Official Artwork"
             width={300}

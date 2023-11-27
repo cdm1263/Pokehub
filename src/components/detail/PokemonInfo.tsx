@@ -7,13 +7,9 @@ import { useMemo } from 'react';
 import { POKEMON_GENUS } from '@/lib/genus';
 import { POKEMON_FLAVOR_TEXTS } from '@/lib/flavorText';
 
-const PokemonInfo = ({
-  pokemon,
-  onFormChange,
-  formId,
-  genus,
-  flavorText,
-}: PokemonInfoProps) => {
+const PokemonInfo = ({ pokemonState, onFormChange }: PokemonInfoProps) => {
+  const { pokemon, selectedFormId, genus, flavorText } = pokemonState;
+
   const pokemonHeight = useMemo(() => {
     if (pokemon) {
       const feet = Math.floor((pokemon.height * 10) / 2.54 / 12);
@@ -78,7 +74,7 @@ const PokemonInfo = ({
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>분류</div>
             <div className={styles.pokemon__info__data}>
-              {(formId && POKEMON_GENUS[formId]) || genus}
+              {(selectedFormId && POKEMON_GENUS[selectedFormId]) || genus}
             </div>
           </div>
           <div className={styles.pokemon__info}>
@@ -111,7 +107,7 @@ const PokemonInfo = ({
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>설명</div>
             <div className={styles.pokemon__info__data}>
-              {(formId && POKEMON_FLAVOR_TEXTS[formId]) ||
+              {(selectedFormId && POKEMON_FLAVOR_TEXTS[selectedFormId]) ||
                 (pokemon && POKEMON_FLAVOR_TEXTS[pokemon?.id]) ||
                 flavorText}
             </div>
