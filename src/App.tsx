@@ -22,8 +22,6 @@ const App = () => {
     setInit(true);
   }, [auth]);
 
-  console.log(auth);
-
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
