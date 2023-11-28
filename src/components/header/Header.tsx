@@ -5,15 +5,32 @@ import { FaRegAddressCard } from 'react-icons/fa6';
 import { BsFilePlus } from 'react-icons/bs';
 import { RiUserVoiceFill } from 'react-icons/ri';
 import { FiLogIn } from 'react-icons/fi';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useUserStore from '@/store/useUsersStore';
 import { useGetAllPokemon } from '@/query/qeuries';
 import SearchInput from '../search/Search';
+import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUserStore();
+  const { imgUrl } = useUserInfoChangeStore();
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   useGetAllPokemon(1017);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const onClickOutSide = (e: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node))
+      setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', onClickOutSide);
+    return () => {
+      document.removeEventListener('mousedown', onClickOutSide);
+    };
+  }, [imgUrl]);
 
   return (
     <>
@@ -22,7 +39,7 @@ const Header = () => {
           <div>
             <Link to="/" className={styles.logo}>
               <img
-                src="https://github.com/side-project-cdmnkh/my-pokemon/assets/115094069/fd0a37a3-f3ba-479c-a3f2-f58f55e0286c"
+                src="/src/assets/logo-pokehub.png"
                 alt="logo"
                 width={132}
                 height={59}
@@ -33,24 +50,41 @@ const Header = () => {
               <nav className={styles.nav__box}>
                 <Link to="/">
                   <div className={styles.nav__item}>
-                    <FaRegAddressCard />
+                    <FaRegAddressCard size={31} />
                     도감
                   </div>
                 </Link>
                 <Link to="cardEdit">
                   <div className={styles.nav__item}>
-                    <BsFilePlus />
+                    <BsFilePlus size={31} />
                     카드 제작
                   </div>
                 </Link>
                 <Link to={`/pokemon/${1}`}>
                   <div className={styles.nav__item}>
-                    <RiUserVoiceFill />
+                    <RiUserVoiceFill size={31} />
                     커뮤니티
                   </div>
                 </Link>
-                <div className={styles.nav__item} onClick={toggleDropdown}>
-                  <FiLogIn />
+                <div
+                  ref={dropdownRef}
+                  className={styles.nav__item}
+                  onClick={toggleDropdown}
+                >
+                  {user ? (
+                    <div className={styles.nav__profile__img}>
+                      <img
+                        style={{ borderRadius: '50%' }}
+                        src={user?.photoURL || undefined}
+                        alt="프로필 사진"
+                        width={31}
+                        height={31}
+                      />
+                    </div>
+                  ) : (
+                    <FiLogIn size={31} />
+                  )}
+
                   <SocialLogin isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
               </nav>

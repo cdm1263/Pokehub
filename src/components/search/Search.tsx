@@ -1,14 +1,27 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import styles from './Search.module.scss';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useSearchInputText from '@/store/useSearchInputText';
 import useSelectedStore from '@/store/useSelectedStore';
+import { POKEMON_NAME } from '@/lib/pokemonName';
 
 const SearchInput = () => {
   const location = useLocation();
   const [text, setText] = useState<string>('');
   const { setInputText } = useSearchInputText();
   const { clearSelectedPlate } = useSelectedStore();
+  const [placeholder, setPlaceholder] = useState('검색어를 입력해주세요.');
+
+  const searchPokemonParmas = POKEMON_NAME[text];
+
+  const params = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === '/' && location.pathname.startsWith('/pokemon')) {
+      setPlaceholder('포켓몬 이름을 입력해주세요.');
+    }
+  }, [location.pathname]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,12 +29,20 @@ const SearchInput = () => {
     clearSelectedPlate();
     switch (location.pathname) {
       case '/':
+        setText('');
         console.log(text);
         break;
-      case 'pathname':
-        return;
+      case `/pokemon/${params.id}`:
+        navigate(`/pokemon/${searchPokemonParmas}`);
+        setText('');
+        setInputText('');
+        break;
     }
   };
+
+  if (location.pathname !== '/' && !location.pathname.startsWith('/pokemon')) {
+    return null;
+  }
 
   return (
     <form className={styles.main__search} onSubmit={onSubmit}>
@@ -32,7 +53,7 @@ const SearchInput = () => {
           }}
           value={text}
           type="text"
-          placeholder="검색어를 입력해주세요."
+          placeholder={placeholder}
           className={styles.main__search__bar}
         />
         <button type="submit" className={styles.search__btn}>

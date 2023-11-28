@@ -199,7 +199,7 @@ export const POKEMON_NAME: KeyValueType = {
   에브이: 'espeon',
   블래키: 'umbreon',
   니로우: 'murkrow',
-  야도킹: 'slowking',
+  야돈킹: 'slowking',
   무우마: 'misdreavus',
   안농: 'unown',
   마자용: 'wobbuffet',
