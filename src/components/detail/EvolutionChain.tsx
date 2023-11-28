@@ -16,30 +16,32 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
 
   const navigate = useNavigate();
 
+  const fetchData = async (evolvesChain: string[][]) => {
+    const evolvesChainFlat =
+      evolvesChain.length > 1
+        ? [...new Set(evolvesChain.flat())]
+        : evolvesChain.flat();
+
+    const evolutionChainData = evolvesChainFlat?.map((partialName) => {
+      const englishName = Object.values(POKEMON_NAME).find((name) =>
+        name.includes(partialName),
+      );
+      return englishName && getPokemonData(englishName);
+    });
+
+    try {
+      const data = await Promise.all(evolutionChainData);
+
+      setEvolutionPokemonData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (!evolvesChain || evolvesChain.length === 0) return;
-    const fetchData = async () => {
-      const evolvesChainFlat =
-        evolvesChain.length > 1
-          ? [...new Set(evolvesChain.flat())]
-          : evolvesChain.flat();
 
-      const evolutionChainData = evolvesChainFlat?.map((partialName) => {
-        const englishName = Object.values(POKEMON_NAME).find((name) =>
-          name.includes(partialName),
-        );
-        return englishName && getPokemonData(englishName);
-      });
-
-      try {
-        const data = await Promise.all(evolutionChainData);
-
-        setEvolutionPokemonData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+    fetchData(evolvesChain);
   }, [evolvesChain]);
 
   if (!evolvesChain || evolvesChain[0]?.length < 2) {
@@ -48,8 +50,26 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
 
   const preEvolutionPokemon = evovlutionPokemonData[0];
 
-  // 나머지 최종 진화 포켓몬들
   const finalEvolutionPokemons = evovlutionPokemonData.slice(1);
+
+  const allEvolutions = new Set(evolvesChain.flat());
+
+  const commonEvolution = Array.from(allEvolutions).filter((pokemonName) =>
+    evolvesChain.every((path) => path.includes(pokemonName)),
+  );
+
+  const commonEvolutionPokemonData = evovlutionPokemonData.filter((pokemon) =>
+    commonEvolution.includes(pokemon.name),
+  );
+
+  const otherFinalEvolution = evolvesChain.map((path) =>
+    path.filter((pokemon) => !commonEvolution.includes(pokemon)),
+  );
+
+  const otherFinalEvolutionPokemonData = evovlutionPokemonData.filter(
+    (pokemon) =>
+      otherFinalEvolution.some((path) => path.includes(pokemon.name)),
+  );
 
   return (
     <>
@@ -61,7 +81,7 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
             </div>
           </div>
           <div className={styles.evolves__img__box}>
-            {evolvesChain.length > 1 ? (
+            {evolvesChain.length > 1 && commonEvolution.length < 2 ? (
               <>
                 <div className={styles.evolves}>
                   {preEvolutionPokemon && (
@@ -100,11 +120,12 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
                       </div>
                     </>
                   )}
+
                   <div className={styles.evolves__final__evolution}>
-                    {finalEvolutionPokemons.map((pokemonData, index) => (
+                    {finalEvolutionPokemons.map((pokemonData) => (
                       <div
                         className={styles.evolves__final__evolution__box}
-                        key={index}
+                        key={pokemonData.id}
                       >
                         <PokemonListElementLayout
                           data={pokemonData}
@@ -127,13 +148,91 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
                   </div>
                 </div>
               </>
+            ) : evolvesChain.length > 1 &&
+              commonEvolution.length > 1 &&
+              otherFinalEvolution ? (
+              <>
+                <div className={styles.evolves__extra__box}>
+                  {commonEvolutionPokemonData?.map((pokemonData, index) => {
+                    return (
+                      <>
+                        <div
+                          key={pokemonData.id}
+                          className={styles.evolves__common__evolution}
+                        >
+                          <PokemonListElementLayout
+                            data={pokemonData}
+                            className={styles.evolves__list}
+                            onClick={() =>
+                              navigate(`/pokemon/${pokemonData.id}`)
+                            }
+                          >
+                            <img
+                              src={
+                                pokemonData.sprites?.other?.['official-artwork']
+                                  .front_default
+                              }
+                              alt={`${pokemonData.name} 포켓몬 이미지`}
+                            />
+                          </PokemonListElementLayout>
+                          <div className={styles.evolves__pre__evolution__name}>
+                            {reverseObject(POKEMON_NAME)[pokemonData.name]}
+                          </div>
+                          {index < evovlutionPokemonData.length - 1 && (
+                            <img
+                              className={styles.evolves__pre__evolution__arrow}
+                              src="/src/assets/arrow.svg"
+                              alt="우측 화살표"
+                            />
+                          )}
+                        </div>
+                      </>
+                    );
+                  })}
+
+                  <div className={styles.evolves__other__evolution}>
+                    {otherFinalEvolutionPokemonData?.map((pokemonData) => {
+                      return (
+                        <>
+                          <div
+                            key={pokemonData.id}
+                            className={styles.evolves__pre__evolution}
+                          >
+                            <PokemonListElementLayout
+                              data={pokemonData}
+                              className={styles.evolves__list}
+                              onClick={() =>
+                                navigate(`/pokemon/${pokemonData.id}`)
+                              }
+                            >
+                              <img
+                                src={
+                                  pokemonData.sprites?.other?.[
+                                    'official-artwork'
+                                  ].front_default
+                                }
+                                alt={`${pokemonData.name} 포켓몬 이미지`}
+                              />
+                            </PokemonListElementLayout>
+                            <div
+                              className={styles.evolves__pre__evolution__name}
+                            >
+                              {reverseObject(POKEMON_NAME)[pokemonData.name]}
+                            </div>
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </>
             ) : (
               <>
                 {evovlutionPokemonData?.map((pokemonData, index) => {
                   return (
                     <>
                       <div
-                        key={index}
+                        key={pokemonData.id}
                         className={styles.evolves__pre__evolution}
                       >
                         <PokemonListElementLayout
