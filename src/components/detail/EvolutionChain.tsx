@@ -120,7 +120,6 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
                       </div>
                     </>
                   )}
-
                   <div className={styles.evolves__final__evolution}>
                     {finalEvolutionPokemons.map((pokemonData) => (
                       <div
@@ -155,10 +154,43 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
                 <div className={styles.evolves__extra__box}>
                   {commonEvolutionPokemonData?.map((pokemonData, index) => {
                     return (
-                      <>
+                      <div
+                        key={pokemonData.id}
+                        className={styles.evolves__common__evolution}
+                      >
+                        <PokemonListElementLayout
+                          data={pokemonData}
+                          className={styles.evolves__list}
+                          onClick={() => navigate(`/pokemon/${pokemonData.id}`)}
+                        >
+                          <img
+                            src={
+                              pokemonData.sprites?.other?.['official-artwork']
+                                .front_default
+                            }
+                            alt={`${pokemonData.name} 포켓몬 이미지`}
+                          />
+                        </PokemonListElementLayout>
+                        <div className={styles.evolves__pre__evolution__name}>
+                          {reverseObject(POKEMON_NAME)[pokemonData.name]}
+                        </div>
+                        {index < evovlutionPokemonData.length - 1 && (
+                          <img
+                            className={styles.evolves__pre__evolution__arrow}
+                            src="/src/assets/arrow.svg"
+                            alt="우측 화살표"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  <div className={styles.evolves__other__evolution}>
+                    {otherFinalEvolutionPokemonData?.map((pokemonData) => {
+                      return (
                         <div
                           key={pokemonData.id}
-                          className={styles.evolves__common__evolution}
+                          className={styles.evolves__pre__evolution}
                         >
                           <PokemonListElementLayout
                             data={pokemonData}
@@ -178,49 +210,7 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
                           <div className={styles.evolves__pre__evolution__name}>
                             {reverseObject(POKEMON_NAME)[pokemonData.name]}
                           </div>
-                          {index < evovlutionPokemonData.length - 1 && (
-                            <img
-                              className={styles.evolves__pre__evolution__arrow}
-                              src="/src/assets/arrow.svg"
-                              alt="우측 화살표"
-                            />
-                          )}
                         </div>
-                      </>
-                    );
-                  })}
-
-                  <div className={styles.evolves__other__evolution}>
-                    {otherFinalEvolutionPokemonData?.map((pokemonData) => {
-                      return (
-                        <>
-                          <div
-                            key={pokemonData.id}
-                            className={styles.evolves__pre__evolution}
-                          >
-                            <PokemonListElementLayout
-                              data={pokemonData}
-                              className={styles.evolves__list}
-                              onClick={() =>
-                                navigate(`/pokemon/${pokemonData.id}`)
-                              }
-                            >
-                              <img
-                                src={
-                                  pokemonData.sprites?.other?.[
-                                    'official-artwork'
-                                  ].front_default
-                                }
-                                alt={`${pokemonData.name} 포켓몬 이미지`}
-                              />
-                            </PokemonListElementLayout>
-                            <div
-                              className={styles.evolves__pre__evolution__name}
-                            >
-                              {reverseObject(POKEMON_NAME)[pokemonData.name]}
-                            </div>
-                          </div>
-                        </>
                       );
                     })}
                   </div>
@@ -230,11 +220,11 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
               <>
                 {evovlutionPokemonData?.map((pokemonData, index) => {
                   return (
-                    <>
-                      <div
-                        key={pokemonData.id}
-                        className={styles.evolves__pre__evolution}
-                      >
+                    <div
+                      key={pokemonData.id}
+                      className={styles.evolves__pre__evolution__box}
+                    >
+                      <div className={styles.evolves__pre__evolution}>
                         <PokemonListElementLayout
                           data={pokemonData}
                           className={styles.evolves__list}
@@ -255,7 +245,7 @@ const EvolutionChain = ({ pokemonState }: PokemonInfoProps) => {
                       {index < evovlutionPokemonData.length - 1 && (
                         <img src="/src/assets/arrow.svg" alt="우측 화살표" />
                       )}
-                    </>
+                    </div>
                   );
                 })}
               </>
