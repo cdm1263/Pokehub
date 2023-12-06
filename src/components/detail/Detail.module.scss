@@ -467,4 +467,23 @@
       justify-content: center;
     }
   }
+  &__extra__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 57px;
+  }
+
+  &__common__evolution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  &__other__evolution {
+    display: flex;
+    gap: 73px;
+  }
 }
