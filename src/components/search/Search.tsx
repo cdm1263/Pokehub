@@ -18,10 +18,12 @@ const SearchInput = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname === '/' && location.pathname.startsWith('/pokemon')) {
+    if (location.pathname === '/' || location.pathname.startsWith('/pokemon')) {
       setPlaceholder('포켓몬 이름을 입력해주세요.');
     }
-  }, [location.pathname]);
+    setText('');
+    setInputText('');
+  }, [location.pathname, setInputText]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ const SearchInput = () => {
     }
   };
 
-  if (location.pathname !== '/' && !location.pathname.startsWith('/pokemon')) {
+  if (location.pathname !== '/') {
     return null;
   }
 
