@@ -65,6 +65,7 @@ const PokemonImg = ({ pokemonState }: PokemonInfoProps) => {
           <img src="/src/assets/pokemon_name_box.svg" alt="name_box" />
           <span className={styles.detail__name}>{koreanName}</span>
         </div>
+
         <div className={styles.detail__some__form}>{someFormName}</div>
         <div className={styles.detail__img__box}>
           <img
@@ -75,8 +76,8 @@ const PokemonImg = ({ pokemonState }: PokemonInfoProps) => {
                 : getLocalImagePath(selectedFormName || koreanName)
             }
             alt="Official Artwork"
-            width={300}
-            height={300}
+            width={280}
+            height={280}
           />
         </div>
         <div className={styles.detail__type}>
