@@ -1,13 +1,11 @@
 import CardsRowLike from '@/components/card/CardsRowLike';
 import CardsRowRandom from '@/components/card/CardsRowRandom';
-import PokemonCard from '@/components/card/PokemonCard';
-import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
+import ProductCard from '@/components/card/ProductCard';
 
 const Card = () => {
-  const { pokemonData } = useSelectedPokemonForCard();
   return (
     <>
-      <PokemonCard data={pokemonData} />
+      <ProductCard />
       <CardsRowLike />
       <CardsRowRandom />;
     </>
