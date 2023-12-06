@@ -8,13 +8,18 @@ import {
   query,
   orderBy,
   limit,
+  startAfter,
+  endBefore,
+  QueryDocumentSnapshot,
+  DocumentData,
+  getCountFromServer,
 } from 'firebase/firestore';
 import { PokemonInfoProps } from '@/lib/type';
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import useUserStore from '@/store/useUsersStore';
 import styles from './Comments.module.scss';
-import { POKEMON_TYPES } from '@/lib/constants';
-import Pagenation from './Pagenation';
+
+import Pagination from './Pagination';
 interface CommentProps {
   comment: string;
   createdAt: string;
@@ -28,29 +33,84 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
   const [comment, setComment] = useState('');
   const [commentList, setCommentList] = useState<CommentProps[]>([]);
   const { user } = useUserStore();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [nextDocument, setNextDocument] =
+    useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+  const [prevDocument, setPrevDocument] =
+    useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+
+  const pageSize = 10;
 
   const { pokemon } = pokemonState;
 
-  const getComments = async () => {
-    const commentsRef = collection(
-      db,
-      'comments',
-      `${pokemon?.id}`,
-      'pokemonComments',
-    );
-    const q = query(commentsRef, orderBy('createdAt', 'desc'), limit(10));
+  const commentsRef = collection(
+    db,
+    'comments',
+    `${pokemon?.id}`,
+    'pokemonComments',
+  );
+
+  const getComments = async (pageCursor?: string) => {
+    let q;
+    if (pageCursor === 'next') {
+      q = query(
+        commentsRef,
+        orderBy('createdAt', 'desc'),
+        startAfter(nextDocument),
+        limit(pageSize),
+      );
+    } else if (pageCursor === 'prev' && prevDocument) {
+      q = query(
+        commentsRef,
+        orderBy('createdAt', 'desc'),
+        endBefore(prevDocument),
+        limit(pageSize),
+      );
+    } else {
+      q = query(commentsRef, orderBy('createdAt', 'desc'), limit(pageSize));
+    }
+
     const querySnapshot = await getDocs(q);
-    /*  const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]; */
 
     const fetchedComments = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     })) as CommentProps[];
     setCommentList(fetchedComments);
+    setNextDocument(querySnapshot.docs[querySnapshot.docs.length - 1] || null);
+    setPrevDocument(querySnapshot.docs[0] || null);
+  };
+  const fetchTotalCommentsCount = async () => {
+    const q = query(commentsRef, orderBy('createdAt', 'desc'));
+    const aggregateSnapshot = await getCountFromServer(q);
+    const aggregateData = aggregateSnapshot.data();
+    const totalComments = aggregateData.count;
+    const totalPages = Math.ceil(totalComments / pageSize);
+
+    setTotalPages(totalPages);
+  };
+
+  console.log('prev', prevDocument);
+  console.log('next', nextDocument);
+
+  const onMoveToPrev = async () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      await getComments('prev');
+    }
+  };
+
+  const onMoveToNext = async () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      await getComments('next');
+    }
   };
 
   useEffect(() => {
     if (pokemon?.id) {
+      fetchTotalCommentsCount();
       getComments();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,9 +160,6 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
     }
   };
 
-  const type = pokemon?.types?.[0]?.type?.name ?? '기본값';
-  const typeColor = POKEMON_TYPES[type];
-
   const formatDate = (date: string) => {
     const d = new Date(date);
     const year = d.getFullYear();
@@ -126,9 +183,7 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
               placeholder={
                 user?.uid ? '댓글을 입력해주세요' : '로그인을 해주세요'
               }
-              className={`${styles.comments__input__text} ${
-                styles[`comments__input__text--${typeColor}`]
-              }`}
+              className={`${styles.comments__input__text} `}
             />
             <span
               className={`${styles.comments__length} ${
@@ -180,7 +235,12 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
           )}
         </ul>
       </div>
-      <Pagenation />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onMoveToPrev={onMoveToPrev}
+        onMoveToNext={onMoveToNext}
+      />
     </>
   );
 };
