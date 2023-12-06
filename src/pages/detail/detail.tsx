@@ -1,7 +1,16 @@
-import Detail from '@/components/detail/Detail';
+import { lazy } from 'react';
+import { Suspense } from 'react';
 
-const detail = () => {
-  return <Detail />;
+const Detail = lazy(() => import('@/components/detail/Detail'));
+
+const DetailPage = () => {
+  return (
+    <>
+      <Suspense fallback={<div>로딩 중. . .</div>}>
+        <Detail />
+      </Suspense>
+    </>
+  );
 };
 
-export default detail;
+export default DetailPage;
