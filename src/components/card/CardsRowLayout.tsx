@@ -1,6 +1,5 @@
 import { PokemonType } from '@/lib/type';
 import styles from './cards.module.scss';
-import PokemonSelectImage from './PokemonSelectImage';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/utill/reverseObject';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
@@ -19,11 +18,15 @@ const CardsRowLayout = ({ pokemonArray }: CardsRowLayout) => {
           key={randomPokemon?.id}
           className={styles.cards__row_cards__column}
         >
-          <PokemonSelectImage
-            pokemonImage={
-              randomPokemon?.sprites?.other?.['official-artwork']?.front_default
-            }
-          />
+          <div className={styles.cards__row_cards__card}>
+            <img
+              src={
+                randomPokemon?.sprites?.other?.['official-artwork']
+                  ?.front_default
+              }
+              alt="포켓몬 이미지"
+            />
+          </div>
           <span>{reverseObject(POKEMON_NAME)[randomPokemon.name]}</span>
           <button
             className={styles.border_button}
