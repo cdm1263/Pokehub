@@ -7,8 +7,12 @@
   &__main {
     display: flex;
     justify-content: center;
-    gap: 162px;
+    gap: 160px;
     max-width: 1920px;
+  }
+
+  &__center {
+    width: 280px;
   }
 
   &__comments {
@@ -64,7 +68,7 @@
   perspective: 400px;
   margin: auto 0;
   display: flex;
-  width: 310px;
+  width: 300px;
   height: 450px;
   flex-shrink: 0;
   align-items: flex-end;
@@ -109,10 +113,60 @@
 
 /*Pokemon - status*/
 
+.stats__main {
+  width: 300px;
+  display: flex;
+}
+
+.stats__like__box {
+  position: absolute;
+  width: inherit;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  top: 103px;
+}
+
+@keyframes moveUpAndRotate {
+  0% {
+    transform: translateY(0) rotateX(0deg) scale(1);
+  }
+
+  100% {
+    transform: translateY(-10px) rotateY(360deg) scale(1.2);
+  }
+}
+
+.stats__like {
+  display: flex;
+  width: 109px;
+  height: 33px;
+  flex-shrink: 0;
+  border-radius: 16.54px;
+  border: 2px solid #ff5050;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+
+  span {
+    color: #ff5050;
+    font-family: Gmarket Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+
+.stats__like__animate.animateHeart {
+  animation: moveUpAndRotate 1s ease-in-out;
+}
+
 .stats__container {
   perspective: 400px;
   margin: auto 0;
-  width: 310px;
+  width: 300px;
   height: 450px;
   display: flex;
   flex-shrink: 0;
@@ -120,6 +174,7 @@
   position: relative;
   margin-top: 103px;
 }
+
 .stats {
   width: 300px;
   height: 401px;
@@ -276,6 +331,8 @@
     place-items: center;
     width: auto;
     padding: 0 10px;
+    position: relative;
+    top: -2px;
   }
 
   &__name {
@@ -298,8 +355,8 @@
   }
 
   &__img__box {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     margin-top: 103px;
     display: flex;
     justify-content: center;
@@ -331,8 +388,8 @@
 }
 
 .official__img {
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 280px;
   text-align: center;
   display: inline-block;
 }
@@ -431,6 +488,12 @@
       height: 141px;
       flex-shrink: 0;
     }
+  }
+
+  &__pre__evolution__box {
+    display: flex;
+    gap: 18px;
+    align-items: center;
   }
 
   &__pre__evolution {
