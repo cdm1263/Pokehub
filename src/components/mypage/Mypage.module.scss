@@ -278,10 +278,15 @@
     border-radius: 10.067px;
     border: 1px solid #ebebeb;
     background: #fff;
+    overflow: auto;
   }
 
   &__liked__title {
     padding: 22px 33px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
 
     span {
       color: #000;
@@ -294,7 +299,7 @@
   }
 
   &__liked__box {
-    padding: 22px 29px;
+    padding: 0 29px 22px 29px;
     height: auto;
     gap: 10px;
     display: grid;
