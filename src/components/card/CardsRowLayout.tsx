@@ -24,7 +24,9 @@ const CardsRowLayout = ({ pokemonArray }: CardsRowLayout) => {
             />
           </div>
           <span>
-            <span>{reverseObject(POKEMON_NAME)[pokemonData.name]}</span>
+            <span>
+              {pokemonData ? reverseObject(POKEMON_NAME)[pokemonData.name] : ''}
+            </span>
           </span>
           <button
             className={styles.border_button}
