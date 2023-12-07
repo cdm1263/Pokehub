@@ -18,7 +18,7 @@ const CardsRowRandom = () => {
       const randomPokemon = data?.[randomIndex];
       if (randomPokemon) {
         tempArray.push(randomPokemon);
-        i++;
+        i += 1;
       }
     }
     setRandomPokemonArray(tempArray);

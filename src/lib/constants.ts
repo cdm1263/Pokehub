@@ -30,6 +30,10 @@ export const STAT_NAME: KeyValueType = {
   speed: '스피드',
 };
 
+export const POKEMON_NICKNAME1 = ['별명1', '별명2', '별명3', '별명4'];
+
+export const POKEMON_NICKNAME2 = ['별칭1', '별칭2', '별칭3', '별칭4'];
+
 export const PROFILE_DEFAULT_IMG = '/src/assets/default_profile.svg';
 
 export const STORAGE_DOWNLOAD_URL = 'https://firebasestorage.googleapis.com';
