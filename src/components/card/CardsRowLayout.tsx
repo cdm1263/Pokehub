@@ -13,31 +13,37 @@ const CardsRowLayout = ({ pokemonArray }: CardsRowLayout) => {
 
   return (
     <div className={styles.cards__row_cards}>
-      {pokemonArray.map((pokemonData) => (
-        <div key={pokemonData?.id} className={styles.cards__row_cards__column}>
-          <div className={styles.cards__row_cards__card}>
-            <img
-              src={
-                pokemonData?.sprites?.other?.['official-artwork']?.front_default
-              }
-              alt="포켓몬 이미지"
-            />
-          </div>
-          <span>
-            <span>
-              {pokemonData ? reverseObject(POKEMON_NAME)[pokemonData.name] : ''}
-            </span>
-          </span>
-          <button
-            className={styles.border_button}
-            onClick={() => {
-              setPokemonData(pokemonData);
-            }}
+      {pokemonArray.map((pokemonData) =>
+        pokemonData ? (
+          <div
+            key={pokemonData?.id}
+            className={styles.cards__row_cards__column}
           >
-            포켓몬 사용
-          </button>
-        </div>
-      ))}
+            <div className={styles.cards__row_cards__card}>
+              <img
+                src={
+                  pokemonData?.sprites?.other?.['official-artwork']
+                    ?.front_default
+                }
+                alt="포켓몬 이미지"
+              />
+            </div>
+            <span>
+              <span>{reverseObject(POKEMON_NAME)[pokemonData.name]}</span>
+            </span>
+            <button
+              className={styles.border_button}
+              onClick={() => {
+                setPokemonData(pokemonData);
+              }}
+            >
+              포켓몬 사용
+            </button>
+          </div>
+        ) : (
+          ''
+        ),
+      )}
     </div>
   );
 };
