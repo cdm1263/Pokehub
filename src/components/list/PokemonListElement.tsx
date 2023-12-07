@@ -19,6 +19,7 @@ const PokemonListElement = ({ data }: PokemonListElementProp) => {
       onClick={() => {
         navigate(`/pokemon/${data.id}`);
       }}
+      className={styles.padding_bottom_35px}
     >
       <img
         className={styles.pokemon_image}
