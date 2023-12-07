@@ -28,7 +28,7 @@ const CardEditor = () => {
 
   return (
     <div className={styles.editor_wrapper}>
-      <div>
+      <div className={styles.editor_wrapper__top}>
         <span className={styles.title}>몬스터 이름</span>
         <ul className={styles.pokemon_name_editor}>
           <li>
@@ -65,7 +65,7 @@ const CardEditor = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className={styles.editor_wrapper__bottom}>
         <div className={styles.status_title}>
           <span className={styles.title}>스테이터스</span>
           <div>
