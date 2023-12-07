@@ -1,8 +1,8 @@
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
-import CardsRowLike from '@/components/card/CardsRowLike';
-import CardsRowRandom from '@/components/card/CardsRowRandom';
+import CardsRowLike from '@/components/cardEdit/CardsRowLike';
+import CardsRowRandom from '@/components/cardEdit/CardsRowRandom';
 import styles from './cards.module.scss';
-import PokemonCard from './PokemonCard';
+import PokemonCard from '../card/PokemonCard';
 import CardEditor from './CardEditor';
 import Inner from '../Inner';
 

@@ -1,4 +1,4 @@
-import CardPage from '@/components/card/CardPage';
+import CardPage from '@/components/cardEdit/CardPage';
 
 const Card = () => {
   return (
