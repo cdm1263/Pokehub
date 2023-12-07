@@ -13,25 +13,23 @@ const CardsRowLayout = ({ pokemonArray }: CardsRowLayout) => {
 
   return (
     <div className={styles.cards__row_cards}>
-      {pokemonArray.map((randomPokemon) => (
-        <div
-          key={randomPokemon?.id}
-          className={styles.cards__row_cards__column}
-        >
+      {pokemonArray.map((pokemonData) => (
+        <div key={pokemonData?.id} className={styles.cards__row_cards__column}>
           <div className={styles.cards__row_cards__card}>
             <img
               src={
-                randomPokemon?.sprites?.other?.['official-artwork']
-                  ?.front_default
+                pokemonData?.sprites?.other?.['official-artwork']?.front_default
               }
               alt="포켓몬 이미지"
             />
           </div>
-          <span>{reverseObject(POKEMON_NAME)[randomPokemon.name]}</span>
+          <span>
+            <span>{reverseObject(POKEMON_NAME)[pokemonData.name]}</span>
+          </span>
           <button
             className={styles.border_button}
             onClick={() => {
-              setPokemonData(randomPokemon);
+              setPokemonData(pokemonData);
             }}
           >
             포켓몬 사용
