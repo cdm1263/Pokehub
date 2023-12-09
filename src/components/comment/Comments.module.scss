@@ -126,3 +126,25 @@
     line-height: normal;
   }
 }
+
+.more__btn {
+  margin-top: 25px;
+  flex-shrink: 0;
+  width: 69px;
+  height: 27px;
+  border-radius: 4px;
+  background: #0f60ce;
+  color: #fff;
+  text-align: center;
+  font-family: Gmarket Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: none;
+
+  &:disabled {
+    background: #999;
+    cursor: not-allowed;
+  }
+}
