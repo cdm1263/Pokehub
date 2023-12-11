@@ -45,13 +45,3 @@ export const FORMDATE = (date: string) => {
   const day = String(d.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
-
-// export const RANDOM_STAT = {
-//   HP: (
-//     baseStat: number,
-//     talentStat: number,
-//     effortStat: number,
-//     level: number,
-//   ) => (2 * baseStat + talentStat + effortStat / 4 + 100) * (level / 100) + 10,
-//   ATTACK: () => {},
-// };

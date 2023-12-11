@@ -1,4 +1,4 @@
-import { TypesType, filteredPokemonData } from '@/lib/type';
+import { PokemonType, TypesType } from '@/lib/type';
 import styles from './pokemonCard.module.scss';
 import Plate from '../plate/Plate';
 import { POKEMON_TYPES } from '@/lib/constants';
@@ -8,10 +8,10 @@ import StatusBar from '../detail/StatusBar';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 
 interface PokemonCardProp {
-  pokemonCardData: filteredPokemonData;
+  data: PokemonType | null;
 }
 
-const PokemonCard = ({ pokemonCardData: data }: PokemonCardProp) => {
+const PokemonCard = ({ data }: PokemonCardProp) => {
   const { pokemonNickName1, pokemonNickName2 } = useSelectedPokemonForCard();
   const firstType = data?.types[0].type.name;
   const setClassName = (mainClassName: string) => {
@@ -36,7 +36,7 @@ const PokemonCard = ({ pokemonCardData: data }: PokemonCardProp) => {
             </div>
             <img
               className={styles.pokemon_image}
-              src={data.sprites}
+              src={data?.sprites?.other?.['official-artwork']?.front_default}
               alt="포켓몬 이미지"
             />
             <div className={styles.pokemon_intro}>

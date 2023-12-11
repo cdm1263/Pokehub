@@ -8,7 +8,6 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { filteredPokemonData } from './type';
 
 interface DataObject {
   comment?: string;
@@ -17,7 +16,6 @@ interface DataObject {
   uid?: string;
   introduceText?: string;
   pokemons?: string;
-  pokemonCardData?: (string | filteredPokemonData | null)[];
 }
 
 export const addDocument = async (collectionPath: string, data: DataObject) => {

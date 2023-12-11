@@ -93,11 +93,3 @@ export interface PokemonSprites {
     };
   };
 }
-
-export interface filteredPokemonData {
-  id: number;
-  types: TypesType[];
-  stats: Stat[];
-  sprites: string | undefined;
-  name: string;
-}
