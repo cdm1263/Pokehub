@@ -8,11 +8,11 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
-import { db, storage } from '@/firebase';
+import { storage } from '@/firebase';
 import { updateProfile } from 'firebase/auth';
 import { PROFILE_DEFAULT_IMG, STORAGE_DOWNLOAD_URL } from '@/lib/constants';
 import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { getDocument, setDocument } from '@/lib/firebaseQuery';
 
 const Introduce = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,12 +31,17 @@ const Introduce = () => {
     }
 
     const fetchData = async () => {
-      if (user) {
-        const profileRef = doc(db, 'userProfiles', user?.uid);
-        const docSnap = await getDoc(profileRef);
-        if (docSnap.exists()) {
+      if (!user) {
+        return;
+      }
+
+      try {
+        const docSnap = await getDocument(`/userProfiles/${user.uid}`);
+        if (docSnap) {
           setEditText(docSnap.data().introduceText);
         }
+      } catch (error) {
+        console.error(error);
       }
     };
 
@@ -72,9 +77,9 @@ const Introduce = () => {
       }
 
       if (user) {
-        const userProfileRef = doc(db, 'userProfiles', user.uid);
-        await setDoc(userProfileRef, {
+        await setDocument(`/userProfiles/${user.uid}`, {
           introduceText: editText,
+          uid: user.uid,
         });
 
         await updateProfile(user, {

@@ -1,10 +1,10 @@
-import { arrayRemove, doc, updateDoc } from 'firebase/firestore';
+import { arrayRemove } from 'firebase/firestore';
 import styles from './Mypage.module.scss';
-import { db } from '@/firebase';
 import useUserStore from '@/store/useUsersStore';
 import { useNavigate } from 'react-router-dom';
 import useLikedStore from '@/store/useLikedStore';
 import RenderPokemon from './RenderPokemon';
+import { updateDocument } from '@/lib/firebaseQuery';
 
 const MyLikedPokemon = () => {
   const { user } = useUserStore();
@@ -14,9 +14,7 @@ const MyLikedPokemon = () => {
 
   const onCancelLiked = async (pokemonId: string | number) => {
     if (user?.uid) {
-      const myLikedPokemonRef = doc(db, 'likes', user.uid);
-
-      await updateDoc(myLikedPokemonRef, {
+      await updateDocument(`/likes/${user.uid}`, {
         pokemons: arrayRemove(pokemonId),
       });
     }
@@ -25,8 +23,6 @@ const MyLikedPokemon = () => {
   const onMoveToPokemonDetail = (pokemonId: string | number) => {
     navigate(`/pokemon/${pokemonId}`);
   };
-
-  console.log(pokemonData);
 
   return (
     <>
