@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import styles from './Detail.module.scss';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
 import useUserStore from '@/store/useUsersStore';
-import { db } from '@/firebase';
+import { getDocument, setDocument } from '@/lib/firebaseQuery';
 
 interface LikePokemonProps {
   pokemonId: string | number;
@@ -19,10 +18,9 @@ const LikePokemon = ({ pokemonId }: LikePokemonProps) => {
   const fetchLikeState = async () => {
     if (!user?.uid) return;
 
-    const likesRef = doc(db, 'likes', user.uid);
-    const docSanp = await getDoc(likesRef);
+    const docSanp = await getDocument(`/likes/${user.uid}`);
 
-    if (docSanp.exists()) {
+    if (docSanp) {
       const likes = docSanp.data().pokemons || [];
       setIsLiked(likes.includes(pokemonId));
     }
@@ -33,13 +31,12 @@ const LikePokemon = ({ pokemonId }: LikePokemonProps) => {
 
     setAnimate(true);
 
-    const likesRef = doc(db, 'likes', user.uid);
-    const docSnap = await getDoc(likesRef);
+    const docSnap = await getDocument(`/likes/${user.uid}`);
     let likes = [];
 
     setTimeout(() => setAnimate(false), 1000);
 
-    if (docSnap.exists()) {
+    if (docSnap) {
       likes = docSnap.data().pokemons || [];
       if (likes.includes(pokemonId)) {
         likes = likes.filter((id: string) => id !== pokemonId);
@@ -50,7 +47,7 @@ const LikePokemon = ({ pokemonId }: LikePokemonProps) => {
       likes = [pokemonId];
     }
 
-    await setDoc(likesRef, { uid: user.uid, pokemons: likes });
+    await setDocument(`/likes/${user.uid}`, { uid: user.uid, pokemons: likes });
     setIsLiked((prev) => !prev);
   };
 

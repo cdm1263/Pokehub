@@ -37,3 +37,11 @@ export const POKEMON_NICKNAME2 = ['별칭1', '별칭2', '별칭3', '별칭4'];
 export const PROFILE_DEFAULT_IMG = '/src/assets/default_profile.svg';
 
 export const STORAGE_DOWNLOAD_URL = 'https://firebasestorage.googleapis.com';
+
+export const FORMDATE = (date: string) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
