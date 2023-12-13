@@ -2,6 +2,9 @@ import styles from './cards.module.scss';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { PokemonType } from '@/lib/type';
 import { useState } from 'react';
+import { POKEMON_NAME } from '@/lib/pokemonName';
+import { reverseObject } from '@/lib/utill/reverseObject';
+import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
 
 interface SearchDropdownProp {
   searchResults: (PokemonType | undefined)[] | null;
@@ -66,25 +69,40 @@ const SearchDropdown = ({ searchResults, setIsOpen }: SearchDropdownProp) => {
 
   return (
     <div className={styles.dropdown_wrapper}>
-      <ul className={styles.dropdown__list}>
+      <ul className={styles.dropdown__container}>
         {currentPagePokemons?.map((pokemon: PokemonType | undefined) => (
           <li
+            className={styles.dropdown__list}
             key={pokemon?.id}
             onClick={() => selectPokemon(pokemon ? pokemon : null)}
           >
-            {pokemon?.name}
+            <div>
+              <img
+                src={pokemon?.sprites.other?.['official-artwork'].front_default}
+                alt="포켓몬 이미지"
+              />
+            </div>
+            <span>{pokemon && reverseObject(POKEMON_NAME)[pokemon.name]}</span>
           </li>
         ))}
         {!searchResults && <span>포켓몬을 찾지 못했습니다.</span>}
       </ul>
       {totalPages > 1 && (
         <div className={styles.pagination_wrapper}>
-          <button onClick={onPrevArrow} disabled={currentPage === 1}>
-            {'<'}
+          <button
+            onClick={onPrevArrow}
+            disabled={currentPage === 1}
+            className={styles.arrow_button}
+          >
+            <IoChevronBack />
           </button>
           {renderPaginationNumbers()}
-          <button onClick={onNextArrow} disabled={currentPage === totalPages}>
-            {'>'}
+          <button
+            onClick={onNextArrow}
+            disabled={currentPage === totalPages}
+            className={styles.arrow_button}
+          >
+            <IoChevronForward />
           </button>
         </div>
       )}
