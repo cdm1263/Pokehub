@@ -54,10 +54,10 @@ const PokemonSearch = () => {
             <IoSearch />
           </button>
         </label>
+        {isOpen && (
+          <SearchDropdown searchResults={foundPokemon} setIsOpen={setIsOpen} />
+        )}
       </form>
-      {isOpen && (
-        <SearchDropdown searchResults={foundPokemon} setIsOpen={setIsOpen} />
-      )}
     </>
   );
 };
