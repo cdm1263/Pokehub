@@ -9,11 +9,14 @@ import { addDocument } from '@/lib/firebaseQuery';
 import useUserStore from '@/store/useUsersStore';
 import { MouseEvent } from 'react';
 import { filteredPokemonData } from '@/lib/type';
+import { useGetAllPokemon } from '@/query/qeuries';
+import PokemonSearch from './PokemonSearch';
 
 const CardPage = () => {
   const { user } = useUserStore();
-  const { pokemonData, pokemonNickName1, pokemonNickName2 } =
+  const { pokemonData, pokemonNickName1, pokemonNickName2, setPokemonData } =
     useSelectedPokemonForCard();
+  const { data } = useGetAllPokemon(1017);
   const filteredPokemonData = {} as filteredPokemonData;
 
   if (pokemonData) {
@@ -25,6 +28,11 @@ const CardPage = () => {
     filteredPokemonData['name'] = name;
     filteredPokemonData['sprites'] =
       sprites.other?.['official-artwork'].front_default;
+  } else {
+    if (data) {
+      const dittoData = data[131];
+      setPokemonData(dittoData);
+    }
   }
 
   const pokemonCardData = [
@@ -47,6 +55,7 @@ const CardPage = () => {
   return (
     <Inner>
       <div className={styles.card_page_wrapper}>
+        <PokemonSearch />
         <div className={styles.product_card_wrapper}>
           <div className={styles.product_card_container_decoration__top}></div>
           <div className={styles.product_card_container}>

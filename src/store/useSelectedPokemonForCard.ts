@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 interface useSelectedPokemonForCard {
   pokemonData: PokemonType | null;
-  setPokemonData: (data: PokemonType) => void;
+  setPokemonData: (data: PokemonType | null) => void;
   pokemonNickName1: string | null;
   setPokemonNickName1: (nickName: string) => void;
   pokemonNickName2: string | null;
