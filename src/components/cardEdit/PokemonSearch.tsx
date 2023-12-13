@@ -38,7 +38,8 @@ const PokemonSearch = () => {
   };
 
   return (
-    <>
+    <div className={styles.search_form_wrapper}>
+      <span className={styles.title}>포켓몬 검색하기</span>
       <form className={styles.search__wrapper} onSubmit={onSubmit}>
         <label className={styles.search__inner}>
           <input
@@ -58,7 +59,7 @@ const PokemonSearch = () => {
           <SearchDropdown searchResults={foundPokemon} setIsOpen={setIsOpen} />
         )}
       </form>
-    </>
+    </div>
   );
 };
 
