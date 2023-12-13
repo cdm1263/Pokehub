@@ -10,7 +10,7 @@ import useUserStore from '@/store/useUsersStore';
 import { MouseEvent } from 'react';
 import { filteredPokemonData } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
-import PokemonSearch from './pokemonSearch';
+import PokemonSearch from './PokemonSearch';
 
 const CardPage = () => {
   const { user } = useUserStore();
