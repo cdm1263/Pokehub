@@ -269,8 +269,7 @@
 
 .dropdown__list {
   display: grid;
-  grid-template-columns: repeat(3, 110px);
-  grid-template-rows: repeat(4, 110px);
+  grid-template-columns: repeat(3, minmax(110px, 1fr));
   gap: 10px;
 
   > li {
@@ -278,4 +277,20 @@
     height: 110px;
     background-color: yellow;
   }
+}
+
+.pagination_wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination_button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.button__action {
+  font-weight: 700;
 }
