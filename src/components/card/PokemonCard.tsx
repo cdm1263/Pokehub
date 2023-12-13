@@ -13,6 +13,12 @@ interface PokemonCardProp {
 
 const PokemonCard = ({ pokemonCardData: data }: PokemonCardProp) => {
   const { pokemonNickName1, pokemonNickName2 } = useSelectedPokemonForCard();
+  if (!Object.keys(data).length) {
+    // 임시로 null처리
+    // 추후 로딩 ui 등으로 처리하기
+    return null;
+  }
+
   const firstType = data?.types[0].type.name;
   const setClassName = (mainClassName: string) => {
     return firstType
