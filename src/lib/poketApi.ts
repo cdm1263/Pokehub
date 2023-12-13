@@ -1,5 +1,5 @@
 import { fetchData } from './api';
-import { Pokemon } from './type';
+import { Pokemon, PokemonType } from './type';
 
 export const getAllPokemonDatas = async (limit: number) => {
   return fetchData(`pokemon?limit=${limit}`, 'get');
@@ -27,7 +27,7 @@ export const getPokemonSpecies = async (url: string) => {
 
 export const getAllPokemonDetails = async (limit: number) => {
   const data = await fetchData(`pokemon?limit=${limit}`, 'get');
-  const pokemonDetailDatas = await Promise.all(
+  const pokemonDetailDatas: PokemonType[] = await Promise.all(
     data.results.map((item: Pokemon) => fetchData(item.url, 'get')),
   );
   return pokemonDetailDatas;
