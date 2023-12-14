@@ -57,6 +57,7 @@ const CardPage = () => {
       <div className={styles.card_page_wrapper}>
         <PokemonSearch />
         <div className={styles.product_card_wrapper}>
+          <span className={styles.title}>카드 제작</span>
           <div className={styles.product_card_container_decoration__top}></div>
           <div className={styles.product_card_container}>
             <PokemonCard pokemonCardData={filteredPokemonData} />
