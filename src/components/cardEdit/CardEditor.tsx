@@ -8,15 +8,25 @@ import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import StatusBar from '../detail/StatusBar';
 import Plate from '../plate/Plate';
 import { TypesType } from '@/lib/type';
+import { useEffect } from 'react';
+import { POKEMON_NAME } from '@/lib/pokemonName';
+import { reverseObject } from '@/lib/utill/reverseObject';
 
 const CardEditor = () => {
   const {
     pokemonData,
     pokemonNickName1,
     pokemonNickName2,
+    pokemonName,
     setPokemonNickName1,
     setPokemonNickName2,
+    setPokemonName,
   } = useSelectedPokemonForCard();
+
+  useEffect(() => {
+    pokemonData &&
+      setPokemonName(reverseObject(POKEMON_NAME)[pokemonData?.name]);
+  }, [pokemonData, setPokemonName]);
 
   const getRandomNickName = (NickNames: string[], index: number) => {
     const randomIndex = Math.floor(Math.random() * NickNames.length);
@@ -60,8 +70,15 @@ const CardEditor = () => {
             </div>
           </li>
           <li>
-            <span className={styles.list_name}> 이름</span>
-            <div></div>
+            <span className={styles.list_name}>이름</span>
+            <input
+              className={styles.name_input}
+              type="text"
+              value={pokemonName || undefined}
+              onChange={(event) => {
+                setPokemonName(event.target.value);
+              }}
+            />
           </li>
         </ul>
       </div>
