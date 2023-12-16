@@ -49,3 +49,8 @@
 @mixin input_box_type($color) {
   border: 3px solid $color;
 }
+
+@mixin cardWrapper($width, $height) {
+  width: $width;
+  height: $height;
+}

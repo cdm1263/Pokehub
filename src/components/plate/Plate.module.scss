@@ -17,6 +17,11 @@
   gap: 10px;
 }
 
+.type_plate__my {
+  display: flex;
+  gap: 3px;
+}
+
 .type_container {
   padding: 25px 0;
   gap: 15px;
@@ -58,6 +63,20 @@
 
   .type_plate.#{$type} {
     @include plate_pokemon_type($color);
+  }
+
+  .type_plate__my.#{$type} {
+    @include plate_pokemon_type($color);
+    width: 33px;
+    height: 11px;
+
+    img {
+      width: 7px;
+    }
+
+    span {
+      font-size: 7px;
+    }
   }
 }
 
