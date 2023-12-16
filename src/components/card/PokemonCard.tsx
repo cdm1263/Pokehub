@@ -2,8 +2,6 @@ import { TypesType, filteredPokemonData } from '@/lib/type';
 import styles from './pokemonCard.module.scss';
 import Plate from '../plate/Plate';
 import { POKEMON_TYPES } from '@/lib/constants';
-import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
 import StatusBar from '../detail/StatusBar';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 
@@ -12,7 +10,8 @@ interface PokemonCardProp {
 }
 
 const PokemonCard = ({ pokemonCardData: data }: PokemonCardProp) => {
-  const { pokemonNickName1, pokemonNickName2 } = useSelectedPokemonForCard();
+  const { pokemonName, pokemonNickName1, pokemonNickName2 } =
+    useSelectedPokemonForCard();
   if (!Object.keys(data).length) {
     // 임시로 null처리
     // 추후 로딩 ui 등으로 처리하기
@@ -50,9 +49,7 @@ const PokemonCard = ({ pokemonCardData: data }: PokemonCardProp) => {
                 <span className={styles.text__small}>{pokemonNickName1}</span>
                 <span className={styles.text__small}>{pokemonNickName2}</span>
               </div>
-              <span className={styles.text__large}>
-                {data && reverseObject(POKEMON_NAME)[data.name]}
-              </span>
+              <span className={styles.text__large}>{pokemonName}</span>
             </div>
           </div>
           <div className={styles.container__bottom}>
