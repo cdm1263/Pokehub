@@ -4,6 +4,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getCountFromServer,
   getDoc,
   getDocs,
   setDoc,
@@ -61,4 +62,10 @@ export const getAllDocument = async (collectionPath: string) => {
   }));
 
   return documents;
+};
+
+export const getCountDocument = async (collectionPath: string) => {
+  const ref = collection(db, collectionPath);
+  const countResult = await getCountFromServer(ref);
+  return countResult.data().count;
 };
