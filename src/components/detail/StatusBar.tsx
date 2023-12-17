@@ -2,6 +2,7 @@ import { POKEMON_TYPES } from '@/lib/constants';
 import styles from './Detail.module.scss';
 import { useEffect, useState } from 'react';
 import { Stat, TypesType } from '@/lib/type';
+import { useLocation } from 'react-router-dom';
 
 interface StatusBarProp {
   baseStat: Stat;
@@ -9,6 +10,8 @@ interface StatusBarProp {
 }
 
 const StatusBar = ({ baseStat, pokemonTypes }: StatusBarProp) => {
+  const location = useLocation();
+  const isMyPage = location.pathname.includes('mypage');
   const [percentages, setPercentages] = useState<Record<string, number>>({});
 
   const typeColor = pokemonTypes?.map((typeInfo) => {
@@ -26,15 +29,23 @@ const StatusBar = ({ baseStat, pokemonTypes }: StatusBarProp) => {
 
   return (
     <div
-      className={`${styles.stat__barBg}  ${typeColor && styles[typeColor[0]]}`}
+      className={
+        isMyPage
+          ? `${styles.stat__barBg__my}  ${typeColor && styles[typeColor[0]]}`
+          : `${styles.stat__barBg}  ${typeColor && styles[typeColor[0]]}`
+      }
     >
       <div
-        className={`${styles.stat__barFilled} ${
-          typeColor && styles[typeColor[0]]
-        }`}
+        className={
+          isMyPage
+            ? `${styles.stat__barFilled__my} ${
+                typeColor && styles[typeColor[0]]
+              }`
+            : `${styles.stat__barFilled} ${typeColor && styles[typeColor[0]]}`
+        }
         style={{
           width: `${percentages[baseStat.stat.name] || 0}%`,
-          borderRadius: '4px',
+          borderRadius: isMyPage ? '2px' : '4px',
         }}
       >
         <div className={styles.stat__striped}></div>

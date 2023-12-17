@@ -248,13 +248,28 @@
     flex-shrink: 0;
   }
 
+  &__barBg__my {
+    width: 100%;
+    position: relative;
+    height: 8px;
+    border-radius: 2px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+
   @each $type, $color in $type-colors {
     &__barBg.#{$type} {
       background-color: rgba($color, 0.2);
     }
+
+    &__barBg__my.#{$type} {
+      background-color: rgba($color, 0.2);
+    }
   }
 
-  &__barFilled {
+  &__barFilled,
+  &__barFilled__my {
     height: 100%;
     transition: width 0.3s;
     position: relative;
@@ -266,6 +281,12 @@
     &__barFilled.#{$type} {
       background-color: $color;
       border-radius: 4px 0px 0px 4px;
+      background: linear-gradient(90deg, $color 0%, rgba($color, 0.3) 100.35%);
+    }
+
+    &__barFilled__my.#{$type} {
+      background-color: $color;
+      border-radius: 2px 0px 0px 2px;
       background: linear-gradient(90deg, $color 0%, rgba($color, 0.3) 100.35%);
     }
   }
