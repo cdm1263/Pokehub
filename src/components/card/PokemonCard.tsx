@@ -2,8 +2,6 @@ import { TypesType, filteredPokemonData } from '@/lib/type';
 import styles from './pokemonCard.module.scss';
 import Plate from '../plate/Plate';
 import { POKEMON_TYPES } from '@/lib/constants';
-import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
 import StatusBar from '../detail/StatusBar';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { useLocation } from 'react-router-dom';
@@ -25,7 +23,8 @@ const PokemonCard = ({
   const location = useLocation();
   const isMyPage = location.pathname.includes('mypage');
 
-  const { pokemonNickName1, pokemonNickName2 } = useSelectedPokemonForCard();
+  const { pokemonName, pokemonNickName1, pokemonNickName2 } =
+    useSelectedPokemonForCard();
   if (!data || Object.keys(data).length === 0) {
     // 임시로 null처리
     // 추후 로딩 ui 등으로 처리하기
@@ -108,7 +107,7 @@ const PokemonCard = ({
                     : `${styles.text__large}`
                 }
               >
-                {data && reverseObject(POKEMON_NAME)[data.name]}
+                {pokemonName}
               </span>
             </div>
           </div>
