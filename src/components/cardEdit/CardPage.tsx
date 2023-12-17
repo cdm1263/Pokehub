@@ -47,7 +47,7 @@ const CardPage = () => {
       const count = await getCountDocument(`cards/${user.uid}/pokemonCards`);
 
       if (count > 5) {
-        console.log('문서 개수가 6개를 초과하여 추가할 수 없습니다.');
+        console.log('카드 개수가 6개를 초과하여 추가할 수 없습니다.');
         return;
       }
 
