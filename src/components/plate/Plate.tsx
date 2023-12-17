@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import styles from './Plate.module.scss';
 
 interface PlateProp {
@@ -5,9 +6,16 @@ interface PlateProp {
 }
 
 const Plate = ({ pokemonTypeProp }: PlateProp) => {
+  const location = useLocation();
+  const isMyPage = location.pathname.includes('mypage');
+
   const renderTypes = (koreanType: string) => (
     <div
-      className={`${styles.type_plate} ${styles[koreanType]}`}
+      className={
+        isMyPage
+          ? `${styles.type_plate__my} ${styles[koreanType]}`
+          : `${styles.type_plate} ${styles[koreanType]}`
+      }
       key={koreanType}
       data-type={koreanType}
     >
