@@ -24,20 +24,9 @@
     flex-direction: column;
     z-index: 1010;
     height: 591px;
-    width: 464px;
-    gap: 169px;
+    width: 428px;
     justify-content: center;
     align-items: center;
-
-    &__close {
-      display: flex;
-      width: 100%;
-      justify-content: flex-end;
-
-      div {
-        cursor: pointer;
-      }
-    }
   }
 }
 
@@ -45,4 +34,29 @@
   transform: rotate(45deg);
   flex-shrink: 0;
   color: #fff;
+}
+
+.close__btn {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  right: -12px;
+
+  div {
+    cursor: pointer;
+  }
+}
+
+.download__box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+    border: 3px solid #0f60ce;
+    border-radius: 10px;
+    background-color: inherit;
+    font-size: 24px;
+  }
 }
