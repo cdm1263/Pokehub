@@ -8,15 +8,15 @@ import Detail from './pages/detail/detail';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './query/queryClient';
 import useAuthState from './provider/authProvider';
-import useUserStore from './store/useUsersStore';
 import MyPage from './pages/mypage/myPage';
 import Card from './pages/card/card';
+import RequireAuth from './RequireAuth';
+import Redirect from './Redirect';
 
 const App = () => {
   useAuthState();
   const auth = getAuth(app);
   const [init, setInit] = useState<boolean>(false);
-  const { user } = useUserStore();
 
   useEffect(() => {
     setInit(true);
@@ -26,27 +26,31 @@ const App = () => {
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         {init ? (
-          <>
-            <Routes>
-              <Route element={<Layout />}>
-                {user ? (
-                  <>
-                    <Route path="/" element={<DEX />} />
-                    <Route path="/pokemon/:id" element={<Detail />} />
-                    <Route path="/mypage" element={<MyPage />} />
-                    <Route path="/cardEdit" element={<Card />} />
-                  </>
-                ) : (
-                  <>
-                    <Route path="/" element={<DEX />} />
-                    <Route path="/pokemon/:id" element={<Detail />} />
-                  </>
-                )}
-              </Route>
-            </Routes>
-          </>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<DEX />} />
+              <Route path="/pokemon/:id" element={<Detail />} />
+              <Route
+                path="/mypage"
+                element={
+                  <RequireAuth>
+                    <MyPage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/cardEdit"
+                element={
+                  <RequireAuth>
+                    <Card />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="*" element={<Redirect />} />
+          </Routes>
         ) : (
-          <>로딩 중</>
+          <>로딩 중...</>
         )}
       </QueryClientProvider>
     </BrowserRouter>
