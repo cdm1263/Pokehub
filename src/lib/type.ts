@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface PokemonInfoProps {
   pokemonState: PokemonState;
   onFormChange?: (formName: string) => void;
@@ -100,4 +102,8 @@ export interface filteredPokemonData {
   stats: Stat[];
   sprites: string | undefined;
   name: string;
+}
+
+export interface childrenProps {
+  children: ReactNode;
 }
