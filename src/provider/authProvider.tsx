@@ -6,17 +6,21 @@ import useUserStore from '@/store/useUsersStore';
 
 const useAuthState = () => {
   const auth = getAuth(app);
-  const setUser = useUserStore((state) => state.setUser);
+  const { setUser, setLoading } = useUserStore();
 
   useEffect(() => {
+    setLoading(true);
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
-  }, [auth, setUser]);
+  }, [auth, setUser, setLoading]);
+
+  return null;
 };
 
 export default useAuthState;
