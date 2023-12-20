@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './Detail.module.scss';
-import { FaRegHeart } from 'react-icons/fa';
-import { FaHeart } from 'react-icons/fa';
+import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
+import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
 import useUserStore from '@/store/useUsersStore';
 import { getDocument, setDocument } from '@/lib/firebaseQuery';
 

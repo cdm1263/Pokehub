@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Mypage.module.scss';
-import { LuPlus } from 'react-icons/lu';
+import { FiPlus } from '@react-icons/all-files/fi/FiPlus';
 import { Modalportal } from '@/portal';
 import { useEffect, useState } from 'react';
 import CardModal from '../modal/CardModal';
@@ -92,7 +92,7 @@ const Mycard = () => {
     } else {
       cardLayout.push(
         <div className={styles.mycard__layout} key={i}>
-          <LuPlus size={30} />
+          <FiPlus size={30} />
         </div>,
       );
     }
