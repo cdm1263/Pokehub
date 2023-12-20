@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { getAuth } from '@firebase/auth';
 import { app } from '@/firebase';
-import DEX from '@/pages/dex/Dex';
 import Layout from '@/components/Layout';
-import Detail from './pages/detail/detail';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './query/queryClient';
 import useAuthState from './provider/authProvider';
-import MyPage from './pages/mypage/myPage';
-import Card from './pages/card/card';
 import RequireAuth from './RequireAuth';
 import Redirect from './Redirect';
 import CommunityPage from './pages/community/CommunityPage';
 import DetailPage from './pages/community/DetailPage';
 import PostAddPage from './pages/community/PostAddPage';
 import PostEditPage from './pages/community/PostEditPage';
+
+const DEX = lazy(() => import('@/pages/dex/Dex'));
+const Detail = lazy(() => import('./pages/detail/detail'));
+const MyPage = lazy(() => import('./pages/mypage/myPage'));
+const Card = lazy(() => import('./pages/card/card'));
 
 const App = () => {
   useAuthState();
@@ -34,12 +35,40 @@ const App = () => {
             <Route element={<Layout />}>
               <Route path="/" element={<DEX />} />
               <Route path="/pokemon/:id" element={<Detail />} />
-              <Route path="/mypage" element={<RequireAuth><MyPage /></RequireAuth>}/>
-              <Route path="/cardEdit" element={<RequireAuth><Card /></RequireAuth>}/>
+              <Route
+                path="/mypage"
+                element={
+                  <RequireAuth>
+                    <MyPage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/cardEdit"
+                element={
+                  <RequireAuth>
+                    <Card />
+                  </RequireAuth>
+                }
+              />
               <Route path="/community" element={<CommunityPage />} />
               <Route path="/community/detail/:id" element={<DetailPage />} />
-              <Route path="/community/add" element={<RequireAuth><PostAddPage /></RequireAuth>} />
-              <Route path="/community/edit" element={<RequireAuth><PostEditPage /></RequireAuth>} />
+              <Route
+                path="/community/add"
+                element={
+                  <RequireAuth>
+                    <PostAddPage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/community/edit"
+                element={
+                  <RequireAuth>
+                    <PostEditPage />
+                  </RequireAuth>
+                }
+              />
             </Route>
             <Route path="*" element={<Redirect />} />
           </Routes>
