@@ -12,6 +12,10 @@ import MyPage from './pages/mypage/myPage';
 import Card from './pages/card/card';
 import RequireAuth from './RequireAuth';
 import Redirect from './Redirect';
+import CommunityPage from './pages/community/CommunityPage';
+import DetailPage from './pages/community/DetailPage';
+import PostAddPage from './pages/community/PostAddPage';
+import PostEditPage from './pages/community/PostEditPage';
 
 const App = () => {
   useAuthState();
@@ -30,22 +34,12 @@ const App = () => {
             <Route element={<Layout />}>
               <Route path="/" element={<DEX />} />
               <Route path="/pokemon/:id" element={<Detail />} />
-              <Route
-                path="/mypage"
-                element={
-                  <RequireAuth>
-                    <MyPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/cardEdit"
-                element={
-                  <RequireAuth>
-                    <Card />
-                  </RequireAuth>
-                }
-              />
+              <Route path="/mypage" element={<RequireAuth><MyPage /></RequireAuth>}/>
+              <Route path="/cardEdit" element={<RequireAuth><Card /></RequireAuth>}/>
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/community/detail/:id" element={<DetailPage />} />
+              <Route path="/community/add" element={<RequireAuth><PostAddPage /></RequireAuth>} />
+              <Route path="/community/edit" element={<RequireAuth><PostEditPage /></RequireAuth>} />
             </Route>
             <Route path="*" element={<Redirect />} />
           </Routes>
