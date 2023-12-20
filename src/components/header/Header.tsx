@@ -60,7 +60,7 @@ const Header = () => {
                     카드 제작
                   </div>
                 </Link>
-                <Link to={`/pokemon/${1}`}>
+                <Link to={`community`}>
                   <div className={styles.nav__item}>
                     <RiUserVoiceFill size={31} />
                     커뮤니티
