@@ -13,7 +13,7 @@ import Card from './pages/card/card';
 import RequireAuth from './RequireAuth';
 import Redirect from './Redirect';
 import CommunityPage from './pages/community/CommunityPage';
-import DetailPage from './pages/detail/detail';
+import DetailPage from './pages/community/DetailPage';
 import PostAddPage from './pages/community/PostAddPage';
 import PostEditPage from './pages/community/PostEditPage';
 
