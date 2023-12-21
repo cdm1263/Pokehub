@@ -1,7 +1,6 @@
 'use client';
 
 import { Input, Select } from 'antd';
-// import { ButtonLg } from '../button/Button';
 import { Editor } from '@toast-ui/react-editor';
 import useUserStore from '@/store/useUsersStore';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -107,10 +106,9 @@ const CommunityTextEditor = () => {
           useCommandShortcut={true}
         />
         <div className={styles.textEditerSubmitButton}>
-          {/* <input onClick={getContent}>
-          <ButtonLg data={'전송/콘솔 확인'} />
-        </input> */}
-          <input type="submit" />
+          <button className={styles.ButtonLgStyle} type="submit">
+            저장
+          </button>
         </div>
       </form>
     </div>
