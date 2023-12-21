@@ -1,14 +1,14 @@
-import CommunityTextEditor from '@/components/community/CommunityTextEditor';
 import CommunityLayout from './CommunityLayout';
 import CommunityTitle from '@/components/community/CommunityTitle';
 import CommunityDetailLayout from '@/components/community/CommunityDetailLayout';
+import CommunityEditTextEditor from '@/components/community/CommunityEditTextEditor';
 
 const PostEditPage = () => {
   return (
     <CommunityLayout>
       <CommunityTitle title={'글 수정'} />
       <CommunityDetailLayout>
-        <CommunityTextEditor />
+        <CommunityEditTextEditor />
       </CommunityDetailLayout>
     </CommunityLayout>
   );
