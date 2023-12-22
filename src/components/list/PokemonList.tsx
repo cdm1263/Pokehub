@@ -6,7 +6,7 @@ import useVisibleDataByScroll from '@/hook/useVisibleDataByScroll';
 
 const PokemonList = () => {
   const filteredData = useFilteredPokemonData();
-  const { visibleData } = useVisibleDataByScroll(filteredData);
+  const visibleData = useVisibleDataByScroll(filteredData);
 
   return (
     <Inner>

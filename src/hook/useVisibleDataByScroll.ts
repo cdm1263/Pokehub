@@ -24,7 +24,7 @@ const useVisibleDataByScroll = (filteredData: PokemonType[]) => {
     };
   }, []);
 
-  return { visibleData };
+  return visibleData;
 };
 
 export default useVisibleDataByScroll;
