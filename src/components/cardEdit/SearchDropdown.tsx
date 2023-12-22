@@ -6,66 +6,70 @@ import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/utill/reverseObject';
 import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
 
-interface SearchDropdownProp {
+interface SearchDropdownProps {
   searchResults: (PokemonType | undefined)[] | null;
   setIsOpen: (arg: boolean) => void;
 }
 
-const SearchDropdown = ({ searchResults, setIsOpen }: SearchDropdownProp) => {
+const SearchDropdown = ({ searchResults, setIsOpen }: SearchDropdownProps) => {
   const { setPokemonData } = useSelectedPokemonForCard();
   const [currentPage, setCurrentPage] = useState(1);
-  let totalPages = 0;
-  let currentPagePokemons = null;
+  const POKEMONS_PER_PAGE = 12;
 
   const selectPokemon = (pokemon: PokemonType | null) => {
     setPokemonData(pokemon);
     setIsOpen(false);
   };
 
-  if (searchResults) {
-    totalPages = Math.ceil(searchResults?.length / 12);
-  }
+  const totalPages = Math.ceil(
+    (searchResults?.length ?? 0) / POKEMONS_PER_PAGE,
+  );
+
+  const getVisiblePokemons = () => {
+    if (!searchResults) return null;
+
+    return searchResults.length > POKEMONS_PER_PAGE
+      ? searchResults.slice(
+          (currentPage - 1) * POKEMONS_PER_PAGE,
+          currentPage * POKEMONS_PER_PAGE,
+        )
+      : searchResults;
+  };
 
   const renderPaginationNumbers = () => {
-    const pages = [];
     const startPage = Math.max(1, currentPage - 1);
     const endPage = Math.min(totalPages, startPage + 2);
 
-    for (let i = startPage; i <= endPage; i += 1) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => setCurrentPage(i)}
-          className={`${styles.pagination_button} ${
-            currentPage === i ? styles.button__action : ''
-          }`}
-        >
-          {i}
-        </button>,
-      );
-    }
+    const renderButton = (pageNumber: number) => (
+      <button
+        key={pageNumber}
+        onClick={() => setCurrentPage(pageNumber)}
+        className={`${styles.pagination_button} ${
+          currentPage === pageNumber ? styles.button__action : ''
+        }`}
+      >
+        {pageNumber}
+      </button>
+    );
 
-    return pages;
+    return Array.from({ length: endPage - startPage + 1 }, (_, index) =>
+      renderButton(startPage + index),
+    );
   };
 
   const onPrevArrow = () => {
     if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+      setCurrentPage(currentPage - 1);
     }
   };
 
   const onNextArrow = () => {
     if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage(currentPage + 1);
     }
   };
 
-  if (searchResults) {
-    currentPagePokemons =
-      searchResults?.length > 12
-        ? searchResults?.slice((currentPage - 1) * 12, currentPage * 12)
-        : searchResults;
-  }
+  const currentPagePokemons = getVisiblePokemons();
 
   return (
     <div className={styles.dropdown_wrapper}>
