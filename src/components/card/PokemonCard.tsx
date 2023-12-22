@@ -45,7 +45,7 @@ const PokemonCard = ({
     const columnIndex = [0, 1, 2];
 
     return columnIndex.map((index) => (
-      <div>
+      <div key={index}>
         <div className={statusClassName}>
           <span>{POKEMON_STATS[index]}</span>
           {data ? (
