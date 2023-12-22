@@ -3,46 +3,45 @@ import styles from './cards.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/utill/reverseObject';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
+import { useCallback } from 'react';
 
-interface CardsRowLayout {
+interface CardsRowLayoutProps {
   pokemonArray: PokemonType[];
 }
 
-const CardsRowLayout = ({ pokemonArray }: CardsRowLayout) => {
+const CardsRowLayout = ({ pokemonArray }: CardsRowLayoutProps) => {
   const { setPokemonData } = useSelectedPokemonForCard();
+
+  const handlePokemonSelection = useCallback(
+    (pokemon: PokemonType) => {
+      setPokemonData(pokemon);
+    },
+    [setPokemonData],
+  );
 
   return (
     <div className={styles.cards__row_cards}>
       {pokemonArray.map((pokemonData) =>
         pokemonData ? (
-          <div
-            key={pokemonData?.id}
-            className={styles.cards__row_cards__column}
-          >
+          <div key={pokemonData.id} className={styles.cards__row_cards__column}>
             <div className={styles.cards__row_cards__card}>
               <img
                 src={
-                  pokemonData?.sprites?.other?.['official-artwork']
+                  pokemonData.sprites?.other?.['official-artwork']
                     ?.front_default
                 }
                 alt="포켓몬 이미지"
               />
             </div>
-            <span>
-              <span>{reverseObject(POKEMON_NAME)[pokemonData.name]}</span>
-            </span>
+            <span>{reverseObject(POKEMON_NAME)[pokemonData.name]}</span>
             <button
               className={styles.border_button}
-              onClick={() => {
-                setPokemonData(pokemonData);
-              }}
+              onClick={() => handlePokemonSelection(pokemonData)}
             >
               포켓몬 사용
             </button>
           </div>
-        ) : (
-          ''
-        ),
+        ) : null,
       )}
     </div>
   );
