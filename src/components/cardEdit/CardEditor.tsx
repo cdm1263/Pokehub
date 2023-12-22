@@ -1,13 +1,14 @@
 import {
   POKEMON_NICKNAME1,
   POKEMON_NICKNAME2,
+  POKEMON_STATS,
   POKEMON_TYPES,
 } from '@/lib/constants';
 import styles from './cards.module.scss';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import StatusBar from '../detail/StatusBar';
 import Plate from '../plate/Plate';
-import { TypesType } from '@/lib/type';
+import { Stat, TypesType } from '@/lib/type';
 import { useEffect } from 'react';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/utill/reverseObject';
@@ -35,6 +36,22 @@ const CardEditor = () => {
       ? setPokemonNickName1(randomNickName)
       : setPokemonNickName2(randomNickName);
   };
+
+  const renderStatusBar = (baseStat: Stat, index: number, statName: string) => (
+    <li key={index}>
+      <span>{statName}</span>
+      {pokemonData ? (
+        <StatusBar baseStat={baseStat} pokemonTypes={pokemonData?.types} />
+      ) : null}
+    </li>
+  );
+
+  const renderPlate = (pokemonType: TypesType) => (
+    <Plate
+      key={pokemonType.type.name}
+      pokemonTypeProp={POKEMON_TYPES[pokemonType.type.name]}
+    />
+  );
 
   return (
     <div className={styles.editor_wrapper}>
@@ -74,7 +91,7 @@ const CardEditor = () => {
             <input
               className={styles.name_input}
               type="text"
-              value={pokemonName || undefined}
+              value={pokemonName || ''}
               onChange={(event) => {
                 setPokemonName(event.target.value);
               }}
@@ -85,70 +102,13 @@ const CardEditor = () => {
       <div className={styles.editor_wrapper__bottom}>
         <div className={styles.status_title}>
           <span className={styles.title}>스테이터스</span>
-          <div>
-            {pokemonData?.types.map((pokemonType: TypesType) => (
-              <Plate
-                key={pokemonType.type.name}
-                pokemonTypeProp={POKEMON_TYPES[pokemonType.type.name]}
-              />
-            ))}
-          </div>
+          <div>{pokemonData?.types.map(renderPlate)}</div>
         </div>
         <ul className={styles.status_bar_container}>
-          <li>
-            <span>체력</span>
-            {pokemonData ? (
-              <StatusBar
-                baseStat={pokemonData?.stats[0]}
-                pokemonTypes={pokemonData?.types}
-              />
-            ) : null}
-          </li>
-          <li>
-            <span>공격</span>
-            {pokemonData ? (
-              <StatusBar
-                baseStat={pokemonData?.stats[1]}
-                pokemonTypes={pokemonData?.types}
-              />
-            ) : null}
-          </li>
-          <li>
-            <span>방어</span>
-            {pokemonData ? (
-              <StatusBar
-                baseStat={pokemonData?.stats[2]}
-                pokemonTypes={pokemonData?.types}
-              />
-            ) : null}
-          </li>
-          <li>
-            <span>특수공격</span>
-            {pokemonData ? (
-              <StatusBar
-                baseStat={pokemonData?.stats[3]}
-                pokemonTypes={pokemonData?.types}
-              />
-            ) : null}
-          </li>
-          <li>
-            <span>특수방어</span>
-            {pokemonData ? (
-              <StatusBar
-                baseStat={pokemonData?.stats[4]}
-                pokemonTypes={pokemonData?.types}
-              />
-            ) : null}
-          </li>
-          <li>
-            <span>스피드</span>
-            {pokemonData ? (
-              <StatusBar
-                baseStat={pokemonData?.stats[5]}
-                pokemonTypes={pokemonData?.types}
-              />
-            ) : null}
-          </li>
+          {pokemonData &&
+            pokemonData.stats.map((stat, index) =>
+              renderStatusBar(stat, index, POKEMON_STATS[index]),
+            )}
         </ul>
       </div>
     </div>
