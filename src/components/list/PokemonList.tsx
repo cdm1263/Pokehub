@@ -8,7 +8,7 @@ import PokemonListElement from './PokemonListElement';
 import Inner from '../Inner';
 import useSearchInputText from '@/store/useSearchInputText';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 
 const PokemonList = () => {
   const { data: allPokemonData } = useGetAllPokemon(1017);

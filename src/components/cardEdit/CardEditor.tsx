@@ -11,7 +11,7 @@ import Plate from '../plate/Plate';
 import { Stat, TypesType } from '@/lib/type';
 import { useEffect } from 'react';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 
 const CardEditor = () => {
   const {

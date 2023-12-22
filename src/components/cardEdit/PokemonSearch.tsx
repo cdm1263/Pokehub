@@ -1,7 +1,7 @@
 import { FormEvent, useState, useMemo } from 'react';
 import styles from './cards.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { POKEMON_TYPES } from '@/lib/constants';
 import { useGetAllPokemon } from '@/query/qeuries';
 import { IoSearch } from 'react-icons/io5';

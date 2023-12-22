@@ -1,7 +1,7 @@
 import { PokemonType } from '@/lib/type';
 import styles from './cards.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { useCallback } from 'react';
 

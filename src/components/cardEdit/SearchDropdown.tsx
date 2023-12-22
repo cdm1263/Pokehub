@@ -3,7 +3,7 @@ import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { PokemonType } from '@/lib/type';
 import { useState } from 'react';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
 
 interface SearchDropdownProps {

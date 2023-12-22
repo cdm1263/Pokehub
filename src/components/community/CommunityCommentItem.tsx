@@ -6,7 +6,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { addReplies, deleteCommunity } from '@/lib/firebaseQueryCommunity';
 import useCommunityDataList from '@/hook/useCommunityDataList';
 import CommunityCommentItemReply from './CommunityCommentItemReply';
-import { ConvertTimes } from '@/lib/utill/convertTime';
+import { ConvertTimes } from '@/lib/util/convertTime';
 // import CommunityCommentItemReply from './CommunityCommentItemReply';
 
 interface CommunityData {

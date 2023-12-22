@@ -1,5 +1,5 @@
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { memo } from 'react';
 import styles from './Mypage.module.scss';
 import { LuPlus } from 'react-icons/lu';

@@ -1,4 +1,4 @@
-import { ConvertTimes } from '@/lib/utill/convertTime';
+import { ConvertTimes } from '@/lib/util/convertTime';
 import styles from './CommunityCommentItemReply.module.scss';
 import useUserStore from '@/store/useUsersStore';
 
@@ -24,7 +24,7 @@ const CommunityCommentItemReply = ({ data }: any) => {
               <ConvertTimes data={value.createdAt} />
             </div>
             {value.id && user?.uid ? (
-              <div style={{display : "flex", gap: "6px"}}>
+              <div style={{ display: 'flex', gap: '6px' }}>
                 <div>수정</div>
                 <div>삭제</div>
               </div>
