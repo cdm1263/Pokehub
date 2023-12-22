@@ -30,6 +30,15 @@ export const STAT_NAME: KeyValueType = {
   speed: '스피드',
 };
 
+export const POKEMON_STATS = [
+  '체력',
+  '공격',
+  '방어',
+  '특수공격',
+  '특수방어',
+  '스피드',
+];
+
 export const POKEMON_NICKNAME1 = ['별명1', '별명2', '별명3', '별명4'];
 
 export const POKEMON_NICKNAME2 = ['별칭1', '별칭2', '별칭3', '별칭4'];
