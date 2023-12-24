@@ -9,12 +9,18 @@
 
 .type_outer_container {
   width: 100vw;
+  height: 100%;
   border-bottom: 4px solid #000;
 }
 
 .type_plate {
   display: flex;
   gap: 10px;
+}
+
+.type_image {
+  width: 100%;
+  height: 100%;
 }
 
 .type_plate__my {

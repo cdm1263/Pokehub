@@ -4,22 +4,35 @@ import { Input, Select } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
 import useUserStore from '@/store/useUsersStore';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import styles from './CommunityTextEditor.module.scss';
-import { addCommunity } from '@/lib/firebaseQueryCommunity';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { editCommunity } from '@/lib/firebaseQueryCommunity';
 
-const CommunityTextEditor = () => {
+const CommunityEditTextEditor = () => {
+  const location = useLocation();
   const { user } = useUserStore();
-  const [title, setTitle] = useState('제목을 작성해주세요.');
+  const { data, id } = location.state || {};
+  const [title, setTitle] = useState(data.title);
   const editorRef = useRef<Editor | null>(null);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState('자유게시판');
   const navigate = useNavigate();
 
+  console.log('데이터',data)
+  console.log('아이디',id)
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data.title);
+    }
+  }, [data]);
+  
+
   const handleChange = (value: string) => {
     setCategory(value);
-    console.log(`카테고리 ${value}`);
+    console.log(`카테고리 ${category}`);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,20 +56,13 @@ const CommunityTextEditor = () => {
       if (editorRef.current) {
         content = await editorRef.current.getInstance().getMarkdown();
       }
-      await addCommunity(`community/`, {
-        likes: 10,
-        views: 80,
-        description: content,
+      await editCommunity(`community/${id.id}`, {
         title: title,
-        userId: user?.uid,
-        category: category,
+        description: content,
         postImg: 'community_img.png',
-        userName: user?.displayName,
-        createdAt: new Date().toISOString(),
-        userImg: '회원 가입시 유저이미지를 파이어스토어에 등록한다.',
+        updateAt: new Date().toISOString(),
       });
       setTitle('');
-      setCategory('');
     } catch (error) {
       console.error(error);
     } finally {
@@ -76,6 +82,7 @@ const CommunityTextEditor = () => {
               defaultValue="자유게시판"
               style={{ width: 130 }}
               onChange={handleChange}
+              disabled
               options={[
                 { value: '공지사항', label: '공지사항' },
                 { value: '자유게시판', label: '자유게시판' },
@@ -91,14 +98,14 @@ const CommunityTextEditor = () => {
             <Input
               count={{ show: true, max: 50 }}
               style={{ minWidth: '1000px', display: 'flex' }}
-              defaultValue="제목을 작성해주세요."
+              defaultValue={title}
               onChange={handleChangeTitle}
             />
           </div>
         </div>
         <Editor
           ref={editorRef}
-          initialValue="글을 작성해주세요."
+          initialValue={data.description}
           placeholder="글을 작성해주세요."
           previewStyle="vertical"
           height="40rem"
@@ -107,7 +114,7 @@ const CommunityTextEditor = () => {
         />
         <div className={styles.textEditerSubmitButton}>
           <button className={styles.ButtonLgStyle} type="submit">
-            저장
+            수정
           </button>
         </div>
       </form>
@@ -115,4 +122,4 @@ const CommunityTextEditor = () => {
   );
 };
 
-export default CommunityTextEditor;
+export default CommunityEditTextEditor;

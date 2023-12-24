@@ -2,7 +2,7 @@ import styles from './CommunityCardItem.module.scss';
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye';
 import { IoIosHeart } from '@react-icons/all-files/io/IoIosHeart';
 import { useNavigate } from 'react-router-dom';
-import { ConvertTime } from '@/lib/utill/convertTime';
+import { ConvertTime } from '@/lib/util/convertTime';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CommunityCardItem = ({ data }: any) => {

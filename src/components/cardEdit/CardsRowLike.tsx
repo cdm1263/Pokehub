@@ -3,29 +3,32 @@ import styles from './cards.module.scss';
 import { IoChevronForward } from '@react-icons/all-files/io5/IoChevronForward';
 import { IoChevronBack } from '@react-icons/all-files/io5/IoChevronBack';
 import useLikedStore from '@/store/useLikedStore';
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
 const CardsRowLike = () => {
   const { pokemonData } = useLikedStore();
   const [index, setIndex] = useState(0);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setIndex((prevIndex) =>
       prevIndex === 0 ? pokemonData.length - 1 : prevIndex - 1,
     );
-  };
+  }, [pokemonData.length]);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setIndex((prevIndex) =>
       prevIndex === pokemonData.length - 1 ? 0 : prevIndex + 1,
     );
-  };
+  }, [pokemonData.length]);
 
-  const likePokemonArray = [
-    pokemonData[index],
-    pokemonData[(index + 1) % pokemonData.length],
-    pokemonData[(index + 2) % pokemonData.length],
-  ];
+  const likePokemonArray = useMemo(
+    () => [
+      pokemonData[index],
+      pokemonData[(index + 1) % pokemonData.length],
+      pokemonData[(index + 2) % pokemonData.length],
+    ],
+    [pokemonData, index],
+  );
 
   return (
     <div className={styles.pokemon_select_wrapper}>
