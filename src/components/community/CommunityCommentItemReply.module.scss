@@ -22,6 +22,7 @@
   padding: 24px;
   font-size: 14px;
   border-radius: 4px;
+  margin-bottom: 10px;
   border: 1px solid #e1e1e1;
 }
 
@@ -29,20 +30,13 @@
   width: 100%;
   display: flex;
   font-size: 12px;
-  margin: 20px 0 8px 0;
+  margin-bottom: 8px;
   justify-content: space-between;
 }
 
 .userBox {
   display: flex;
   margin-right: 2px;
-  align-items: center;
-}
-
-.userEditBox {
-  gap: 8px;
-  display: flex;
-  margin-right: 5px;
   align-items: center;
 }
 

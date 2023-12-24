@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './PokemonList.module.scss';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { POKEMON_TYPES } from '@/lib/constants';
 import Plate from '../plate/Plate';
@@ -22,6 +22,7 @@ const PokemonListElement = ({ data }: PokemonListElementProp) => {
       className={styles.padding_bottom_35px}
     >
       <img
+        loading="lazy"
         className={styles.pokemon_image}
         src={data.sprites?.other?.['official-artwork']?.front_default}
         alt="포켓몬 이미지"

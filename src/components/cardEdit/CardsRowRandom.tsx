@@ -11,24 +11,22 @@ const CardsRowRandom = () => {
   );
 
   const getRandomPokemon = useCallback(() => {
-    const tempArray: PokemonType[] = [];
+    if (data && data.length > 0) {
+      const tempArray: PokemonType[] = [];
+      const maxIndex = data.length;
 
-    for (let i = 0; i < 3; ) {
-      const randomIndex = Math.floor(Math.random() * 1016);
-      const randomPokemon = data?.[randomIndex];
-      if (randomPokemon) {
+      for (let i = 0; i < 3; i++) {
+        const randomIndex = Math.floor(Math.random() * maxIndex);
+        const randomPokemon = data[randomIndex];
         tempArray.push(randomPokemon);
-        i += 1;
       }
+      setRandomPokemonArray(tempArray);
     }
-    setRandomPokemonArray(tempArray);
   }, [data]);
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      getRandomPokemon();
-    }
-  }, [data, getRandomPokemon]);
+    getRandomPokemon();
+  }, [getRandomPokemon]);
 
   return (
     <div className={styles.pokemon_select_wrapper}>

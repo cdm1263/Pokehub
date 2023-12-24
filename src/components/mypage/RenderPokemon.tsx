@@ -1,8 +1,8 @@
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { memo } from 'react';
 import styles from './Mypage.module.scss';
-import { LuPlus } from 'react-icons/lu';
+import { FiPlus } from '@react-icons/all-files/fi/FiPlus';
 import { PokemonType } from '@/lib/type';
 
 interface RenderPokemonProps {
@@ -20,7 +20,7 @@ const RenderPokemon = memo(
             className={styles.myactive__liked__cancel}
             onClick={() => onCancelLiked(pokemon.id)}
           >
-            <LuPlus size={14} />
+            <FiPlus size={14} />
           </button>
           <img
             src={pokemon.sprites.other?.['official-artwork'].front_default}

@@ -234,7 +234,6 @@
 
 .stat {
   &__label {
-    margin-top: 10px;
     font-weight: bold;
   }
 
@@ -279,8 +278,6 @@
 
   @each $type, $color in $type-colors {
     &__barFilled.#{$type} {
-      background-color: $color;
-      border-radius: 4px 0px 0px 4px;
       background: linear-gradient(90deg, $color 0%, rgba($color, 0.3) 100.35%);
     }
 
@@ -290,27 +287,6 @@
       background: linear-gradient(90deg, $color 0%, rgba($color, 0.3) 100.35%);
     }
   }
-
-  /* 
-  &__striped {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent
-    );
-    background-size: 1rem 1rem;
-    animation: progress-bar-stripes 1s linear infinite;
-  } */
 
   &__value {
     position: absolute;

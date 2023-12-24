@@ -20,6 +20,7 @@ const Plate = ({ pokemonTypeProp }: PlateProp) => {
       data-type={koreanType}
     >
       <img
+        className={styles.type_image}
         loading="lazy"
         src={`/src/assets/icons/${koreanType}_on.svg`}
         alt={`${koreanType}타입 아이콘`}

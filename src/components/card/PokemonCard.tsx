@@ -1,9 +1,7 @@
 import { TypesType, filteredPokemonData } from '@/lib/type';
 import styles from './pokemonCard.module.scss';
 import Plate from '../plate/Plate';
-import { POKEMON_TYPES } from '@/lib/constants';
-import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { POKEMON_STATS, POKEMON_TYPES } from '@/lib/constants';
 import StatusBar from '../detail/StatusBar';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { useLocation } from 'react-router-dom';
@@ -24,8 +22,9 @@ const PokemonCard = ({
 }: PokemonCardProp) => {
   const location = useLocation();
   const isMyPage = location.pathname.includes('mypage');
+  const { pokemonName, pokemonNickName1, pokemonNickName2 } =
+    useSelectedPokemonForCard();
 
-  const { pokemonNickName1, pokemonNickName2 } = useSelectedPokemonForCard();
   if (!data || Object.keys(data).length === 0) {
     // 임시로 null처리
     // 추후 로딩 ui 등으로 처리하기
@@ -33,13 +32,40 @@ const PokemonCard = ({
   }
 
   const firstType = data?.types?.[0].type.name;
+
   const setClassName = (mainClassName: string) => {
     const typeClass = firstType ? styles[POKEMON_TYPES[firstType]] : '';
-    if (isMyPage) {
-      return `${styles[`${mainClassName}__my`]} ${typeClass}`;
-    } else {
-      return `${styles[mainClassName]} ${typeClass}`;
-    }
+    return isMyPage
+      ? `${styles[`${mainClassName}__my`]} ${typeClass}`
+      : `${styles[mainClassName]} ${typeClass}`;
+  };
+
+  const renderStatus = () => {
+    const statusClassName = isMyPage ? styles.status__my : styles.status;
+    const columnIndex = [0, 1, 2];
+
+    return columnIndex.map((index) => (
+      <div key={index}>
+        <div className={statusClassName}>
+          <span>{POKEMON_STATS[index]}</span>
+          {data ? (
+            <StatusBar
+              baseStat={data?.stats[index]}
+              pokemonTypes={data?.types}
+            />
+          ) : null}
+        </div>
+        <div className={statusClassName}>
+          <span>{POKEMON_STATS[index + 3]}</span>
+          {data ? (
+            <StatusBar
+              baseStat={data?.stats[index + 3]}
+              pokemonTypes={data?.types}
+            />
+          ) : null}
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -108,7 +134,7 @@ const PokemonCard = ({
                     : `${styles.text__large}`
                 }
               >
-                {data && reverseObject(POKEMON_NAME)[data.name]}
+                {pokemonName}
               </span>
             </div>
           </div>
@@ -119,90 +145,7 @@ const PokemonCard = ({
                 : `${styles.container__bottom}`
             }
           >
-            <div>
-              <div
-                className={
-                  isMyPage ? `${styles.status__my}` : `${styles.status}`
-                }
-              >
-                <span>체력</span>
-                {data ? (
-                  <StatusBar
-                    baseStat={data?.stats[0]}
-                    pokemonTypes={data?.types}
-                  />
-                ) : null}
-              </div>
-              <div
-                className={
-                  isMyPage ? `${styles.status__my}` : `${styles.status}`
-                }
-              >
-                <span>특수공격</span>
-                {data ? (
-                  <StatusBar
-                    baseStat={data?.stats[3]}
-                    pokemonTypes={data?.types}
-                  />
-                ) : null}
-              </div>
-            </div>
-            <div>
-              <div
-                className={
-                  isMyPage ? `${styles.status__my}` : `${styles.status}`
-                }
-              >
-                <span>공격</span>
-                {data ? (
-                  <StatusBar
-                    baseStat={data?.stats[1]}
-                    pokemonTypes={data?.types}
-                  />
-                ) : null}
-              </div>
-              <div
-                className={
-                  isMyPage ? `${styles.status__my}` : `${styles.status}`
-                }
-              >
-                <span>특수방어</span>
-                {data ? (
-                  <StatusBar
-                    baseStat={data?.stats[4]}
-                    pokemonTypes={data?.types}
-                  />
-                ) : null}
-              </div>
-            </div>
-            <div>
-              <div
-                className={
-                  isMyPage ? `${styles.status__my}` : `${styles.status}`
-                }
-              >
-                <span>방어</span>
-                {data ? (
-                  <StatusBar
-                    baseStat={data?.stats[2]}
-                    pokemonTypes={data?.types}
-                  />
-                ) : null}
-              </div>
-              <div
-                className={
-                  isMyPage ? `${styles.status__my}` : `${styles.status}`
-                }
-              >
-                <span>스피드</span>
-                {data ? (
-                  <StatusBar
-                    baseStat={data?.stats[5]}
-                    pokemonTypes={data?.types}
-                  />
-                ) : null}
-              </div>
-            </div>
+            {renderStatus()}
             <div>
               <img
                 className={isMyPage ? `${styles.logo__my}` : `${styles.logo}`}

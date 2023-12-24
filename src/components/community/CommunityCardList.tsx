@@ -6,16 +6,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Pagination } from 'antd';
 import useCommunityDataList from '@/hook/useCommunityDataList';
 import useUserStore from '@/store/useUsersStore';
+import Search from 'antd/es/input/Search';
 
 interface CommunityData {
   id: string;
   category: string;
+  title: string;
 }
 
 const CommunityCardList = () => {
   const itemsPerPage = 8;
-  const [currentPage, setCurrentPage] = useState(1);
   const [currentTab, setCurrentTab] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
   const [communityList, setCommunityList] = useState<CommunityData[]>([]);
   const [filteredItems, setFilteredItems] = useState<CommunityData[]>([]);
   const { user } = useUserStore();
@@ -61,6 +64,16 @@ const CommunityCardList = () => {
     navigate('/community'); // Navigate back to /community
   };
 
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+    console.log('확인',communityList)
+    const filteredData = communityList.filter(
+      (item) => item.category === CategoryList[currentTab] && item.title.includes(value)
+    );
+    setFilteredItems(filteredData);
+    setCurrentPage(1);
+  };
+
   return (
     <div>
       <div className={styles.CommunityHeader}>
@@ -86,7 +99,17 @@ const CommunityCardList = () => {
         ))}
       </div>
       <div className={styles.searchWritingBox}>
-        <Button data={'검색'} />
+        <div>
+          <Search
+            placeholder="글 제목으로 검색해주세요."
+            allowClear
+            height={34}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onSearch={handleSearch}
+            style={{ width: 304 }}
+          />
+        </div>
         {!user?.uid ? (
           <div onClick={() => handleLoginAlert()}>
             <Button data={'글쓰기'} />

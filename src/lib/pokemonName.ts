@@ -777,7 +777,7 @@ export const POKEMON_NAME: KeyValueType = {
   자말라: 'komala',
   폭거북스: 'turtonator',
   토게데마루: 'togedemaru',
-  따라큐: 'mimikyu',
+  따라큐: 'mimikyu-disguised',
   치갈기: 'bruxish',
   할비롱: 'drampa',
   타타륜: 'dhelmise',

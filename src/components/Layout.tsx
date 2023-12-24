@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 const Layout = () => {
   const location = useLocation();
@@ -12,7 +12,9 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <Outlet />
+      <Suspense fallback={'로딩 중~~~'}>
+        <Outlet />
+      </Suspense>
       <Footer />
     </>
   );

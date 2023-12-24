@@ -1,7 +1,10 @@
 .container {
     width: 100%;
     height: auto;
-    display: flex;
+    display: grid;
+    justify-items: center;
+    column-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     flex-wrap: wrap;
     margin-top: 30px;
     justify-content: space-between;

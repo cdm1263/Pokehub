@@ -4,18 +4,28 @@ import { FormEvent, useEffect, useState } from 'react';
 import styles from './CommunityComment.module.scss';
 import CommunityCommentItem from './CommunityCommentItem';
 import useUserStore from '@/store/useUsersStore';
-import { addComment, deleteCommunity } from '@/lib/firebaseQueryCommunity';
+import {
+  addComment,
+  deleteCommunity,
+  editCommunity,
+} from '@/lib/firebaseQueryCommunity';
 import useCommunityDataList from '@/hook/useCommunityDataList';
+import { ConvertTimes } from '@/lib/utill/convertTime';
 
 interface CommunityData {
+  userName: string;
+  createdAt: string;
   id: string;
   category: string;
 }
 
 const CommunityComment = ({ id }: any) => {
   const { user } = useUserStore();
+  const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
-  const [comment, setComment] = useState('댓글을 작성해주세요.');
+  const [editMode, setEditMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [editText, setEditText] = useState('');
   const [communityList, setCommunityList] = useState<CommunityData[]>([]);
 
   const communityId = id;
@@ -57,10 +67,10 @@ const CommunityComment = ({ id }: any) => {
         (prevComments: CommunityData[]) =>
           [newComment, ...prevComments] as CommunityData[],
       );
-      setComment('');
     } catch (error) {
       console.error(error);
     } finally {
+      setComment('');
       setLoading(false);
     }
   };
@@ -73,7 +83,9 @@ const CommunityComment = ({ id }: any) => {
     // 연속으로 댓글 삽입 후 삭제 버튼을 한번 실행하면 연속으로 작성한 댓글 모두 화면에서 사라짐
     if (confirm && user?.uid) {
       try {
-        await deleteCommunity(`community/${communityId.id}/comments/${item.id}`);
+        await deleteCommunity(
+          `community/${communityId.id}/comments/${item.id}`,
+        );
         console.log(`community/${communityId.id}/comments/${item.id}`);
         setCommunityList((prevComments) =>
           prevComments.filter((comment) => comment.id !== item.id),
@@ -81,6 +93,27 @@ const CommunityComment = ({ id }: any) => {
       } catch (error) {
         console.error(error);
       }
+    }
+  };
+
+  const onEditModeOn = () => {
+    setEditMode(true);
+  };
+
+  const onEditModeOff = async (item: any) => {
+    setIsLoading(true);
+
+    try {
+      if (user) {
+        await editCommunity(`community/${communityId.id}/comments/${item.id}`, {
+          description: editText,
+        });
+      }
+      setEditMode(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,16 +139,63 @@ const CommunityComment = ({ id }: any) => {
       </div>
       <div className={styles.commentTitle}>댓글</div>
       {/* 댓글 리스트 영역 */}
-      {communityList?.map((item) => (
-        <>
-        {communityId.id && user?.uid ? <button onClick={() => onDelete(item)}>댓글 삭제</button> : '안보여'}
-          <CommunityCommentItem
-            key={item.id}
-            value={item}
-            id={communityId.id}
-          />
-        </>
-      ))}
+      <div className={styles.commentList}>
+        {communityList.length > 0 ? (
+          <>
+            {communityList?.map((item) => (
+              <>
+                <>
+                  <div className={styles.infoBox}>
+                    <div className={styles.userBox}>
+                      <div className={styles.usersImg}>
+                        {/* <img src={`/${item.userImg}`} /> */}
+                      </div>
+                      <div>{item.userName}</div>
+                    </div>
+                    <div
+                      className={styles.userBox}
+                      style={{ display: 'flex', gap: '6px' }}
+                    >
+                      <div className={styles.createdAtText}>
+                        <ConvertTimes data={item.createdAt} />
+                      </div>
+                      {communityId && user?.uid ? (
+                        <>
+                          {/* 수정을 클릭하면 수정 모드로 변경 */}
+                          <div
+                            className={styles.editText}
+                            onClick={() =>
+                              editMode ? onEditModeOff(item) : onEditModeOn
+                            }
+                          >
+                            수정
+                          </div>
+                          <div
+                            className={styles.deleteText}
+                            onClick={() => onDelete(item)}
+                          >
+                            삭제
+                          </div>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                  </div>
+                </>
+
+                <CommunityCommentItem
+                  key={item.id}
+                  value={item}
+                  id={communityId.id}
+                />
+              </>
+            ))}
+          </>
+        ) : (
+          <div>등록된 댓글이 없습니다.</div>
+        )}
+      </div>
     </div>
   );
 };
