@@ -19,6 +19,7 @@
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "firebase": "^10.5.2",
+    "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.17.0",
@@ -40,6 +41,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "prettier": "^3.0.3",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-compression": "^0.5.1"
   }
 }
