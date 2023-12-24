@@ -6,9 +6,20 @@ import { POKEMON_NAME } from '@/lib/pokemonName';
 import { useMemo } from 'react';
 import { POKEMON_GENUS } from '@/lib/genus';
 import { POKEMON_FLAVOR_TEXTS } from '@/lib/flavorText';
+import InfoSkeleton from '../skeleton/InfoSkeleton';
 
-const PokemonInfo = ({ pokemonState, onFormChange }: PokemonInfoProps) => {
+export interface PokemonInfoExtendsProps extends PokemonInfoProps {
+  isLoading: boolean;
+}
+
+const PokemonInfo = ({
+  pokemonState,
+  onFormChange,
+  isLoading,
+}: PokemonInfoExtendsProps) => {
   const { pokemon, selectedFormId, genus, flavorText } = pokemonState;
+
+  console.log(isLoading);
 
   const pokemonHeight = useMemo(() => {
     if (pokemon) {
@@ -69,61 +80,91 @@ const PokemonInfo = ({ pokemonState, onFormChange }: PokemonInfoProps) => {
           />
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>ID</div>
-            <div className={styles.pokemon__info__data}>#{pokemon?.id}</div>
+            <div className={styles.pokemon__info__data}>
+              {isLoading ? <InfoSkeleton /> : <>#{pokemon?.id}</>}
+            </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>분류</div>
             <div className={styles.pokemon__info__data}>
-              {(selectedFormId && POKEMON_GENUS[selectedFormId]) || genus}
+              {isLoading ? (
+                <InfoSkeleton />
+              ) : (
+                <>
+                  {(selectedFormId && POKEMON_GENUS[selectedFormId]) || genus}
+                </>
+              )}
             </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>신장</div>
-            <div className={styles.pokemon__info__data}>{pokemonHeight}</div>
+            <div className={styles.pokemon__info__data}>
+              {isLoading ? <InfoSkeleton /> : <>{pokemonHeight}</>}
+            </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>무게</div>
-            <div className={styles.pokemon__info__data}>{pokemonWeight}</div>
+            <div className={styles.pokemon__info__data}>
+              {isLoading ? <InfoSkeleton /> : <>{pokemonWeight}</>}
+            </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>특성</div>
             <div className={styles.pokemon__info__data}>
-              {pokemon?.abilities.map((abilityInfo, index) => {
-                const koreanAbilityName =
-                  ABILITY_NAMES[abilityInfo.ability.name];
+              {isLoading ? (
+                <InfoSkeleton />
+              ) : (
+                <>
+                  {pokemon?.abilities.map((abilityInfo, index) => {
+                    const koreanAbilityName =
+                      ABILITY_NAMES[abilityInfo.ability.name];
 
-                return (
-                  <div
-                    key={index}
-                    className={`${styles.detail__plate} ${styles[koreanAbilityName]}`}
-                  >
-                    {koreanAbilityName}
-                  </div>
-                );
-              })}
+                    return (
+                      <div
+                        key={index}
+                        className={`${styles.detail__plate} ${styles[koreanAbilityName]}`}
+                      >
+                        {koreanAbilityName}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
 
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>설명</div>
             <div className={styles.pokemon__info__data}>
-              {(selectedFormId && POKEMON_FLAVOR_TEXTS[selectedFormId]) ||
-                (pokemon && POKEMON_FLAVOR_TEXTS[pokemon?.id]) ||
-                flavorText}
+              {isLoading ? (
+                <InfoSkeleton />
+              ) : (
+                <>
+                  {(selectedFormId && POKEMON_FLAVOR_TEXTS[selectedFormId]) ||
+                    (pokemon && POKEMON_FLAVOR_TEXTS[pokemon?.id]) ||
+                    flavorText}
+                </>
+              )}
             </div>
           </div>
           <div className={styles.pokemon__info}>
             <div className={styles.pokemon__info__title}>폼</div>
             <div className={styles.pokemon__info__data}>
-              {formsData.map((form, index) => (
-                <div
-                  key={index}
-                  onClick={() => onFormChange?.(form)}
-                  className={styles.pokemon__info__form}
-                >
-                  {getKoreanFormName(form)}
-                </div>
-              ))}
+              {isLoading ? (
+                <InfoSkeleton />
+              ) : (
+                <>
+                  {formsData.map((form, index) => (
+                    <div
+                      key={index}
+                      onClick={() => onFormChange?.(form)}
+                      className={styles.pokemon__info__form}
+                    >
+                      {getKoreanFormName(form)}
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
