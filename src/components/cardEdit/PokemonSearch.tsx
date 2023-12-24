@@ -4,7 +4,7 @@ import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
 import { POKEMON_TYPES } from '@/lib/constants';
 import { useGetAllPokemon } from '@/query/qeuries';
-import { IoSearch } from 'react-icons/io5';
+import { IoSearch } from '@react-icons/all-files/io5/IoSearch';
 import { PokemonType, TypesType } from '@/lib/type';
 import SearchDropdown from './SearchDropdown';
 

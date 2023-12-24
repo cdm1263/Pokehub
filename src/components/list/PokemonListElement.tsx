@@ -22,6 +22,7 @@ const PokemonListElement = ({ data }: PokemonListElementProp) => {
       className={styles.padding_bottom_35px}
     >
       <img
+        loading="lazy"
         className={styles.pokemon_image}
         src={data.sprites?.other?.['official-artwork']?.front_default}
         alt="포켓몬 이미지"

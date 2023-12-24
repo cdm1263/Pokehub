@@ -47,9 +47,7 @@ const StatusBar = ({ baseStat, pokemonTypes }: StatusBarProp) => {
           width: `${percentages[baseStat.stat.name] || 0}%`,
           borderRadius: isMyPage ? '2px' : '4px',
         }}
-      >
-        <div className={styles.stat__striped}></div>
-      </div>
+      ></div>
       <span
         className={`${styles.stat__value} ${typeColor && styles[typeColor[0]]}`}
       >

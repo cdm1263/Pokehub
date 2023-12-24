@@ -1,6 +1,7 @@
 import CardsRowLayout from './CardsRowLayout';
 import styles from './cards.module.scss';
-import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
+import { IoChevronForward } from '@react-icons/all-files/io5/IoChevronForward';
+import { IoChevronBack } from '@react-icons/all-files/io5/IoChevronBack';
 import useLikedStore from '@/store/useLikedStore';
 import { useState, useMemo, useCallback } from 'react';
 

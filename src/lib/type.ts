@@ -49,6 +49,9 @@ export type Sprites = {
     'official-artwork': {
       front_default: string | undefined;
     };
+    home?: {
+      front_default: string | undefined;
+    };
   };
   animated?: {
     front_default: string | undefined;

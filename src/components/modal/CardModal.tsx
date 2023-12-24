@@ -2,7 +2,7 @@ import PokemonCard from '../card/PokemonCard';
 import { Card } from '../mypage/Mycard';
 import styles from './CardModal.module.scss';
 import { MouseEvent, useRef } from 'react';
-import { LuPlus } from 'react-icons/lu';
+import { FiPlus } from '@react-icons/all-files/fi/FiPlus';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
 
@@ -49,7 +49,7 @@ const CardModal = ({ onModalToggle, cardData, isOpen }: CardModalProps) => {
           </div>
           <div className={styles.close__btn}>
             <div onClick={onModalToggle}>
-              <LuPlus size={20} className={styles.rotate} />
+              <FiPlus size={20} className={styles.rotate} />
             </div>
           </div>
           <div

@@ -1,7 +1,8 @@
 import styles from './CommunityDetailHeader.module.scss';
 import { ButtonCategory, ButtonDel, ButtonEdit } from '../button/Button';
-import { MdRemoveRedEye, MdModeComment } from 'react-icons/md';
-import { IoIosHeart } from 'react-icons/io';
+import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye';
+import { MdModeComment } from '@react-icons/all-files/md/MdModeComment';
+import { IoIosHeart } from '@react-icons/all-files/io/IoIosHeart';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '@/store/useUsersStore';
 import { deleteCommunity } from '@/lib/firebaseQueryCommunity';
@@ -42,7 +43,11 @@ const CommunityDetailHeader = ({ data, id }: any) => {
         {/* 게시물ID와 로그인한ID가 참이면 표시 */}
         {id.id && user?.uid ? (
           <div className={styles.editDelBox}>
-            <div onClick={()=>{navigate(`/community/edit`, { state: { data, id } })}}>
+            <div
+              onClick={() => {
+                navigate(`/community/edit`, { state: { data, id } });
+              }}
+            >
               <ButtonEdit data="글 수정" />
             </div>
             <div onClick={() => onDelete()}>

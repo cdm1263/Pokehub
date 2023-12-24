@@ -13,7 +13,6 @@ import { FORM_NAMES } from '@/lib/pokemonFormNames';
 import Comments from '@/components/comment/Comments';
 import styles from './Detail.module.scss';
 import EvolutionChain from './EvolutionChain';
-import useSearchInputText from '@/store/useSearchInputText';
 
 interface EvolutionData {
   evolves_to: EvolutionData[];
@@ -30,7 +29,7 @@ const Detail = () => {
     selectedFormId: null,
     evolvesChain: [],
   });
-  const { inputText } = useSearchInputText();
+  const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
 
@@ -53,6 +52,7 @@ const Detail = () => {
     };
 
     const fetchDataAPI = async () => {
+      setIsLoading(true);
       try {
         const pokemonDataPromise = getPokemonData(params.id ?? '');
         const speciesDetailPromise = pokemonDataPromise.then((data) =>
@@ -83,22 +83,23 @@ const Detail = () => {
 
         setPokemonState((prev) => ({
           ...prev,
+          pokemon: pokemonData,
           baseStats: pokemonData.stats,
-        }));
-        setPokemonState((prev) => ({ ...prev, pokemon: pokemonData }));
-        setPokemonState((prev) => ({
-          ...prev,
           flavorText: koreanSpeciesData?.flavor_text,
+          genus: koreanGenusData?.genus,
+          evolvesChain: chain,
         }));
-        setPokemonState((prev) => ({ ...prev, genus: koreanGenusData?.genus }));
-        setPokemonState((prev) => ({ ...prev, evolvesChain: chain }));
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchDataAPI();
-  }, [inputText, params.id]);
+    if (pokemonState.pokemon?.id !== params.id) {
+      fetchDataAPI();
+    }
+  }, [params.id, pokemonState.pokemon?.id]);
 
   const onFormChange = async (formName: string) => {
     try {
@@ -109,19 +110,13 @@ const Detail = () => {
       setPokemonState((prev) => ({
         ...prev,
         selectedFormName: koreanFormName,
-      }));
-      setPokemonState((prev) => ({
-        ...prev,
         pokemon: {
           ...FormChangeData,
           id: prev.pokemon?.id ?? FormChangeData.id,
           name: prev.pokemon?.name ?? FormChangeData.name,
+          baseStats: FormChangeData.stats,
+          selectedFormId: FormChangeData.id,
         },
-      }));
-      setPokemonState((prev) => ({ ...prev, baseStats: FormChangeData.stats }));
-      setPokemonState((prev) => ({
-        ...prev,
-        selectedFormId: FormChangeData.id,
       }));
     } catch (error) {
       console.log(error);
@@ -131,9 +126,13 @@ const Detail = () => {
   return (
     <>
       <div className={styles.detail__main}>
-        <PokemonInfo pokemonState={pokemonState} onFormChange={onFormChange} />
-        <PokemonImg pokemonState={pokemonState} />
-        <Status pokemonState={pokemonState} />
+        <PokemonInfo
+          pokemonState={pokemonState}
+          onFormChange={onFormChange}
+          isLoading={isLoading}
+        />
+        <PokemonImg pokemonState={pokemonState} isLoading={isLoading} />
+        <Status pokemonState={pokemonState} isLoading={isLoading} />
       </div>
       <EvolutionChain pokemonState={pokemonState} />
       <div className={styles.detail__comments}>

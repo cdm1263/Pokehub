@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import SocialLogin from '../users/SocialLogin';
-import { FaRegAddressCard } from 'react-icons/fa6';
-import { BsFilePlus } from 'react-icons/bs';
-import { RiUserVoiceFill } from 'react-icons/ri';
-import { FiLogIn } from 'react-icons/fi';
+import { FaRegAddressCard } from '@react-icons/all-files/fa/FaRegAddressCard';
+import { BsFilePlus } from '@react-icons/all-files/bs/BsFilePlus';
+import { RiUserVoiceFill } from '@react-icons/all-files/ri/RiUserVoiceFill';
+import { FiLogIn } from '@react-icons/all-files/fi/FiLogIn';
 import { useEffect, useRef, useState } from 'react';
 import useUserStore from '@/store/useUsersStore';
 import { useGetAllPokemon } from '@/query/qeuries';

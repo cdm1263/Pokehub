@@ -3,12 +3,19 @@ import { PokemonInfoProps } from '@/lib/type';
 import styles from './Detail.module.scss';
 import { FORM_NAMES } from '@/lib/pokemonFormNames';
 import { POKEMON_TYPES } from '@/lib/constants';
+import DetailImgSkeleton from '../skeleton/DetailImgSkeleton';
+import TypeSkeleton from '../skeleton/TypeSkeleton';
 
-const PokemonImg = ({ pokemonState }: PokemonInfoProps) => {
+interface PokemonImgProps extends PokemonInfoProps {
+  isLoading: boolean;
+}
+
+const PokemonImg = ({ pokemonState, isLoading }: PokemonImgProps) => {
   const { pokemon, selectedFormName } = pokemonState;
 
   const pokemonOfficialImage =
-    pokemon?.sprites.other?.['official-artwork'].front_default;
+    pokemon?.sprites.other?.['official-artwork'].front_default ||
+    pokemon?.sprites.other?.home?.front_default;
 
   const getLocalImagePath = (name: string | undefined) => {
     if (!name) {
@@ -68,35 +75,45 @@ const PokemonImg = ({ pokemonState }: PokemonInfoProps) => {
 
         <div className={styles.detail__some__form}>{someFormName}</div>
         <div className={styles.detail__img__box}>
-          <img
-            className={styles.official__img}
-            src={
-              pokemonOfficialImage
-                ? pokemonOfficialImage
-                : getLocalImagePath(selectedFormName || koreanName)
-            }
-            alt="Official Artwork"
-            width={280}
-            height={280}
-          />
+          {isLoading ? (
+            <DetailImgSkeleton />
+          ) : (
+            <img
+              className={styles.official__img}
+              src={
+                pokemonOfficialImage
+                  ? pokemonOfficialImage
+                  : getLocalImagePath(selectedFormName || koreanName)
+              }
+              alt="Official Artwork"
+              width={280}
+              height={280}
+            />
+          )}
         </div>
         <div className={styles.detail__type}>
-          {pokemon?.types.map((typeInfo, index) => {
-            const koreanPokemonName = POKEMON_TYPES[typeInfo.type.name];
+          {isLoading ? (
+            <TypeSkeleton />
+          ) : (
+            <>
+              {pokemon?.types.map((typeInfo, index) => {
+                const koreanPokemonName = POKEMON_TYPES[typeInfo.type.name];
 
-            return (
-              <div
-                key={index}
-                className={`${styles.detail__plate} ${styles[koreanPokemonName]}`}
-              >
-                <img
-                  src={`/src/assets/icons/${koreanPokemonName}_on.svg`}
-                  alt={`${koreanPokemonName}타입 아이콘`}
-                />
-                <div>{koreanPokemonName}</div>
-              </div>
-            );
-          })}
+                return (
+                  <div
+                    key={index}
+                    className={`${styles.detail__plate} ${styles[koreanPokemonName]}`}
+                  >
+                    <img
+                      src={`/src/assets/icons/${koreanPokemonName}_on.svg`}
+                      alt={`${koreanPokemonName}타입 아이콘`}
+                    />
+                    <div>{koreanPokemonName}</div>
+                  </div>
+                );
+              })}
+            </>
+          )}
         </div>
       </div>
     </>

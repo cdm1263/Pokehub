@@ -4,7 +4,8 @@ import { PokemonType } from '@/lib/type';
 import { useState } from 'react';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
-import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
+import { IoChevronForward } from '@react-icons/all-files/io5/IoChevronForward';
+import { IoChevronBack } from '@react-icons/all-files/io5/IoChevronBack';
 
 interface SearchDropdownProps {
   searchResults: (PokemonType | undefined)[] | null;
