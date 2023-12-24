@@ -2,7 +2,7 @@ import styles from './CommunityDetailHeader.module.scss';
 import { ButtonCategory, ButtonDel, ButtonEdit } from '../button/Button';
 import { MdRemoveRedEye, MdModeComment } from 'react-icons/md';
 import { IoIosHeart } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useUserStore from '@/store/useUsersStore';
 import { deleteCommunity } from '@/lib/firebaseQueryCommunity';
 
@@ -42,9 +42,9 @@ const CommunityDetailHeader = ({ data, id }: any) => {
         {/* 게시물ID와 로그인한ID가 참이면 표시 */}
         {id.id && user?.uid ? (
           <div className={styles.editDelBox}>
-            <Link to={'/community/edit'}>
+            <div onClick={()=>{navigate(`/community/edit`, { state: { data, id } })}}>
               <ButtonEdit data="글 수정" />
-            </Link>
+            </div>
             <div onClick={() => onDelete()}>
               <ButtonDel data="삭제" />
             </div>

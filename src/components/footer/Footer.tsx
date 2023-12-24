@@ -24,7 +24,7 @@ const Footer = () => {
     }
   }, [user?.uid, setPokemonData]);
 
-  return <div>Footer</div>;
+  return <div></div>;
 };
 
 export default Footer;
