@@ -1,7 +1,8 @@
 import styles from './CommunityDetailHeader.module.scss';
 import { ButtonCategory, ButtonDel, ButtonEdit } from '../button/Button';
-import { MdRemoveRedEye, MdModeComment } from 'react-icons/md';
-import { IoIosHeart } from 'react-icons/io';
+import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye';
+import { MdModeComment } from '@react-icons/all-files/md/MdModeComment';
+import { IoIosHeart } from '@react-icons/all-files/io/IoIosHeart';
 import { Link, useNavigate } from 'react-router-dom';
 import useUserStore from '@/store/useUsersStore';
 import { deleteCommunity } from '@/lib/firebaseQueryCommunity';
