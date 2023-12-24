@@ -6,11 +6,8 @@ import styles from './CommunityCommentItem.module.scss';
 import useCommunityDataList from '@/hook/useCommunityDataList';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import CommunityCommentItemReply from './CommunityCommentItemReply';
-import {
-  addReplies,
-  deleteCommunity,
-  editCommunity,
-} from '@/lib/firebaseQueryCommunity';
+import { ConvertTimes } from '@/lib/util/convertTime';
+// import CommunityCommentItemReply from './CommunityCommentItemReply';
 
 interface CommunityData {
   id: string;
@@ -150,10 +147,8 @@ const CommunityCommentItem = ({ value, id }: any) => {
 
   return (
     <div className={styles.container}>
-      <button onClick={editMode ? onEditModeOff : onEditModeOn}>
-        수정
-      </button>
-      <button onClick={()=>setEditMode(false)}>최소</button>
+      <button onClick={editMode ? onEditModeOff : onEditModeOn}>수정</button>
+      <button onClick={() => setEditMode(false)}>최소</button>
       {editMode ? (
         <>
           <textarea

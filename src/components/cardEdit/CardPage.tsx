@@ -11,6 +11,7 @@ import { MouseEvent } from 'react';
 import { filteredPokemonData } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
 import PokemonSearch from './PokemonSearch';
+import { useEffect } from 'react'; // 추가
 
 const CardPage = () => {
   const { user } = useUserStore();
@@ -18,6 +19,13 @@ const CardPage = () => {
     useSelectedPokemonForCard();
   const { data } = useGetAllPokemon(1017);
   const filteredPokemonData = {} as filteredPokemonData;
+
+  useEffect(() => {
+    if (!pokemonData && data) {
+      const dittoData = data[131];
+      setPokemonData(dittoData);
+    }
+  }, [pokemonData, data, setPokemonData]);
 
   if (pokemonData) {
     const { id, stats, types, name, sprites } = pokemonData;
@@ -28,18 +36,7 @@ const CardPage = () => {
     filteredPokemonData['name'] = name;
     filteredPokemonData['sprites'] =
       sprites.other?.['official-artwork'].front_default;
-  } else {
-    if (data) {
-      const dittoData = data[131];
-      setPokemonData(dittoData);
-    }
   }
-
-  const pokemonCardData = [
-    filteredPokemonData,
-    pokemonNickName1,
-    pokemonNickName2,
-  ];
 
   const onSave = async (event: MouseEvent) => {
     event.preventDefault();
@@ -52,7 +49,11 @@ const CardPage = () => {
       }
 
       await addDocument(`cards/${user.uid}/pokemonCards`, {
-        pokemonCardData,
+        pokemonCardData: [
+          filteredPokemonData,
+          pokemonNickName1,
+          pokemonNickName2,
+        ],
         createdAt: new Date().toISOString(),
         uid: user.uid,
       });

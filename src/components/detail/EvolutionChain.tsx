@@ -2,7 +2,7 @@ import { PokemonInfoProps, PokemonType } from '@/lib/type';
 import PokemonListElementLayout from '../list/PokemonListElementLayout';
 import styles from './Detail.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { useEffect, useState } from 'react';
 import { getPokemonData } from '@/lib/poketApi';
 import { useNavigate } from 'react-router-dom';

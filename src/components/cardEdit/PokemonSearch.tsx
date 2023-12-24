@@ -1,7 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useMemo } from 'react';
 import styles from './cards.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { reverseObject } from '@/lib/utill/reverseObject';
+import { reverseObject } from '@/lib/util/reverseObject';
 import { POKEMON_TYPES } from '@/lib/constants';
 import { useGetAllPokemon } from '@/query/qeuries';
 import { IoSearch } from 'react-icons/io5';
@@ -15,12 +15,15 @@ const PokemonSearch = () => {
     (PokemonType | undefined)[] | null
   >(null);
   const { data } = useGetAllPokemon(1017);
-  const searchedPokemonName = POKEMON_NAME[text];
-  const searchedPokemonType = reverseObject(POKEMON_TYPES)[text];
+
+  const searchedPokemonName = useMemo(() => POKEMON_NAME[text], [text]);
+  const searchedPokemonType = useMemo(
+    () => reverseObject(POKEMON_TYPES)[text],
+    [text],
+  );
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-
     let result = null;
 
     if (searchedPokemonName && data) {
@@ -43,9 +46,7 @@ const PokemonSearch = () => {
       <form className={styles.search__wrapper} onSubmit={onSubmit}>
         <label className={styles.search__inner}>
           <input
-            onChange={(event) => {
-              setText(event.target.value);
-            }}
+            onChange={(event) => setText(event.target.value)}
             value={text}
             type="text"
             placeholder="포켓몬 이름, 타입을 입력해 주세요"
@@ -55,7 +56,7 @@ const PokemonSearch = () => {
             <IoSearch />
           </button>
         </label>
-        {isOpen && (
+        {isOpen && foundPokemon && (
           <SearchDropdown searchResults={foundPokemon} setIsOpen={setIsOpen} />
         )}
       </form>

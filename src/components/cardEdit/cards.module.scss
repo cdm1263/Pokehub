@@ -207,6 +207,17 @@
   }
 }
 
+.name_input {
+  cursor: text;
+  text-align: end;
+  outline: none;
+  border: none;
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: GmarketSansMedium;
+}
+
 .status_title {
   display: flex;
   justify-content: space-between;
