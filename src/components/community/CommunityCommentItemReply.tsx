@@ -1,9 +1,12 @@
 import { ConvertTimes } from '@/lib/util/convertTime';
 import styles from './CommunityCommentItemReply.module.scss';
+import useUserStore from '@/store/useUsersStore';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CommunityCommentItemReply = ({ data }: any) => {
   const value = data;
+
+  const { user } = useUserStore();
 
   return (
     <div className={styles.container}>
