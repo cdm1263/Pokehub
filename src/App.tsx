@@ -8,11 +8,7 @@ import { queryClient } from './query/queryClient';
 import useAuthState from './provider/authProvider';
 import RequireAuth from './RequireAuth';
 import Redirect from './Redirect';
-/* import CommunityPage from './pages/community/CommunityPage';
-import DetailPage from './pages/community/DetailPage';
-import PostAddPage from './pages/community/PostAddPage';
-import PostEditPage from './pages/community/PostEditPage';
- */
+
 const DEX = lazy(() => import('@/pages/dex/Dex'));
 const Detail = lazy(() => import('@/pages/detail/detail'));
 const MyPage = lazy(() => import('@/pages/mypage/myPage'));
