@@ -55,18 +55,18 @@ const Detail = () => {
       setIsLoading(true);
       try {
         const pokemonDataPromise = getPokemonData(params.id ?? '');
-        const speciesDetailPromise = pokemonDataPromise.then((data) =>
-          getPokemonSpecies(data.species.url),
-        );
-        const evolvesChainPromise = speciesDetailPromise.then((data) =>
-          getEvolvesDatas(data.evolution_chain.url),
-        );
 
         const [pokemonData, speciesDetailData, evolvesChainData] =
           await Promise.all([
             pokemonDataPromise,
-            speciesDetailPromise,
-            evolvesChainPromise,
+            pokemonDataPromise.then((data) =>
+              getPokemonSpecies(data.species.url),
+            ),
+            pokemonDataPromise.then((data) =>
+              getPokemonSpecies(data.species.url).then((speciesData) =>
+                getEvolvesDatas(speciesData.evolution_chain.url),
+              ),
+            ),
           ]);
 
         const chain = evolutionChains(evolvesChainData.chain);
@@ -134,7 +134,7 @@ const Detail = () => {
         <PokemonImg pokemonState={pokemonState} isLoading={isLoading} />
         <Status pokemonState={pokemonState} isLoading={isLoading} />
       </div>
-      <EvolutionChain pokemonState={pokemonState} />
+      <EvolutionChain pokemonState={pokemonState} isLoading={isLoading} />
       <div className={styles.detail__comments}>
         <Comments pokemonState={pokemonState} />
       </div>
