@@ -30,8 +30,6 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
     hasMoreData: hasMoreComments,
   } = usePagination(`comments/${pokemon?.id}/pokemonComments`, 10);
 
-  console.log(commentList);
-
   useEffect(() => {
     if (pokemon?.id) {
       fetchComments();

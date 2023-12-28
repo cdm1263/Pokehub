@@ -7,7 +7,6 @@ import { RiUserVoiceFill } from '@react-icons/all-files/ri/RiUserVoiceFill';
 import { FiLogIn } from '@react-icons/all-files/fi/FiLogIn';
 import { useEffect, useRef, useState } from 'react';
 import useUserStore from '@/store/useUsersStore';
-import { useGetAllPokemon } from '@/query/qeuries';
 import SearchInput from '../search/Search';
 import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
 
@@ -16,7 +15,6 @@ const Header = () => {
   const { user } = useUserStore();
   const { imgUrl } = useUserInfoChangeStore();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  useGetAllPokemon(1017);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 

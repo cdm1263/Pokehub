@@ -218,6 +218,7 @@
     gap: 13px;
   }
 
+  &__layout__data,
   &__layout {
     width: 182px;
     height: 253px;
@@ -229,9 +230,34 @@
     align-items: center;
     border: 1px solid #e3e3e3;
     cursor: pointer;
+    position: relative;
 
     div {
       color: #a5a5a5;
+    }
+
+    &__delete {
+      display: none;
+    }
+
+    &:hover {
+      .mycard__layout__data__delete {
+        display: flex;
+        position: absolute;
+        z-index: 9999;
+        color: black;
+        top: -8px;
+        right: -8px;
+        border-radius: 50%;
+        border: 2px solid #000;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        justify-content: center;
+        align-items: center;
+        background-color: inherit;
+        transform: rotate(45deg);
+      }
     }
   }
 }

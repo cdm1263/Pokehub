@@ -1,4 +1,4 @@
-'use client';
+/* 'use client'; */
 
 import { Input, Select } from 'antd';
 import { Editor } from '@toast-ui/react-editor';

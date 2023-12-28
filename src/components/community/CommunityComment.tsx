@@ -10,7 +10,7 @@ import {
   editCommunity,
 } from '@/lib/firebaseQueryCommunity';
 import useCommunityDataList from '@/hook/useCommunityDataList';
-import { ConvertTimes } from '@/lib/utill/convertTime';
+import { ConvertTimes } from '@/lib/util/convertTime';
 
 interface CommunityData {
   userName: string;
@@ -27,6 +27,8 @@ const CommunityComment = ({ id }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [editText, setEditText] = useState('');
   const [communityList, setCommunityList] = useState<CommunityData[]>([]);
+
+  console.log(isLoading, setEditText);
 
   const communityId = id;
 

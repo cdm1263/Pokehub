@@ -40,7 +40,16 @@ const usePagination = (collectionPath: string, pageSize: number) => {
       ...doc.data(),
     })) as CommentProps[];
 
-    setDataList((prev) => [...prev, ...fetchedData]);
+    const newData = fetchedData.filter(
+      (newItem) => !dataList.some((item) => item.id === newItem.id),
+    );
+
+    setDataList((prev) =>
+      [...prev, ...newData].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
+    );
 
     setNextDocument(querySnapshot.docs[querySnapshot.docs.length - 1] || null);
     setIsLoading(false);
