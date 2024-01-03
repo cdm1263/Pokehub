@@ -5,14 +5,10 @@ import { app } from '@/firebase';
 import Layout from '@/components/Layout';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './query/queryClient';
-import useAuthState from './provider/authProvider';
 import RequireAuth from './RequireAuth';
 import Redirect from './Redirect';
-/* import CommunityPage from './pages/community/CommunityPage';
-import DetailPage from './pages/community/DetailPage';
-import PostAddPage from './pages/community/PostAddPage';
-import PostEditPage from './pages/community/PostEditPage';
- */
+import LikedSnapshot from './components/users/LikedSnapshot';
+
 const DEX = lazy(() => import('@/pages/dex/Dex'));
 const Detail = lazy(() => import('@/pages/detail/detail'));
 const MyPage = lazy(() => import('@/pages/mypage/myPage'));
@@ -23,7 +19,6 @@ const PostAddPage = lazy(() => import('@/pages/community/PostAddPage'));
 const PostEditPage = lazy(() => import('@/pages/community/PostEditPage'));
 
 const App = () => {
-  useAuthState();
   const auth = getAuth(app);
   const [init, setInit] = useState<boolean>(false);
 
@@ -34,6 +29,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
+        <LikedSnapshot />
         {init ? (
           <Routes>
             <Route element={<Layout />}>

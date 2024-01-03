@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useUserStore from '@/store/useUsersStore';
 import { getDocument } from '@/lib/firebaseQuery';
-import { ConvertTimes } from '@/lib/utill/convertTime';
+import { ConvertTimes } from '@/lib/util/convertTime';
 import styles from './CommunityCommentItem.module.scss';
 import useCommunityDataList from '@/hook/useCommunityDataList';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import CommunityCommentItemReply from './CommunityCommentItemReply';
-import { ConvertTimes } from '@/lib/util/convertTime';
+import {
+  addReplies,
+  deleteCommunity,
+  editCommunity,
+} from '@/lib/firebaseQueryCommunity';
 // import CommunityCommentItemReply from './CommunityCommentItemReply';
 
 interface CommunityData {

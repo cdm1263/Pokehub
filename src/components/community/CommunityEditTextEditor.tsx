@@ -1,4 +1,4 @@
-'use client';
+/* 'use client'; */
 
 import { Input, Select } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
@@ -20,15 +20,14 @@ const CommunityEditTextEditor = () => {
   const [category, setCategory] = useState('자유게시판');
   const navigate = useNavigate();
 
-  console.log('데이터',data)
-  console.log('아이디',id)
+  console.log('데이터', data);
+  console.log('아이디', id);
 
   useEffect(() => {
     if (data) {
       setTitle(data.title);
     }
   }, [data]);
-  
 
   const handleChange = (value: string) => {
     setCategory(value);

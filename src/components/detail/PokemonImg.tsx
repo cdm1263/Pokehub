@@ -1,16 +1,12 @@
 import { POKEMON_NAME } from '@/lib/pokemonName';
-import { PokemonInfoProps } from '@/lib/type';
 import styles from './Detail.module.scss';
 import { FORM_NAMES } from '@/lib/pokemonFormNames';
 import { POKEMON_TYPES } from '@/lib/constants';
 import DetailImgSkeleton from '../skeleton/DetailImgSkeleton';
 import TypeSkeleton from '../skeleton/TypeSkeleton';
+import { PokemonInfoExtendsProps } from './PokemonInfo';
 
-interface PokemonImgProps extends PokemonInfoProps {
-  isLoading: boolean;
-}
-
-const PokemonImg = ({ pokemonState, isLoading }: PokemonImgProps) => {
+const PokemonImg = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
   const { pokemon, selectedFormName } = pokemonState;
 
   const pokemonOfficialImage =
