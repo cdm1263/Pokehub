@@ -1,48 +1,84 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormEvent, useEffect, useState } from 'react';
-import styles from './CommunityComment.module.scss';
-import CommunityCommentItem from './CommunityCommentItem';
+import { db } from '@/firebase';
 import useUserStore from '@/store/useUsersStore';
-import {
-  addComment,
-  deleteCommunity,
-  editCommunity,
-} from '@/lib/firebaseQueryCommunity';
-import useCommunityDataList from '@/hook/useCommunityDataList';
-import { ConvertTimes } from '@/lib/util/convertTime';
+import styles from './CommunityComment.module.scss';
+import { FormEvent, useEffect, useState } from 'react';
+import CommunityCommentItem from './CommunityCommentItem';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { AiFillHeart } from '@react-icons/all-files/ai/AiFillHeart';
+import { getDocument, setDocument } from '@/lib/firebaseQueryCommunity';
+import { AiOutlineHeart } from '@react-icons/all-files/ai/AiOutlineHeart';
+import { addComment, deleteCommunity } from '@/lib/firebaseQueryCommunity';
+import { useQuery, useQueryClient } from 'react-query';
 
 interface CommunityData {
-  userName: string;
-  createdAt: string;
   id: string;
+  heart: boolean;
+  userName: string;
   category: string;
+  createdAt: string;
+  description: string | number | readonly string[] | undefined;
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useCommunityCommentQuery = (id: any) => {
+  return useQuery(
+    ['comments', id.id],
+    async () => {
+      const snapshot = await getDocs(
+        collection(db, `community/${id.id}/comments`),
+      );
+      const commentsData: CommunityData[] = snapshot.docs.map(
+        (doc) =>
+          ({
+            id: doc.id,
+            ...doc.data(),
+          }) as CommunityData,
+      );
+
+      return commentsData.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+    },
+    { suspense: true },
+  );
+};
 
 const CommunityComment = ({ id }: any) => {
   const { user } = useUserStore();
+  const [heart, setHeart] = useState(false);
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [editText, setEditText] = useState('');
   const [communityList, setCommunityList] = useState<CommunityData[]>([]);
-
-  console.log(isLoading, setEditText);
+  const queryClient = useQueryClient();
 
   const communityId = id;
 
-  // 댓글 내용 받아오기
-  const { commentsList } = useCommunityDataList(`/community/${id.id}/comments`);
+  const { data: communityLists }: any = useCommunityCommentQuery(id);
 
   useEffect(() => {
-    setCommunityList(commentsList);
-  }, [commentsList]);
+    fetchHeartState();
+    const unsubscribe = onSnapshot(
+      collection(db, `community/${id.id}/comments`),
+      (snapshot) => {
+        const commentsData: CommunityData[] = [];
+        snapshot.docs.map((doc) => {
+          commentsData.push({ id: doc.id, ...doc.data() } as CommunityData);
+        });
+        commentsData.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+        setCommunityList(commentsData);
+      },
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [id.id]);
 
   const handleChangeComment = (e: any) => {
     setComment(e.target.value);
   };
 
+  // 댓글 추가 요청 기능
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -63,17 +99,14 @@ const CommunityComment = ({ id }: any) => {
       };
 
       await addComment(`community/${communityId.id}/comments/`, newComment);
-      console.log('댓글 입력 완료');
 
-      setCommunityList(
-        (prevComments: CommunityData[]) =>
-          [newComment, ...prevComments] as CommunityData[],
-      );
+      // 댓글이 추가되면 'comments' 쿼리를 다시 실행하여 데이터를 업데이트
+      queryClient.invalidateQueries(['comments', id.id]);
     } catch (error) {
       console.error(error);
     } finally {
-      setComment('');
       setLoading(false);
+      setComment('');
     }
   };
 
@@ -98,107 +131,129 @@ const CommunityComment = ({ id }: any) => {
     }
   };
 
-  const onEditModeOn = () => {
-    setEditMode(true);
-  };
-
-  const onEditModeOff = async (item: any) => {
-    setIsLoading(true);
+  const fetchHeartState = async () => {
+    if (!user?.uid || !communityId.id) return false;
 
     try {
-      if (user) {
-        await editCommunity(`community/${communityId.id}/comments/${item.id}`, {
-          description: editText,
-        });
+      const docSnap = await getDocument(`/community/${communityId.id}`);
+      if (docSnap) {
+        const likes = docSnap.data().likes || [];
+        return setHeart(likes.includes(user?.uid));
       }
-      setEditMode(false);
     } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+      console.error('찜 상태를 가져오는 중 에러 발생:', error);
     }
+
+    return false;
+  };
+
+  const onToggleHeart = async () => {
+    if (!user?.uid) return;
+
+    // 특정 게시물에 찜한 유저의 아이디를 배열에 추가
+    const docSnap = await getDocument(`/community/${communityId.id}`);
+    let communityHearts = [];
+
+    if (docSnap) {
+      communityHearts = docSnap.data().likes || [];
+      if (communityHearts.includes(user?.uid)) {
+        communityHearts = communityHearts.filter(
+          (id: string) => id !== user?.uid,
+        );
+      } else {
+        communityHearts.push(user?.uid);
+      }
+    } else {
+      communityHearts = [user?.uid];
+    }
+
+    // 게시물 데이터에 찜 상태 전달
+    await setDocument(`/community/${communityId.id}`, {
+      likes: communityHearts,
+    });
+
+    // 유저가 찜한 게시물 추가
+    const docSnapUser = await getDocument(`/heart/${user?.uid}`);
+    let userHearts = [];
+
+    if (docSnapUser) {
+      userHearts = docSnapUser.data().likes || [];
+      if (userHearts.includes(communityId.id)) {
+        userHearts = userHearts.filter((id: string) => id !== communityId.id);
+      } else {
+        userHearts.push(communityId.id);
+      }
+    } else {
+      userHearts = [communityId.id];
+    }
+
+    // 찜한 게시물을 유저 정보에 추가 -> 현재는 heart에 따로 보관
+    await setDocument(`/heart/${user?.uid}`, {
+      likes: userHearts,
+    });
+
+    // 토글 상태 변경
+    setHeart((prev) => !prev);
   };
 
   return (
-    <div className={styles.container}>
-      {/* 댓글 입력 영역 */}
-      <div className={styles.commentBox}>
-        <div className={styles.commentTitle}>댓글 쓰기</div>
-        {loading ? <div>등록 중..</div> : ''}
-        <form onSubmit={onSubmit}>
-          <div className={styles.commentTextBox}>
-            <textarea
-              onChange={handleChangeComment}
-              placeholder="댓글을 입력해주세요."
-            />
-          </div>
-          <div className={styles.commentButtonBox}>
-            <button className={styles.ButtonStyle} type="submit">
-              저장
-            </button>
-          </div>
-        </form>
+    <>
+      <div
+        className={
+          heart
+            ? `${styles.heartButton} ${styles.Outline}`
+            : `${styles.heartButton}`
+        }
+        onClick={onToggleHeart}
+      >
+        {heart ? <AiFillHeart /> : <AiOutlineHeart />}
+        <div className={styles.heartText}>찜하기</div>
       </div>
-      <div className={styles.commentTitle}>댓글</div>
-      {/* 댓글 리스트 영역 */}
-      <div className={styles.commentList}>
-        {communityList.length > 0 ? (
-          <>
-            {communityList?.map((item) => (
-              <>
-                <>
-                  <div className={styles.infoBox}>
-                    <div className={styles.userBox}>
-                      <div className={styles.usersImg}>
-                        {/* <img src={`/${item.userImg}`} /> */}
-                      </div>
-                      <div>{item.userName}</div>
-                    </div>
-                    <div
-                      className={styles.userBox}
-                      style={{ display: 'flex', gap: '6px' }}
-                    >
-                      <div className={styles.createdAtText}>
-                        <ConvertTimes data={item.createdAt} />
-                      </div>
-                      {communityId && user?.uid ? (
-                        <>
-                          {/* 수정을 클릭하면 수정 모드로 변경 */}
-                          <div
-                            className={styles.editText}
-                            onClick={() =>
-                              editMode ? onEditModeOff(item) : onEditModeOn
-                            }
-                          >
-                            수정
-                          </div>
-                          <div
-                            className={styles.deleteText}
-                            onClick={() => onDelete(item)}
-                          >
-                            삭제
-                          </div>
-                        </>
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                  </div>
-                </>
-
-                <CommunityCommentItem
-                  key={item.id}
-                  value={item}
-                  id={communityId.id}
-                />
-              </>
-            ))}
-          </>
-        ) : (
-          <div>등록된 댓글이 없습니다.</div>
-        )}
+      <div className={styles.border} />
+      <div className={styles.container}>
+        {/* 댓글 입력 영역 */}
+        <div className={styles.commentBox}>
+          <div className={styles.commentTitle}>댓글 쓰기</div>
+          {loading ? <div>등록 중..</div> : ''}
+          <form onSubmit={onSubmit}>
+            <div className={styles.commentTextBox}>
+              <textarea
+                onChange={handleChangeComment}
+                placeholder="댓글을 입력해주세요."
+              />
+            </div>
+            <div className={styles.commentButtonBox}>
+              <button className={styles.ButtonStyle} type="submit">
+                저장
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className={styles.commentTitle}>
+          댓글{`(${communityLists.length})`}
+        </div>
+        {/* 댓글 리스트 영역 */}
+        <div className={styles.commentList}>
+          {communityList.length > 0 ? (
+            <div>
+              {communityList?.map((item) => (
+                <div key={item.id}>
+                  <div className={styles.infoBox}></div>
+                  <CommunityCommentItem
+                    key={item.id}
+                    value={item}
+                    id={communityId.id}
+                    onDel={onDelete}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>등록된 댓글이 없습니다.</div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
