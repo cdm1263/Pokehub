@@ -10,8 +10,15 @@ const PokemonImg = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
   const { pokemon, selectedFormName } = pokemonState;
 
   const pokemonOfficialImage =
-    pokemon?.sprites.other?.['official-artwork'].front_default ||
-    pokemon?.sprites.other?.home?.front_default;
+    pokemon?.sprites.other?.['official-artwork'].front_default; /* ||
+    pokemon?.sprites.other?.home?.front_default; */
+
+  const getLocalImagePath = (name: string | undefined) => {
+    if (!name) {
+      return;
+    }
+    return `/pokemonImg/${name}.webp`;
+  };
 
   const getKoreanName = (englishName: string | undefined) => {
     return Object.keys(POKEMON_NAME).find(
@@ -69,7 +76,11 @@ const PokemonImg = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
           ) : (
             <img
               className={styles.official__img}
-              src={pokemonOfficialImage}
+              src={
+                pokemonOfficialImage
+                  ? pokemonOfficialImage
+                  : getLocalImagePath(selectedFormName || koreanName)
+              }
               alt="Official Artwork"
               width={280}
               height={280}
