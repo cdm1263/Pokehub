@@ -15,7 +15,7 @@ const CommunityEditTextEditor = () => {
   const [title, setTitle] = useState(data.title);
   const [editorRef, setEditorRef] = useState('');
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState('자유게시판');
+  const [category, setCategory] = useState(data.category);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const CommunityEditTextEditor = () => {
           <div>
             <div className={styles.inputTitle}>카테고리</div>
             <Select
-              defaultValue="자유게시판"
+              defaultValue={category}
               style={{ width: 130 }}
               onChange={handleChange}
               disabled

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from './CommunityCommentItemReply.module.scss';
 import useUserStore from '@/store/useUsersStore';
