@@ -11,6 +11,7 @@ import { getDocument, setDocument } from '@/lib/firebaseQueryCommunity';
 import { AiOutlineHeart } from '@react-icons/all-files/ai/AiOutlineHeart';
 import { addComment, deleteCommunity } from '@/lib/firebaseQueryCommunity';
 import { useQuery, useQueryClient } from 'react-query';
+import { deleteDocument } from '@/lib/firebaseQuery';
 
 interface CommunityData {
   id: string;
@@ -43,7 +44,7 @@ export const useCommunityCommentQuery = (id: any) => {
   );
 };
 
-const CommunityComment = ({ id }: any) => {
+const CommunityComment = ({ id, data }: any) => {
   const { user } = useUserStore();
   const [heart, setHeart] = useState(false);
   const [comment, setComment] = useState('');
@@ -113,7 +114,6 @@ const CommunityComment = ({ id }: any) => {
   /** 댓글 삭제 기능 */
   const onDelete = async (item: any) => {
     const confirm = window.confirm('해당 댓글을 삭제하시겠습니까?');
-    console.log('댓글 삭제 요청');
 
     // 연속으로 댓글 삽입 후 삭제 버튼을 한번 실행하면 연속으로 작성한 댓글 모두 화면에서 사라짐
     if (confirm && user?.uid) {
@@ -121,7 +121,6 @@ const CommunityComment = ({ id }: any) => {
         await deleteCommunity(
           `community/${communityId.id}/comments/${item.id}`,
         );
-        console.log(`community/${communityId.id}/comments/${item.id}`);
         setCommunityList((prevComments) =>
           prevComments.filter((comment) => comment.id !== item.id),
         );
@@ -131,66 +130,57 @@ const CommunityComment = ({ id }: any) => {
     }
   };
 
+  // 찜 상태 가져오기
   const fetchHeartState = async () => {
     if (!user?.uid || !communityId.id) return false;
 
     try {
-      const docSnap = await getDocument(`/community/${communityId.id}`);
-      if (docSnap) {
-        const likes = docSnap.data().likes || [];
-        return setHeart(likes.includes(user?.uid));
+      const heartSnap = await getDocument(
+        `/heart/${user?.uid}/like/${communityId.id}`,
+      );
+      if (heartSnap) {
+        return setHeart(true);
       }
     } catch (error) {
       console.error('찜 상태를 가져오는 중 에러 발생:', error);
     }
 
-    return false;
+    return setHeart(false);
   };
+
+  // const fetchHeartStateConsolTest = async () => {
+  //   try {
+  //     const likeCollectionRef = collection(db, `/heart/${user?.uid}/like`);
+  //     const querySnapshot = await getDocs(likeCollectionRef);
+  //     querySnapshot.forEach((doc) => {
+  //       console.log('데이터 확인', doc.data());
+  //     });
+  //   } catch (error) {
+  //     console.error('문서 가져오기 실패:', error);
+  //   }
+  // };
+
+  // fetchHeartStateConsolTest();
 
   const onToggleHeart = async () => {
     if (!user?.uid) return;
 
-    // 특정 게시물에 찜한 유저의 아이디를 배열에 추가
-    const docSnap = await getDocument(`/community/${communityId.id}`);
-    let communityHearts = [];
+    const heartSnap: any = await getDocument(
+      `/heart/${user?.uid}/like/${communityId.id}`,
+    );
 
-    if (docSnap) {
-      communityHearts = docSnap.data().likes || [];
-      if (communityHearts.includes(user?.uid)) {
-        communityHearts = communityHearts.filter(
-          (id: string) => id !== user?.uid,
-        );
-      } else {
-        communityHearts.push(user?.uid);
-      }
+    console.log(`/heart/${user?.uid}/like/${communityId.id}`);
+
+    if (heartSnap) {
+      await deleteDocument(`/heart/${user?.uid}/like/${communityId.id}`);
     } else {
-      communityHearts = [user?.uid];
+      await setDocument(`/heart/${user?.uid}/like/${communityId.id}`, {
+        userId: user?.uid,
+        postId: data.id,
+        title: data.title,
+        createdAt: data.createdAt,
+      });
     }
-
-    // 게시물 데이터에 찜 상태 전달
-    await setDocument(`/community/${communityId.id}`, {
-      likes: communityHearts,
-    });
-
-    // 유저가 찜한 게시물 추가
-    const docSnapUser = await getDocument(`/heart/${user?.uid}`);
-    let userHearts = [];
-
-    if (docSnapUser) {
-      userHearts = docSnapUser.data().likes || [];
-      if (userHearts.includes(communityId.id)) {
-        userHearts = userHearts.filter((id: string) => id !== communityId.id);
-      } else {
-        userHearts.push(communityId.id);
-      }
-    } else {
-      userHearts = [communityId.id];
-    }
-
-    // 찜한 게시물을 유저 정보에 추가 -> 현재는 heart에 따로 보관
-    await setDocument(`/heart/${user?.uid}`, {
-      likes: userHearts,
-    });
 
     // 토글 상태 변경
     setHeart((prev) => !prev);

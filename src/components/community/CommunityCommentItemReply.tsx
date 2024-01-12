@@ -16,8 +16,6 @@ const CommunityCommentItemReply = ({ data, val, setReplyList, onDel }: any) => {
   const [imageUrl, setImageUrl] = useState('');
   const currentUrl = useParams();
 
-  console.log('마지막 영역', value.description);
-
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -29,7 +27,6 @@ const CommunityCommentItemReply = ({ data, val, setReplyList, onDel }: any) => {
 
         // 중복된 이미지 URL을 필터링하여 새로운 이미지만 추가
         setImageUrl(valData);
-        console.log(valData);
       } catch (error) {
         console.error('이미지를 가져오는 중 오류 발생:', error);
       }
@@ -61,10 +58,6 @@ const CommunityCommentItemReply = ({ data, val, setReplyList, onDel }: any) => {
     } catch (error) {
       console.error(error);
     } finally {
-      console.log(
-        `community/${currentUrl.id}/comments/${val}/replies/${value.id}`,
-      );
-      console.log(editText);
       setReplyEditMode(false);
     }
   };
