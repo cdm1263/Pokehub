@@ -7,7 +7,6 @@ import CommunityCardItem from './CommunityCardItem';
 import styles from './CommunityCardList.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import useCommunityDataList from '@/hook/useCommunityDataList';
-import TestLink from '@/pages/community/TestLink';
 
 interface CommunityData {
   id: string;
@@ -137,7 +136,6 @@ const CommunityCardList = () => {
           hideOnSinglePage={true}
         />
       </div>
-      <TestLink></TestLink>
     </div>
   );
 };
