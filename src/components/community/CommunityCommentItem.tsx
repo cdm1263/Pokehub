@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useUserStore from '@/store/useUsersStore';
 import { getDocument } from '@/lib/firebaseQuery';
