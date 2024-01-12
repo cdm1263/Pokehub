@@ -74,7 +74,6 @@ const CommunityCardList = () => {
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
-    console.log('확인',communityList)
     const filteredData = communityList.filter(
       (item) => item.category === CategoryList[currentTab] && item.title.includes(value)
     );

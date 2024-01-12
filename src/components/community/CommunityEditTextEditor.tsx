@@ -15,7 +15,7 @@ const CommunityEditTextEditor = () => {
   const [title, setTitle] = useState(data.title);
   const [editorRef, setEditorRef] = useState('');
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState('자유게시판');
+  const [category, setCategory] = useState(data.category);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,12 +27,10 @@ const CommunityEditTextEditor = () => {
 
   const handleChange = (value: string) => {
     setCategory(value);
-    console.log(`카테고리 ${category}`);
   };
 
   const handleChangeTitle = (e: any) => {
     setTitle(e.target.value);
-    console.log(`타이틀 ${e.target.value}`);
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -77,7 +75,7 @@ const CommunityEditTextEditor = () => {
           <div>
             <div className={styles.inputTitle}>카테고리</div>
             <Select
-              defaultValue="자유게시판"
+              defaultValue={category}
               style={{ width: 130 }}
               onChange={handleChange}
               disabled

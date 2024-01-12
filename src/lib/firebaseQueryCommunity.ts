@@ -82,6 +82,11 @@ export const setDocument = async (documentPath: string, data: DataObject) => {
   await setDoc(ref, data, { merge: true });
 };
 
+export const deleteDocument = async (communityPath: string) => {
+  const ref = doc(db, communityPath);
+  await deleteDoc(ref);
+};
+
 export const viewCount = async (
   communityPath: string,
   data: { [x: string]: any },
