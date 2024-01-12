@@ -18,12 +18,10 @@ const CommunityTextEditor = () => {
 
   const handleChange = (value: string) => {
     setCategory(value);
-    console.log(`카테고리 ${value}`);
   };
 
   const handleChangeTitle = (e: any) => {
     setTitle(e.target.value);
-    console.log(`타이틀 ${e.target.value}`);
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {

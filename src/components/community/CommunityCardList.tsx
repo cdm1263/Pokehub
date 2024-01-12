@@ -7,6 +7,7 @@ import CommunityCardItem from './CommunityCardItem';
 import styles from './CommunityCardList.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import useCommunityDataList from '@/hook/useCommunityDataList';
+import TestLink from '@/pages/community/TestLink';
 
 interface CommunityData {
   id: string;
@@ -74,7 +75,6 @@ const CommunityCardList = () => {
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
-    console.log('확인',communityList)
     const filteredData = communityList.filter(
       (item) => item.category === CategoryList[currentTab] && item.title.includes(value)
     );
@@ -137,6 +137,7 @@ const CommunityCardList = () => {
           hideOnSinglePage={true}
         />
       </div>
+      <TestLink></TestLink>
     </div>
   );
 };
