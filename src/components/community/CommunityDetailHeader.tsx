@@ -61,7 +61,6 @@ const CommunityDetailHeader = ({ data, id }: any) => {
       try {
         await deleteCommunity(`community/${id.id}`);
         navigate(`/community`);
-        console.log('글이 삭제 되었습니다.');
       } catch (error) {
         console.error(error);
       }
