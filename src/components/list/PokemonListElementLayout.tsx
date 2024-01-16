@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import styles from './PokemonList.module.scss';
 import { PokemonType } from '@/lib/type';
+import { motion } from 'framer-motion';
 
 interface PokemonListElementLayoutProp {
   children: ReactNode;
@@ -16,7 +17,12 @@ const PokemonListElementLayout = ({
   className,
 }: PokemonListElementLayoutProp) => {
   return (
-    <li
+    <motion.li
+      whileHover={{
+        scale: 1.02,
+        boxShadow: `rgba(0, 0, 0, 0.24) 0px 3px 8px`,
+      }}
+      transition={{ duration: 0.3 }}
       className={`${styles.pokemon_list_element} ${className || ''}`}
       onClick={onClick}
     >
@@ -24,7 +30,7 @@ const PokemonListElementLayout = ({
         <span>{`No.${data.id}`}</span>
       </div>
       {children}
-    </li>
+    </motion.li>
   );
 };
 
