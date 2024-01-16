@@ -92,4 +92,17 @@
   border-right: 15px solid transparent;
   border-top: 24px solid #000;
   width: 111px;
+
+  div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -18px;
+    margin: auto;
+    scale: 1.5;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

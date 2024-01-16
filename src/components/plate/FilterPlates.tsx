@@ -63,7 +63,7 @@ const FilterPlates = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <PlateHideButton setIsOpen={setIsOpen} />
+      <PlateHideButton isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
