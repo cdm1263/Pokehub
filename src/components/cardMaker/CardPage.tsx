@@ -10,7 +10,7 @@ import useUserStore from '@/store/useUsersStore';
 import { MouseEvent } from 'react';
 import { filteredPokemonData } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
-import PokemonSearch from './PokemonSearch';
+import PokemonSearch from './searchPokemon/PokemonSearch';
 import { useEffect } from 'react'; // 추가
 
 const CardPage = () => {
