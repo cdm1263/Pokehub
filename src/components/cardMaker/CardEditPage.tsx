@@ -13,7 +13,7 @@ import { useGetAllPokemon } from '@/query/qeuries';
 import SearchPokemon from './searchPokemon/SearchPokemon';
 import { useEffect } from 'react';
 
-const CardPage = () => {
+const CardEditPage = () => {
   const { user } = useUserStore();
   const {
     pokemonData,
@@ -93,4 +93,4 @@ const CardPage = () => {
   );
 };
 
-export default CardPage;
+export default CardEditPage;
