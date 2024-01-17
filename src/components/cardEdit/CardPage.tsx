@@ -85,8 +85,10 @@ const CardPage = () => {
           <CardsRowLike />
           <CardsRowRandom />
         </div>
+        <button className={styles.save_button} onClick={onSave}>
+          저장하기
+        </button>
       </div>
-      <button onClick={onSave}>저장하기</button>
     </Inner>
   );
 };
