@@ -1,5 +1,5 @@
 import { POKEMON_STATS, POKEMON_TYPES } from '@/lib/constants';
-import styles from './cards.module.scss';
+import styles from './cardEditor.module.scss';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import StatusBar from '../detail/StatusBar';
 import Plate from '../plate/Plate';
