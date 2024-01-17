@@ -8,7 +8,7 @@ import { IoSearch } from '@react-icons/all-files/io5/IoSearch';
 import { PokemonType, TypesType } from '@/lib/type';
 import SearchDropdown from './SearchDropdown';
 
-const PokemonSearch = () => {
+const SearchPokemon = () => {
   const [text, setText] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -87,4 +87,4 @@ const PokemonSearch = () => {
   );
 };
 
-export default PokemonSearch;
+export default SearchPokemon;

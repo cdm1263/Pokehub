@@ -10,7 +10,7 @@ import useUserStore from '@/store/useUsersStore';
 import { MouseEvent } from 'react';
 import { filteredPokemonData } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
-import PokemonSearch from './searchPokemon/PokemonSearch';
+import SearchPokemon from './searchPokemon/SearchPokemon';
 import { useEffect } from 'react';
 
 const CardPage = () => {
@@ -69,7 +69,7 @@ const CardPage = () => {
   return (
     <Inner>
       <div className={styles.card_page_wrapper}>
-        <PokemonSearch />
+        <SearchPokemon />
         <div className={styles.product_card_wrapper}>
           <span className={styles.title}>카드 제작</span>
           <div className={styles.product_card_container_decoration__top}></div>
