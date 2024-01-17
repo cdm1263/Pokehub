@@ -6,9 +6,7 @@ import styles from './select.module.scss';
 
 const SelectPokemonRandom = () => {
   const { data } = useGetAllPokemon(1017);
-  const [randomPokemonArray, setRandomPokemonArray] = useState<PokemonType[]>(
-    [],
-  );
+  const [randomPokemons, setRandomPokemons] = useState<PokemonType[]>([]);
 
   const getRandomPokemon = useCallback(() => {
     if (data && data.length > 0) {
@@ -20,7 +18,7 @@ const SelectPokemonRandom = () => {
         const randomPokemon = data[randomIndex];
         tempArray.push(randomPokemon);
       }
-      setRandomPokemonArray(tempArray);
+      setRandomPokemons(tempArray);
     }
   }, [data]);
 
@@ -32,7 +30,7 @@ const SelectPokemonRandom = () => {
     <div className={styles.pokemon_select_wrapper}>
       <span className={styles.title}>랜덤 포켓몬</span>
       <div>
-        <SelectPokemonLayout pokemonArray={randomPokemonArray} />
+        <SelectPokemonLayout pokemonArray={randomPokemons} />
         <button className={styles.border_button} onClick={getRandomPokemon}>
           랜덤
         </button>
