@@ -6,7 +6,6 @@ import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
 import { IoChevronForward } from '@react-icons/all-files/io5/IoChevronForward';
 import { IoChevronBack } from '@react-icons/all-files/io5/IoChevronBack';
-import { POKEMON_NICKNAME1, POKEMON_NICKNAME2 } from '@/lib/constants';
 
 interface SearchDropdownProps {
   searchResults: (PokemonType | undefined)[] | null;
@@ -14,16 +13,13 @@ interface SearchDropdownProps {
 }
 
 const SearchDropdown = ({ searchResults, setIsOpen }: SearchDropdownProps) => {
-  const { setPokemonNickName1, setPokemonNickName2, setPokemonData } =
+  const { setPokemonData, generateRandomNicknames } =
     useSelectedPokemonForCard();
   const [currentPage, setCurrentPage] = useState(1);
   const POKEMONS_PER_PAGE = 12;
 
   const handleClick = (pokemon: PokemonType | null) => {
-    const randomIndex1 = Math.floor(Math.random() * POKEMON_NICKNAME1.length);
-    const randomIndex2 = Math.floor(Math.random() * POKEMON_NICKNAME2.length);
-    setPokemonNickName1(POKEMON_NICKNAME1[randomIndex1]);
-    setPokemonNickName2(POKEMON_NICKNAME2[randomIndex2]);
+    generateRandomNicknames();
     setPokemonData(pokemon);
     setIsOpen(false);
   };

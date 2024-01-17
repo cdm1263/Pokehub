@@ -4,25 +4,21 @@ import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { useCallback } from 'react';
-import { POKEMON_NICKNAME1, POKEMON_NICKNAME2 } from '@/lib/constants';
 
 interface SelectPokemonLayoutProps {
   pokemonArray: (PokemonType | null)[];
 }
 
 const SelectPokemonLayout = ({ pokemonArray }: SelectPokemonLayoutProps) => {
-  const { setPokemonNickName1, setPokemonNickName2, setPokemonData } =
+  const { setPokemonData, generateRandomNicknames } =
     useSelectedPokemonForCard();
 
   const handlePokemonSelection = useCallback(
     (pokemon: PokemonType | null) => {
+      generateRandomNicknames();
       pokemon && setPokemonData(pokemon);
-      const randomIndex1 = Math.floor(Math.random() * POKEMON_NICKNAME1.length);
-      const randomIndex2 = Math.floor(Math.random() * POKEMON_NICKNAME2.length);
-      setPokemonNickName1(POKEMON_NICKNAME1[randomIndex1]);
-      setPokemonNickName2(POKEMON_NICKNAME2[randomIndex2]);
     },
-    [setPokemonData, setPokemonNickName1, setPokemonNickName2],
+    [setPokemonData, generateRandomNicknames],
   );
 
   return (

@@ -1,9 +1,4 @@
-import {
-  POKEMON_NICKNAME1,
-  POKEMON_NICKNAME2,
-  POKEMON_STATS,
-  POKEMON_TYPES,
-} from '@/lib/constants';
+import { POKEMON_STATS, POKEMON_TYPES } from '@/lib/constants';
 import styles from './cards.module.scss';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import StatusBar from '../detail/StatusBar';
@@ -19,9 +14,8 @@ const CardEditor = () => {
     pokemonNickName1,
     pokemonNickName2,
     pokemonName,
-    setPokemonNickName1,
-    setPokemonNickName2,
     setPokemonName,
+    generateRandomNicknames,
   } = useSelectedPokemonForCard();
 
   useEffect(() => {
@@ -30,11 +24,8 @@ const CardEditor = () => {
   }, [pokemonData, setPokemonName]);
 
   useEffect(() => {
-    const randomIndex1 = Math.floor(Math.random() * POKEMON_NICKNAME1.length);
-    const randomIndex2 = Math.floor(Math.random() * POKEMON_NICKNAME2.length);
-    setPokemonNickName1(POKEMON_NICKNAME1[randomIndex1]);
-    setPokemonNickName2(POKEMON_NICKNAME2[randomIndex2]);
-  }, [setPokemonNickName1, setPokemonNickName2]);
+    generateRandomNicknames();
+  }, [generateRandomNicknames]);
 
   const renderStatusBar = (baseStat: Stat, index: number, statName: string) => (
     <li key={index}>
