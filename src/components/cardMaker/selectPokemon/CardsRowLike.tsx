@@ -1,5 +1,5 @@
 import CardsRowLayout from './CardsRowLayout';
-import styles from './cards.module.scss';
+import styles from './select.module.scss';
 import { IoChevronForward } from '@react-icons/all-files/io5/IoChevronForward';
 import { IoChevronBack } from '@react-icons/all-files/io5/IoChevronBack';
 import useLikedStore from '@/store/useLikedStore';

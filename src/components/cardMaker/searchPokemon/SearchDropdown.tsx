@@ -1,4 +1,4 @@
-import styles from './cards.module.scss';
+import styles from './search.module.scss';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { PokemonType } from '@/lib/type';
 import { useState } from 'react';

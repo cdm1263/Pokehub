@@ -1,5 +1,5 @@
 import { FormEvent, useState, useMemo, useRef, useEffect } from 'react';
-import styles from './cards.module.scss';
+import styles from './search.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
 import { POKEMON_TYPES } from '@/lib/constants';

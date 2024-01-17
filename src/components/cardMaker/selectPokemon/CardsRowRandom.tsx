@@ -2,7 +2,7 @@ import { PokemonType } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
 import { useCallback, useEffect, useState } from 'react';
 import CardsRowLayout from './CardsRowLayout';
-import styles from './cards.module.scss';
+import styles from './select.module.scss';
 
 const CardsRowRandom = () => {
   const { data } = useGetAllPokemon(1017);

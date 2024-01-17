@@ -1,5 +1,5 @@
 import { PokemonType } from '@/lib/type';
-import styles from './cards.module.scss';
+import styles from './select.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
