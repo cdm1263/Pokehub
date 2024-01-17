@@ -1,10 +1,10 @@
 import { PokemonType } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
 import { useCallback, useEffect, useState } from 'react';
-import CardsRowLayout from './CardsRowLayout';
+import SelectPokemonLayout from './SelectPokemonLayout';
 import styles from './select.module.scss';
 
-const CardsRowRandom = () => {
+const SelectPokemonRandom = () => {
   const { data } = useGetAllPokemon(1017);
   const [randomPokemonArray, setRandomPokemonArray] = useState<PokemonType[]>(
     [],
@@ -32,7 +32,7 @@ const CardsRowRandom = () => {
     <div className={styles.pokemon_select_wrapper}>
       <span className={styles.title}>랜덤 포켓몬</span>
       <div>
-        <CardsRowLayout pokemonArray={randomPokemonArray} />
+        <SelectPokemonLayout pokemonArray={randomPokemonArray} />
         <button className={styles.border_button} onClick={getRandomPokemon}>
           랜덤
         </button>
@@ -41,4 +41,4 @@ const CardsRowRandom = () => {
   );
 };
 
-export default CardsRowRandom;
+export default SelectPokemonRandom;

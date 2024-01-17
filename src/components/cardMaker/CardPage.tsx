@@ -1,6 +1,6 @@
 import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
-import CardsRowLike from '@/components/cardMaker/selectPokemon/CardsRowLike';
-import CardsRowRandom from '@/components/cardMaker/selectPokemon/CardsRowRandom';
+import SelectPokemonLike from '@/components/cardMaker/selectPokemon/SelectPokemonLike';
+import SelectPokemonRandom from '@/components/cardMaker/selectPokemon/SelectPokemonRandom';
 import styles from './cards.module.scss';
 import PokemonCard from '../card/PokemonCard';
 import CardEditor from './CardEditor';
@@ -11,7 +11,7 @@ import { MouseEvent } from 'react';
 import { filteredPokemonData } from '@/lib/type';
 import { useGetAllPokemon } from '@/query/qeuries';
 import PokemonSearch from './searchPokemon/PokemonSearch';
-import { useEffect } from 'react'; // 추가
+import { useEffect } from 'react';
 
 const CardPage = () => {
   const { user } = useUserStore();
@@ -82,8 +82,8 @@ const CardPage = () => {
           ></div>
         </div>
         <div className={styles.select_wrapper}>
-          <CardsRowLike />
-          <CardsRowRandom />
+          <SelectPokemonLike />
+          <SelectPokemonRandom />
         </div>
         <button className={styles.save_button} onClick={onSave}>
           저장하기

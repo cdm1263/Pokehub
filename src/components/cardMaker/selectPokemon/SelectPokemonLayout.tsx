@@ -6,11 +6,11 @@ import useSelectedPokemonForCard from '@/store/useSelectedPokemonForCard';
 import { useCallback } from 'react';
 import { POKEMON_NICKNAME1, POKEMON_NICKNAME2 } from '@/lib/constants';
 
-interface CardsRowLayoutProps {
+interface SelectPokemonLayoutProps {
   pokemonArray: (PokemonType | null)[];
 }
 
-const CardsRowLayout = ({ pokemonArray }: CardsRowLayoutProps) => {
+const SelectPokemonLayout = ({ pokemonArray }: SelectPokemonLayoutProps) => {
   const { setPokemonNickName1, setPokemonNickName2, setPokemonData } =
     useSelectedPokemonForCard();
 
@@ -62,4 +62,4 @@ const CardsRowLayout = ({ pokemonArray }: CardsRowLayoutProps) => {
   );
 };
 
-export default CardsRowLayout;
+export default SelectPokemonLayout;
