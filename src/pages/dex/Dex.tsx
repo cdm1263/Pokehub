@@ -1,4 +1,4 @@
-import PokemonList from '@/components/list/PokemonList';
+import PokemonList from '@/components/dex/PokemonList';
 import FilterPlates from '@/components/plate/FilterPlates';
 
 const Dex = () => {

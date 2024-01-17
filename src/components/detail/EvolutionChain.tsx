@@ -1,5 +1,5 @@
 import { PokemonType } from '@/lib/type';
-import PokemonListElementLayout from '../list/PokemonListElementLayout';
+import PokemonListElementLayout from '../dex/PokemonListElementLayout';
 import styles from './Detail.module.scss';
 import { POKEMON_NAME } from '@/lib/pokemonName';
 import { reverseObject } from '@/lib/util/reverseObject';
