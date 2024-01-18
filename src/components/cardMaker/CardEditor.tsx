@@ -44,10 +44,10 @@ const CardEditor = () => {
   );
 
   return (
-    <div className={styles.editor_wrapper}>
-      <div className={styles.editor_wrapper__top}>
+    <div className={styles.wrapper}>
+      <div className={styles.wrapper__top}>
         <span className={styles.title}>몬스터 이름</span>
-        <ul className={styles.pokemon_name_editor}>
+        <ul className={styles.name_editor}>
           <li>
             <span className={styles.list_name}>별칭 1</span>
             <div>
@@ -73,7 +73,7 @@ const CardEditor = () => {
           </li>
         </ul>
       </div>
-      <div className={styles.editor_wrapper__bottom}>
+      <div className={styles.wrapper__bottom}>
         <div className={styles.status_title}>
           <span className={styles.title}>스테이터스</span>
           <div>{pokemonData?.types.map(renderPlate)}</div>
