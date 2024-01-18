@@ -66,6 +66,12 @@ const CardEditPage = () => {
     }
   };
 
+  const pokemonNickName = {
+    pokemonNickName1,
+    pokemonNickName2,
+    pokemonName,
+  };
+
   return (
     <Inner>
       <div className={styles.wrapper}>
@@ -74,7 +80,10 @@ const CardEditPage = () => {
           <span className={styles.title}>카드 제작</span>
           <div className={styles.card_decoration}>
             <div className={styles.card_container}>
-              <PokemonCard pokemonCardData={filteredPokemonData} />
+              <PokemonCard
+                pokemonCardData={filteredPokemonData}
+                pokemonNickName={pokemonNickName}
+              />
               <CardEditor />
             </div>
           </div>
