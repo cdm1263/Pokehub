@@ -22,13 +22,13 @@ const SelectPokemonLayout = ({ pokemonArray }: SelectPokemonLayoutProps) => {
   );
 
   return (
-    <div className={styles.cards__row_cards}>
+    <div className={styles.layout_wrapper}>
       {pokemonArray.map((pokemonData, index) => (
         <div
           key={pokemonData ? pokemonData.id : index}
-          className={styles.cards__row_cards__column}
+          className={styles.layout_container}
         >
-          <div className={styles.cards__row_cards__card}>
+          <div className={styles.image}>
             {pokemonData ? (
               <img
                 src={

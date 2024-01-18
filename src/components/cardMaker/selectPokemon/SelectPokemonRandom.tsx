@@ -27,7 +27,7 @@ const SelectPokemonRandom = () => {
   }, [getRandomPokemon]);
 
   return (
-    <div className={styles.pokemon_select_wrapper}>
+    <div className={styles.select_wrapper}>
       <span className={styles.title}>랜덤 포켓몬</span>
       <div>
         <SelectPokemonLayout pokemonArray={randomPokemons} />

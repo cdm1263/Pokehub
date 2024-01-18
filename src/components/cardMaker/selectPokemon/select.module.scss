@@ -1,47 +1,45 @@
-.cards {
-  &__row_cards {
-    display: flex;
-    gap: 15px;
+.layout_wrapper {
+  display: flex;
+  gap: 15px;
 
-    &__column {
-      gap: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  span {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
 
-    &__card {
-      width: 121px;
-      height: 121px;
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 2.3px solid #e5e5e5;
-      background: #fff;
-
-      img {
-        width: 100px;
-        height: 100px;
-      }
-    }
-
-    span {
-      font-size: 18px;
-      font-weight: 400;
-      margin-bottom: 10px;
-    }
-
-    button {
-      width: 99px;
-      height: 34px;
-      border-radius: 8px;
-      font-size: 13px;
-    }
+  button {
+    width: 99px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 13px;
   }
 }
 
-.pokemon_select_wrapper {
+.layout_container {
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 121px;
+  height: 121px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2.3px solid #e5e5e5;
+  background: #fff;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.select_wrapper {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -58,7 +56,7 @@
   }
 }
 
-.pokemon_select_wrapper > div > .border_button {
+.select_wrapper > div > .border_button {
   width: 120px;
   height: 204px;
   border-radius: 15px;
@@ -67,7 +65,7 @@
   font-weight: 500;
 }
 
-.pokemon_select_wrapper > div > .page_button {
+.select_wrapper > div > .page_button {
   cursor: pointer;
   width: 32px;
   border: none;
@@ -81,7 +79,7 @@
   font-size: 20px;
 }
 
-.pokemon_select_wrapper > div > .title {
+.select_wrapper > div > .title {
   font-size: 28px;
   font-weight: 500;
 }

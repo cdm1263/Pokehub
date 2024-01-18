@@ -39,7 +39,7 @@ const SelectPokemonLike = () => {
   }, [pokemonData, index]);
 
   return (
-    <div className={styles.pokemon_select_wrapper}>
+    <div className={styles.select_wrapper}>
       <span className={styles.title}>내가 찜한 포켓몬</span>
       <div>
         <button
