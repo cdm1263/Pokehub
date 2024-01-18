@@ -8,9 +8,9 @@ import { useLocation } from 'react-router-dom';
 interface PokemonCardProp {
   pokemonCardData: filteredPokemonData;
   pokemonNickName?: {
-    pokemonNickName1: string;
-    pokemonNickName2: string;
-    pokemonName: string;
+    pokemonNickName1: string | null;
+    pokemonNickName2: string | null;
+    pokemonName: string | null;
   };
   isOpen?: boolean;
 }
@@ -96,14 +96,14 @@ const PokemonCard = ({
             />
             <div className={styles.pokemon_intro}>
               <div className={setMyClassName('pokemon_name')}>
-                <span className={setMyClassName('text__small')}>
+                <span className={setMyClassName('text_small')}>
                   {pokemonNickName?.pokemonNickName1}
                 </span>
-                <span className={setMyClassName('text__small')}>
+                <span className={setMyClassName('text_small')}>
                   {pokemonNickName?.pokemonNickName2}
                 </span>
               </div>
-              <span className={setMyClassName('text__large')}>
+              <span className={setMyClassName('text_large')}>
                 {pokemonNickName?.pokemonName}
               </span>
             </div>
@@ -117,8 +117,8 @@ const PokemonCard = ({
                 alt="PoketHub"
               />
               <div className={styles.total_stat}>
-                <span className={setMyClassName('text__small')}>Total</span>
-                <span className={setMyClassName('text__large')}>
+                <span className={setMyClassName('text_small')}>Total</span>
+                <span className={setMyClassName('text_large')}>
                   {data?.stats.reduce(
                     (acc, baseStat) => acc + baseStat.base_stat,
                     0,
