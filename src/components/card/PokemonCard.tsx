@@ -77,6 +77,16 @@ const PokemonCard = ({
     >
       <div className={setClassName('pokemon_number')}>{`No.${data?.id}`}</div>
       <div className={styles.white_block}>
+        <img
+          className={setMyClassName('monster_ball_left')}
+          src="/monster-ball1.svg"
+          alt=""
+        />
+        <img
+          className={setMyClassName('monster_ball_right')}
+          src="/monster-ball2.svg"
+          alt=""
+        />
         <div className={setClassName('container')}>
           <div className={setMyClassName('container__top')}>
             <div className={setMyClassName('type_containter')}>
