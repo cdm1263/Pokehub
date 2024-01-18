@@ -180,26 +180,24 @@
   gap: 5px;
 }
 
-.text {
-  &__small {
-    font-size: 13px;
-    font-weight: 500;
-  }
+.text_small,
+.text_small__my {
+  font-weight: 500;
+  font-size: 13px;
 
-  &__small__my {
+  &__my {
     font-size: 8px;
-    font-weight: 500;
     color: #000;
   }
+}
 
-  &__large {
-    font-size: 25px;
-    font-weight: 700;
-  }
+.text_large,
+.text_large__my {
+  font-size: 25px;
+  font-weight: 700;
 
-  &__large__my {
+  &__my {
     font-size: 13px;
-    font-weight: 700;
     color: #000;
   }
 }
