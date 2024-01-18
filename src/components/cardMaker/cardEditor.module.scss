@@ -1,22 +1,19 @@
-.editor_wrapper {
+.wrapper {
   justify-content: space-between;
   display: flex;
   flex-direction: column;
   width: 350px;
   height: 485px;
+}
 
-  &__top {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 80%;
-  }
+.wrapper__top,
+.wrapper__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
 
   &__bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%;
     justify-content: flex-end;
   }
 
@@ -25,10 +22,10 @@
   }
 }
 
-.pokemon_name_editor {
+.name_editor {
   display: flex;
   flex-direction: column;
-  height: 60%;
+  flex: 0.8;
   justify-content: space-between;
 
   > li {
@@ -78,6 +75,7 @@
   > li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     > div {
       width: 70%;
