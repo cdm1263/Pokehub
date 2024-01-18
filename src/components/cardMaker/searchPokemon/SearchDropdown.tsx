@@ -48,7 +48,7 @@ const SearchDropdown = ({ searchResults, setIsOpen }: SearchDropdownProps) => {
         key={pageNumber}
         onClick={() => setCurrentPage(pageNumber)}
         className={`${styles.pagination_button} ${
-          currentPage === pageNumber ? styles.button__action : ''
+          currentPage === pageNumber ? styles.action : ''
         }`}
       >
         {pageNumber}
@@ -76,10 +76,10 @@ const SearchDropdown = ({ searchResults, setIsOpen }: SearchDropdownProps) => {
 
   return (
     <div className={styles.dropdown_wrapper}>
-      <ul className={styles.dropdown__container}>
+      <ul className={styles.dropdown_container}>
         {currentPagePokemons?.map((pokemon: PokemonType | undefined) => (
           <li
-            className={styles.dropdown__list}
+            className={styles.dropdown_list}
             key={pokemon?.id}
             onClick={() => handleClick(pokemon ? pokemon : null)}
           >
