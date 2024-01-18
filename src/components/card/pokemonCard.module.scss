@@ -53,97 +53,54 @@
 }
 
 .container,
-.container__top,
-.container__bottom,
-.container__my,
-.container__top__my,
-.container__bottom__my {
+.container__my {
   width: 100%;
   height: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
 
-  &__top {
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-
-  &__bottom {
-    margin: 0 15px 15px 15px;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #eae6e6;
-    background: #fff;
-
-    > div {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-
   &__my {
     border-radius: 5px;
-
-    &__top {
-      gap: 5px;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    &__bottom {
-      margin: 0 8px 7px 8px;
-      padding: 8px;
-      border-radius: 3px;
-      border: 1px solid #eae6e6;
-      background: #fff;
-
-      > div {
-        display: flex;
-        justify-content: space-between;
-      }
-    }
   }
 }
 
-// 기존 코드
-// .container__my,
-// .container__top__my,
-// .container__bottom__my {
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 5px;
-//   display: flex;
-//   flex-direction: column;
+.container__top,
+.container__top__my {
+  gap: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
-//   &__top {
-//     gap: 5px;
-//     height: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     position: relative;
-//   }
+  &__my {
+    gap: 5px;
+  }
+}
 
-//   &__bottom {
-//     margin: 0 8px 7px 8px;
-//     padding: 8px;
-//     border-radius: 3px;
-//     border: 1px solid #eae6e6;
-//     background: #fff;
-//     display: flex;
-//     flex-direction: column;
+.container__bottom,
+.container__bottom__my {
+  margin: 0 15px 15px 15px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #eae6e6;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
 
-//     > div {
-//       display: flex;
-//       justify-content: space-between;
-//     }
-//   }
-// }
+  > div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__my {
+    margin: 0 8px 7px 8px;
+    padding: 8px;
+    border-radius: 3px;
+  }
+}
 
 .type_containter,
 .type_containter__my {
@@ -161,15 +118,14 @@
   }
 }
 
-.pokemon_image,
-.pokemon_image__my {
+.pokemon_image {
   width: 150px;
   height: 150px;
+}
 
-  &__my {
-    width: 78px;
-    height: 78px;
-  }
+.pokemon_image__my {
+  width: 78px;
+  height: 78px;
 }
 
 .pokemon_intro,
