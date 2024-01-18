@@ -68,18 +68,16 @@ const CardEditPage = () => {
 
   return (
     <Inner>
-      <div className={styles.card_page_wrapper}>
+      <div className={styles.wrapper}>
         <SearchPokemon />
-        <div className={styles.product_card_wrapper}>
+        <div className={styles.card_wrapper}>
           <span className={styles.title}>카드 제작</span>
-          <div className={styles.product_card_container_decoration__top}></div>
-          <div className={styles.product_card_container}>
-            <PokemonCard pokemonCardData={filteredPokemonData} />
-            <CardEditor />
+          <div className={styles.card_decoration}>
+            <div className={styles.card_container}>
+              <PokemonCard pokemonCardData={filteredPokemonData} />
+              <CardEditor />
+            </div>
           </div>
-          <div
-            className={styles.product_card_container_decoration__bottom}
-          ></div>
         </div>
         <div className={styles.select_wrapper}>
           <SelectPokemonLike />
