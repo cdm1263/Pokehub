@@ -7,6 +7,7 @@ import Pagination from './Pagination';
 import usePagination from '@/hook/usePagination';
 import { addDocument, deleteDocument } from '@/lib/firebaseQuery';
 import { FORMDATE } from '@/lib/constants';
+import useCalculateInnerWidth from '@/hook/useCalculateInnerWidth';
 export interface CommentProps {
   comment: string;
   createdAt: string;
@@ -19,6 +20,7 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState('');
   const { user } = useUserStore();
+  const windowWidth = useCalculateInnerWidth();
 
   const { pokemon } = pokemonState;
 
@@ -62,7 +64,9 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
     }
   };
 
-  const onCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onCommentChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setComment(e.target.value);
   };
 
@@ -150,6 +154,82 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
           )}
         </ul>
       </div>
+
+      {windowWidth <= 768 && (
+        <>
+          <div>
+            <form className={styles.mobile__comments__form} onSubmit={onSubmit}>
+              <span
+                className={`${styles.mobile__comments__length} ${
+                  comment.length > 100
+                    ? styles['mobile__comments__length__max']
+                    : ''
+                }`}
+              >
+                {comment.length} / 100
+              </span>
+              <textarea
+                className={styles.mobile__comments__text}
+                name="comment"
+                id="comment"
+                required
+                value={comment}
+                onChange={onCommentChange}
+                placeholder={
+                  user?.uid ? '댓글을 입력해주세요' : '로그인을 해주세요'
+                }
+              />
+
+              <div className={styles.mobile__comments__btn__box}>
+                <input
+                  className={styles.mobile__comments__btn}
+                  type="submit"
+                  value="댓글 등록"
+                  disabled={!comment || loading || comment.length > 100}
+                />
+              </div>
+            </form>
+            <ul className={styles.mobile__comments__list__inner}>
+              {commentList.length > 0 ? (
+                commentList.map(
+                  ({ id, comment, displayName, createdAt, uid }) => {
+                    const createdDate = FORMDATE(createdAt);
+                    return (
+                      <li className={styles.mobile__comments__list}>
+                        <div>
+                          <div className={styles.mobile__comments__list__info}>
+                            <span>{displayName}</span>
+                            <span>{createdDate}</span>
+                          </div>
+                          <div
+                            className={styles.mobile__comments__list__content}
+                          >
+                            {comment}
+                          </div>
+                        </div>
+                        <div
+                          className={styles.mobile__comments__list__btn__box}
+                        >
+                          {uid === user?.uid && (
+                            <button
+                              className={styles.mobile__comments__list__btn}
+                              onClick={() => onDelete(id, uid)}
+                            >
+                              삭제
+                            </button>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  },
+                )
+              ) : (
+                <div>댓글이 없습니다.</div>
+              )}
+            </ul>
+          </div>
+        </>
+      )}
       <Pagination
         isLoading={isLoading}
         onMoveToNext={() => fetchComments('next')}
