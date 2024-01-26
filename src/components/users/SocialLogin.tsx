@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect } from 'react';
+import { Dispatch, MouseEvent, SetStateAction, useEffect } from 'react';
 import { app } from '@/firebase';
 import {
   signInWithPopup,
@@ -14,8 +14,8 @@ import useUserStore from '@/store/useUsersStore';
 import { useNavigate } from 'react-router-dom';
 
 interface SocialLoginProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen?: boolean;
+  setIsOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
 const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
@@ -61,7 +61,9 @@ const SocialLogin = ({ isOpen, setIsOpen }: SocialLoginProps) => {
 
     try {
       const result = await signInWithPopup(auth, provider);
-      setIsOpen(false);
+      if (setIsOpen) {
+        setIsOpen(false);
+      }
       console.log('로그인 성공:', result);
     } catch (error) {
       console.error('로그인 중 오류 발생:', error);
