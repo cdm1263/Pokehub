@@ -3,12 +3,12 @@ import styles from './select.module.scss';
 import { IoChevronForward } from '@react-icons/all-files/io5/IoChevronForward';
 import { IoChevronBack } from '@react-icons/all-files/io5/IoChevronBack';
 import useLikedStore from '@/store/useLikedStore';
-import { useState, useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import useCalculateInnerWidth from '@/hook/useCalculateInnerWidth';
+import useSlide from '@/hook/useSlide';
 
 const SelectPokemonLike = () => {
   const { pokemonData } = useLikedStore();
-  const [index, setIndex] = useState(0);
   const windowWidth = useCalculateInnerWidth();
   let POKEMONS_PER_PAGE = 3;
 
@@ -16,19 +16,10 @@ const SelectPokemonLike = () => {
     POKEMONS_PER_PAGE = 2;
   }
 
-  const prevSlide = useCallback(() => {
-    if (pokemonData.length <= POKEMONS_PER_PAGE) return;
-    setIndex((prevIndex) =>
-      prevIndex === 0 ? pokemonData.length - 1 : prevIndex - 1,
-    );
-  }, [pokemonData.length, POKEMONS_PER_PAGE]);
-
-  const nextSlide = useCallback(() => {
-    if (pokemonData.length <= POKEMONS_PER_PAGE) return;
-    setIndex((prevIndex) =>
-      prevIndex === pokemonData.length - 1 ? 0 : prevIndex + 1,
-    );
-  }, [pokemonData.length, POKEMONS_PER_PAGE]);
+  const { index, prevSlide, nextSlide } = useSlide(
+    pokemonData.length,
+    POKEMONS_PER_PAGE,
+  );
 
   const likePokemonArray = useMemo(() => {
     const arrayLength = pokemonData.length;
@@ -62,6 +53,7 @@ const SelectPokemonLike = () => {
         >
           <IoChevronBack />
         </button>
+        t
         <SelectPokemonLayout pokemonArray={likePokemonArray} />
         <button
           className={styles.page_button}

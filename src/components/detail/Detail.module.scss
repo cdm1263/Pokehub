@@ -36,12 +36,12 @@
 /*Pokemon - info*/
 .pokemon__info__title {
   text-align: left;
-  width: 54px;
+  width: 57px;
   font-weight: bold;
 
   &.id,
   &.title {
-    width: 38px;
+    width: 39px;
   }
 }
 
@@ -133,6 +133,12 @@
 }
 
 /*Pokemon - status*/
+
+.status {
+  @media (max-width: 769px) {
+    font-size: 12px;
+  }
+}
 
 .stats__main {
   width: 300px;
@@ -276,6 +282,10 @@
     margin-top: 5px;
     margin-bottom: 10px;
     flex-shrink: 0;
+
+    @media (max-width: 769px) {
+      height: 16px;
+    }
   }
 
   &__barBg__my {
@@ -502,6 +512,7 @@
 
     @media (max-width: 769px) {
       margin-top: 43px;
+      width: 100%;
     }
   }
 
@@ -662,7 +673,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100vw;
+        width: 100%;
+        height: 488px;
+        margin-bottom: 38px;
       }
     }
 
@@ -672,8 +685,8 @@
       border-left: 43px solid transparent;
       border-right: 43px solid transparent;
       position: relative;
-      top: -30px;
-      margin-bottom: 61px;
+      top: -22px;
+      margin-bottom: 104px;
     }
 
     &__name {
@@ -687,7 +700,7 @@
       font-style: normal;
       font-weight: 600;
       line-height: normal;
-      width: 100vw;
+      width: 100%;
 
       &.longName {
         top: -39px;
@@ -700,29 +713,38 @@
       }
     }
   }
+
+  &__official__img {
+    height: 204px;
+    width: 204px;
+  }
 }
 
 .mobile {
   &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
     &__box {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 24px;
+      width: 320px;
+      height: 406px;
+      margin-top: 44px;
+      border: 3px solid #000;
     }
 
     &__title {
-      width: 100vw;
-      height: 100%;
+      width: 100%;
       border-bottom: 3px solid #000;
-      border-top: 3px solid #000;
+      border-top: 2px solid #000;
       position: relative;
       display: flex;
       align-items: center;
 
       &__span {
-        height: 49px;
+        height: 40px;
         z-index: 101;
         display: flex;
         align-items: center;
@@ -733,20 +755,20 @@
         font-style: normal;
         font-weight: 600;
         line-height: normal;
-        padding-left: 32px;
+        padding-left: 18px;
       }
 
       &__left {
         width: 36%;
-        border-bottom: 49px solid #000;
-        border-right: 49px solid transparent;
+        border-bottom: 40px solid #000;
+        border-right: 40px solid transparent;
         position: absolute;
         z-index: 100;
       }
 
       &__right {
-        width: 100vw;
-        height: 49px;
+        width: 100%;
+        height: 40px;
         background-color: red;
         position: absolute;
       }
@@ -764,8 +786,14 @@
 
 .mobile {
   &__status {
+    &__container {
+      border: 3px solid #000;
+      width: 320px;
+      margin-top: 44px;
+    }
+
     &__box {
-      padding: 33px 35px 32px 35px;
+      padding: 26px;
       width: 100%;
     }
 
@@ -774,7 +802,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      height: 75px;
+      height: 60px;
       background-color: #000;
       color: #fff;
       padding: 0 49px 0 33px;
@@ -796,6 +824,6 @@
     display: block;
     width: auto;
     position: inherit;
-    margin-top: 27px;
+    margin-top: 60px;
   }
 }

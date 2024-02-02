@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaRegAddressCard } from '@react-icons/all-files/fa/FaRegAddressCard';
 import { BsFilePlus } from '@react-icons/all-files/bs/BsFilePlus';
@@ -6,35 +6,20 @@ import { RiUserVoiceFill } from '@react-icons/all-files/ri/RiUserVoiceFill';
 import { FiLogIn } from '@react-icons/all-files/fi/FiLogIn';
 import styles from './Header.module.scss';
 import useUserStore from '@/store/useUsersStore';
+import { Modalportal } from '@/portal';
 import SocialLogin from '../users/SocialLogin';
-import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
+import MobileModal from '../modal/MobileModal';
 
-interface MobileNavMenu {
-  props: {
-    isOpen: boolean;
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
-    dropdownRef: MutableRefObject<HTMLDivElement | null>;
-    toggleDropdown: () => void;
-    onClickOutSide: (e: MouseEvent) => void;
-  };
-}
-
-const MobileNavMenu = ({ props }: MobileNavMenu) => {
-  console.log(props);
+const MobileNavMenu = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useUserStore();
-  const { imgUrl } = useUserInfoChangeStore();
-  const { isOpen, setIsOpen, dropdownRef, toggleDropdown, onClickOutSide } =
-    props;
-
-  useEffect(() => {
-    document.addEventListener('mousedown', onClickOutSide);
-    return () => {
-      document.removeEventListener('mousedown', onClickOutSide);
-    };
-  }, [imgUrl, onClickOutSide]);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+  };
+
+  const onToggleModal = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
@@ -68,11 +53,7 @@ const MobileNavMenu = ({ props }: MobileNavMenu) => {
           </div>
         </NavLink>
 
-        <div
-          className={styles.nav__item__mobile}
-          ref={dropdownRef}
-          onClick={toggleDropdown}
-        >
+        <div className={styles.nav__item__mobile} onClick={onToggleModal}>
           {user ? (
             <>
               <div className={styles.nav__profile__img}>
@@ -84,14 +65,22 @@ const MobileNavMenu = ({ props }: MobileNavMenu) => {
                   height={31}
                 />
               </div>
+              나의 메뉴
             </>
           ) : (
             <>
               <FiLogIn size={24} />
+              로그인
             </>
           )}
 
-          <SocialLogin isOpen={isOpen} setIsOpen={setIsOpen} />
+          {isModalOpen && (
+            <Modalportal>
+              <MobileModal>
+                <SocialLogin isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+              </MobileModal>
+            </Modalportal>
+          )}
         </div>
       </nav>
     </>

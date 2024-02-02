@@ -29,20 +29,23 @@ const PokemonInfo = ({
           />
         </div>
       </div>
+
       {windowWidth <= 768 && (
         <>
-          <div className={styles.mobile__info__box}>
-            <div className={styles.mobile__info__title}>
-              <span className={styles.mobile__info__title__span}>정보</span>
-              <div className={styles.mobile__info__title__left}></div>
-              <div className={styles.mobile__info__title__right}></div>
-            </div>
-            <div className={styles.mobile__info__contents}>
-              <PokemonInfoDisplay
-                pokemonState={pokemonState}
-                onFormChange={onFormChange}
-                isLoading={isLoading}
-              />
+          <div className={styles.mobile__info}>
+            <div className={styles.mobile__info__box}>
+              <div className={styles.mobile__info__title}>
+                <span className={styles.mobile__info__title__span}>정보</span>
+                <div className={styles.mobile__info__title__left}></div>
+                <div className={styles.mobile__info__title__right}></div>
+              </div>
+              <div className={styles.mobile__info__contents}>
+                <PokemonInfoDisplay
+                  pokemonState={pokemonState}
+                  onFormChange={onFormChange}
+                  isLoading={isLoading}
+                />
+              </div>
             </div>
           </div>
         </>

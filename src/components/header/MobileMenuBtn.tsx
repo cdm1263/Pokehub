@@ -7,8 +7,6 @@ interface Props extends SVGMotionProps<SVGSVGElement> {
   transition?: Transition;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   lineProps?: any;
-  width?: number;
-  height?: number;
 }
 
 const MobileMenuBtn = ({
@@ -50,6 +48,7 @@ const MobileMenuBtn = ({
       translateY: -2,
     },
   };
+
   lineProps = {
     stroke: color,
     strokeWidth: strokeWidth as number,
@@ -57,10 +56,18 @@ const MobileMenuBtn = ({
     initial: 'closed',
     animate: variant,
     transition,
-    ...lineProps,
   };
   const unitHeight = 4;
   const unitWidth = (unitHeight * (width as number)) / (height as number);
+
+  const topLineProps = {
+    ...lineProps,
+    style: { transformOrigin: '2.85714px 0px' },
+  };
+  const bottomLineProps = {
+    ...lineProps,
+    style: { transformOrigin: '2.85714px 4px' },
+  };
 
   return (
     <motion.svg
@@ -77,7 +84,7 @@ const MobileMenuBtn = ({
         y1="0"
         y2="0"
         variants={top}
-        {...lineProps}
+        {...topLineProps}
       />
       <motion.line
         x1="0"
@@ -93,7 +100,7 @@ const MobileMenuBtn = ({
         y1="4"
         y2="4"
         variants={bottom}
-        {...lineProps}
+        {...bottomLineProps}
       />
     </motion.svg>
   );

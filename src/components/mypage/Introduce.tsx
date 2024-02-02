@@ -14,6 +14,7 @@ import { PROFILE_DEFAULT_IMG, STORAGE_DOWNLOAD_URL } from '@/lib/constants';
 import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
 import { getDocument, setDocument } from '@/lib/firebaseQuery';
 import { IoIosCloseCircle } from '@react-icons/all-files/io/IoIosCloseCircle';
+import useCalculateInnerWidth from '@/hook/useCalculateInnerWidth';
 
 const Introduce = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,7 @@ const Introduce = () => {
   const [editText, setEditText] = useState('');
   const { user } = useUserStore();
   const { userName, setUserName, imgUrl, setImgUrl } = useUserInfoChangeStore();
+  const windowWidth = useCalculateInnerWidth();
 
   useEffect(() => {
     if (user?.photoURL) {
@@ -152,8 +154,8 @@ const Introduce = () => {
         <img
           src={imgUrl || PROFILE_DEFAULT_IMG}
           alt="프로필 이미지"
-          width={162}
-          height={162}
+          width={windowWidth <= 768 ? 80 : 162}
+          height={windowWidth <= 768 ? 80 : 162}
         />
         {editMode ? (
           <>
@@ -164,7 +166,7 @@ const Introduce = () => {
               <input type="file" accept="image/*" onChange={onProfileUpload} />
             </label>
             <button type="button" onClick={onDeleteProfileImg}>
-              <IoIosCloseCircle size="24" />
+              <IoIosCloseCircle size={windowWidth <= 768 ? 18 : 24} />
             </button>
           </>
         ) : (
@@ -222,7 +224,11 @@ const Introduce = () => {
           onClick={editMode ? onEditModeOff : onEditModeOn}
           disabled={isLoading}
         >
-          <span>{editMode ? '저장하기' : '프로필 편집'}</span>
+          {windowWidth <= 768 ? (
+            <span>{editMode ? '저장' : '편집'}</span>
+          ) : (
+            <span>{editMode ? '저장하기' : '프로필 편집'}</span>
+          )}
         </button>
       </div>
     </div>

@@ -124,7 +124,7 @@ const PokemonImg = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
               {isLoading ? (
                 <DetailImgSkeleton />
               ) : (
-                <>
+                <div className={styles.mobile__official__img}>
                   <img
                     className={styles.mobile__official__img}
                     src={
@@ -136,7 +136,7 @@ const PokemonImg = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
                     width={204}
                     height={204}
                   />
-                </>
+                </div>
               )}
             </div>
             <LikePokemon pokemonId={pokemonId || ''} isLoading={isLoading} />
