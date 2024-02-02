@@ -34,22 +34,24 @@ const Status = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
 
       {windowWidth <= 768 && (
         <>
-          <div className={styles.mobile__info__box}>
-            <div className={styles.mobile__info__title}>
-              <span className={styles.mobile__info__title__span}>스탯</span>
-              <div className={styles.mobile__info__title__left}></div>
-              <div className={styles.mobile__info__title__right}></div>
-            </div>
-            <div className={styles.mobile__status__box}>
-              <StatusDisplay pokemon={pokemon} isLoading={isLoading} />
-            </div>
-            <div className={styles.mobile__status__total}>
-              <div>최종 스탯</div>
-              <div>
-                {pokemon?.stats.reduce(
-                  (acc, baseStat) => acc + baseStat.base_stat,
-                  0,
-                )}
+          <div className={styles.mobile__info}>
+            <div className={styles.mobile__status__container}>
+              <div className={styles.mobile__info__title}>
+                <span className={styles.mobile__info__title__span}>스탯</span>
+                <div className={styles.mobile__info__title__left}></div>
+                <div className={styles.mobile__info__title__right}></div>
+              </div>
+              <div className={styles.mobile__status__box}>
+                <StatusDisplay pokemon={pokemon} isLoading={isLoading} />
+              </div>
+              <div className={styles.mobile__status__total}>
+                <div>최종 스탯</div>
+                <div>
+                  {pokemon?.stats.reduce(
+                    (acc, baseStat) => acc + baseStat.base_stat,
+                    0,
+                  )}
+                </div>
               </div>
             </div>
           </div>

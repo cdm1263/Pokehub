@@ -79,6 +79,11 @@
   justify-content: center;
   border-left: 1px solid #000;
   border-bottom: 2px solid #000;
+
+  &__last {
+    border-right: 1px solid #000;
+    cursor: pointer;
+  }
 }
 
 .nav__profile__img {
@@ -90,11 +95,6 @@
   img {
     border-radius: 50%;
   }
-}
-
-.nav__item:nth-child(4) {
-  cursor: pointer;
-  border-right: 1px solid #000;
 }
 
 .logo {
@@ -219,6 +219,7 @@
 .nav__item__mobile:nth-child(4) {
   border: none;
   width: 100vw;
+  cursor: pointer;
 }
 
 .active {

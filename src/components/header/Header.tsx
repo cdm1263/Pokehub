@@ -5,14 +5,14 @@ import { FaRegAddressCard } from '@react-icons/all-files/fa/FaRegAddressCard';
 import { BsFilePlus } from '@react-icons/all-files/bs/BsFilePlus';
 import { RiUserVoiceFill } from '@react-icons/all-files/ri/RiUserVoiceFill';
 import { FiLogIn } from '@react-icons/all-files/fi/FiLogIn';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useUserStore from '@/store/useUsersStore';
 import SearchInput from '../search/Search';
-import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
 import MobileNav from './MobileNav';
 import MobileSearchBox from './MobileSearchBox';
 import MobileNavMenu from './MobileNavMenu';
 import useCalculateInnerWidth from '@/hook/useCalculateInnerWidth';
+import useUserInfoChangeStore from '@/store/useUserInfoChangeStore';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +20,9 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   const location = useLocation();
-
-  const { user } = useUserStore();
   const { imgUrl } = useUserInfoChangeStore();
+  const { user } = useUserStore();
+
   const windowWidth = useCalculateInnerWidth();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,14 +31,6 @@ const Header = () => {
   const onClickOutSide = (e: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node))
       setIsOpen(false);
-  };
-
-  const props = {
-    isOpen,
-    setIsOpen,
-    dropdownRef,
-    toggleDropdown,
-    onClickOutSide,
   };
 
   useEffect(() => {
@@ -72,17 +64,17 @@ const Header = () => {
     setNavOpen(false);
   }, [location]);
 
-  const onToggleSearchBox = () => {
+  const onToggleSearchBox = useCallback(() => {
     setNavOpen(false);
     setSearchOpen((prev) => !prev);
-  };
+  }, []);
 
-  const onToggleNavMenu = () => {
+  const onToggleNavMenu = useCallback(() => {
     setSearchOpen(false);
     setNavOpen((prev) => !prev);
-  };
+  }, []);
 
-  const onCloseOverlay = () => {
+  const onCloseOverlay = useCallback(() => {
     if (searchOpen === true) {
       setSearchOpen(false);
     }
@@ -90,7 +82,7 @@ const Header = () => {
     if (navOpen === true) {
       setNavOpen(false);
     }
-  };
+  }, [searchOpen, navOpen]);
 
   return (
     <>
@@ -127,21 +119,27 @@ const Header = () => {
                 </Link>
                 <div
                   ref={dropdownRef}
-                  className={styles.nav__item}
                   onClick={toggleDropdown}
+                  className={styles.nav__item__last}
                 >
                   {user ? (
-                    <div className={styles.nav__profile__img}>
-                      <img
-                        style={{ borderRadius: '50%' }}
-                        src={user?.photoURL || undefined}
-                        alt="프로필 사진"
-                        width={31}
-                        height={31}
-                      />
+                    <div className={styles.nav__item}>
+                      <div className={styles.nav__profile__img}>
+                        <img
+                          style={{ borderRadius: '50%' }}
+                          src={user?.photoURL || undefined}
+                          alt="프로필 사진"
+                          width={31}
+                          height={31}
+                        />
+                      </div>
+                      나의 메뉴
                     </div>
                   ) : (
-                    <FiLogIn size={31} />
+                    <div className={styles.nav__item}>
+                      <FiLogIn size={31} />
+                      로그인
+                    </div>
                   )}
 
                   <SocialLogin isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -157,6 +155,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+
       {searchOpen && (
         <div className={styles.mobile__overlay} onClick={onCloseOverlay}>
           <MobileSearchBox isOpen={setSearchOpen} />
@@ -164,7 +163,7 @@ const Header = () => {
       )}
       {navOpen && (
         <div className={styles.mobile__overlay} onClick={onCloseOverlay}>
-          <MobileNavMenu props={props} />
+          <MobileNavMenu />
         </div>
       )}
     </>

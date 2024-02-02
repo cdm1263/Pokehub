@@ -24,13 +24,15 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
 
   const { pokemon } = pokemonState;
 
+  const perPage = windowWidth <= 768 ? 5 : 10;
+
   const {
     dataList: commentList,
     setDataList: setCommentList,
     fetchData: fetchComments,
     isLoading,
     hasMoreData: hasMoreComments,
-  } = usePagination(`comments/${pokemon?.id}/pokemonComments`, 10);
+  } = usePagination(`comments/${pokemon?.id}/pokemonComments`, perPage);
 
   useEffect(() => {
     if (pokemon?.id) {
@@ -157,7 +159,7 @@ const Comments = ({ pokemonState }: PokemonInfoProps) => {
 
       {windowWidth <= 768 && (
         <>
-          <div>
+          <div className={styles.mobile__comments}>
             <form className={styles.mobile__comments__form} onSubmit={onSubmit}>
               <span
                 className={`${styles.mobile__comments__length} ${
