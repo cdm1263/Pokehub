@@ -154,6 +154,8 @@ const Mycard = () => {
     }
   }
 
+  console.log(index);
+
   const onCloseOverlay = useCallback(() => {
     if (isAlert === true) {
       setIsAlert(false);
@@ -200,6 +202,11 @@ const Mycard = () => {
             cardLayout
           )}
         </div>
+        {windowWidth <= 768 && (
+          <div className={styles.mycard__layout__count}>
+            {index + 1} / {cardLayout.length}
+          </div>
+        )}
       </div>
 
       {isOpen && (
