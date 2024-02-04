@@ -154,8 +154,6 @@ const Mycard = () => {
     }
   }
 
-  console.log(index);
-
   const onCloseOverlay = useCallback(() => {
     if (isAlert === true) {
       setIsAlert(false);
