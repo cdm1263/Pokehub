@@ -14,8 +14,7 @@ jobs:
         run: apk add ruby && gem install mustache
       - name: creates output
         run: sh ./build.sh
-      - name: Pushes to another repository
-        id: push_directory
+      - name: Pushes to Team_side_project_pokemon
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.HUN_TOKEN }}
@@ -24,6 +23,17 @@ jobs:
           destination-github-username: BearHumanS
           destination-repository-name: Team_side_project_pokemon
           user-email: ${{ secrets.HUN_EMAIL }}
+          commit-message: ${{ github.event.commits[0].message }}
+          target-branch: main
+      - name: Pushes to Pokehub
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.CDM_TOKEN }}
+        with:
+          source-directory: 'output'
+          destination-github-username: Dongmin
+          destination-repository-name: Pokehub
+          user-email: ${{ secrets.CDM_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
