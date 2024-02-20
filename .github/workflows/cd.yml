@@ -31,7 +31,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.CDM_TOKEN }}
         with:
           source-directory: 'output'
-          destination-github-username: Dongmin
+          destination-github-username: cdm1263
           destination-repository-name: Pokehub
           user-email: ${{ secrets.CDM_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
