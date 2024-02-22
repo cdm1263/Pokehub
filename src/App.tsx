@@ -30,7 +30,7 @@ const App = () => {
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <LikedSnapshot />
-        {init ? (
+        {init && (
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<DEX />} />
@@ -72,8 +72,6 @@ const App = () => {
             </Route>
             <Route path="*" element={<Redirect />} />
           </Routes>
-        ) : (
-          <>로딩 중...</>
         )}
       </QueryClientProvider>
     </BrowserRouter>
