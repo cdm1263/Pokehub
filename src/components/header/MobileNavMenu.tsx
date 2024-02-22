@@ -38,7 +38,7 @@ const MobileNavMenu = () => {
           </div>
         </NavLink>
         <NavLink
-          to="cardEdit"
+          to="cardedit"
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
           <div className={styles.nav__item__mobile}>

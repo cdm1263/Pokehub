@@ -44,7 +44,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/cardEdit"
+                path="/cardedit"
                 element={
                   <RequireAuth>
                     <Card />
