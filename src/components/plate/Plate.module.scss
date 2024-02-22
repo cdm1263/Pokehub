@@ -84,7 +84,7 @@
   }
 
   .unclick_plate.#{$type} {
-    @include plate_unclick_style($color);
+    @include plate_unclick_style(#D0D0D0);
   }
 
   .type_plate.#{$type} {

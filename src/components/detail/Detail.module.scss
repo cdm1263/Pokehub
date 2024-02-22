@@ -277,6 +277,7 @@
   &__barBg {
     width: 100%;
     position: relative;
+    inset: 0;
     height: 20px;
     border-radius: 4px;
     margin-top: 5px;
@@ -330,11 +331,17 @@
   }
 
   &__value {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-44%);
+    inset: 0;
     z-index: 2;
+    padding-right: 2px;
+    display: flex;
+    position: absolute;
+    justify-content: end;
+    align-items: center;
+    // padding-right: 10px;
+    // right: 14px;
+    // top: 50%;
+    // transform: translateY(-44%);
     color: #000000;
     line-height: initial;
   }
