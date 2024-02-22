@@ -93,7 +93,7 @@
 
   .type_plate__my.#{$type} {
     @include plate_pokemon_type($color);
-    width: 33px;
+    // width: 33px;
     height: 11px;
 
     img {
@@ -123,6 +123,7 @@
   }
 
   .mobile_button {
+    padding-top: 2px;
     position: absolute;
     left: 0;
     right: 0;
