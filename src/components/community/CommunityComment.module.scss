@@ -4,8 +4,8 @@
 
 .commentContainer {
   @media (max-width: 768px) {
-      width: 100%;
-      padding: 0 20px;
+    width: 100%;
+    padding: 0 20px;
   }
 }
 
@@ -108,7 +108,7 @@
     display: flex;
     font-size: 14px;
     border-style: none;
-    font-family: 'GmarketSansMedium';
+
     &:focus {
       outline: none;
     }
@@ -136,7 +136,7 @@
   background-color: black;
   margin-top: 10px;
   margin-bottom: 20px;
-  font-family: 'GmarketSansMedium';
+
   &:hover {
     color: white;
     background-color: #0f60ce;
