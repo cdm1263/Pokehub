@@ -132,7 +132,7 @@
   background-color: #fff;
   color: #0f60ce;
   font-weight: 500;
-  font-family: GmarketSansMedium;
+
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -183,7 +183,6 @@
     }
 
     .text_wrapper {
-      font-family: GmarketSansMedium;
       display: flex;
       flex-direction: column;
       gap: 8px;

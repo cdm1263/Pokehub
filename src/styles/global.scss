@@ -202,6 +202,7 @@ button {
   cursor: pointer;
   border: none;
   background-color: inherit;
+  font-family: 'GmarketSans';
 }
 
 section {
@@ -214,4 +215,8 @@ img {
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+}
+
+input {
+  font-family: 'GmarketSans';
 }
