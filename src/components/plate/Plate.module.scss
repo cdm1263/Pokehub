@@ -85,7 +85,7 @@
   }
 
   .unclick_plate.#{$type} {
-    @include plate_unclick_style(#D0D0D0);
+    @include plate_unclick_style(#d0d0d0);
   }
 
   .type_plate.#{$type} {
@@ -125,11 +125,10 @@
   }
 
   .mobile_button {
-    padding-top: 2px;
     position: absolute;
     left: 0;
     right: 0;
-    top: -18px;
+    top: -20px;
     margin: auto;
     color: #fff;
     display: none;
