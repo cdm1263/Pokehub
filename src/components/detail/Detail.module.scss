@@ -460,8 +460,13 @@
         height: 33px;
         flex-shrink: 0;
         cursor: none;
-        padding: 5px;
+        // padding: 5px;
         border-radius: 16px;
+        .plate__name {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+        }
       }
     }
   }
