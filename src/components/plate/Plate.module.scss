@@ -75,6 +75,7 @@
 
 .type_plate__my {
   display: flex;
+  width: 100%;
   gap: 3px;
 }
 
@@ -93,8 +94,9 @@
 
   .type_plate__my.#{$type} {
     @include plate_pokemon_type($color);
-    // width: 33px;
+    width: 45px;
     height: 11px;
+    padding: 0 7px;
 
     img {
       width: 7px;
