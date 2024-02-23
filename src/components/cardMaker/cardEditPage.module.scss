@@ -101,6 +101,10 @@
   border: none;
   cursor: pointer;
   font-family: GmarketSansMedium;
+
+  &:disabled {
+    background-color: #dddddd;
+  }
 }
 
 .title {

@@ -108,7 +108,7 @@ const Header = () => {
                     도감
                   </div>
                 </Link>
-                <Link to="cardEdit">
+                <Link to="cardedit">
                   <div className={styles.nav__item}>
                     <FiPlusSquare size={31} />
                     카드 제작
