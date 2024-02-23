@@ -63,24 +63,25 @@ const MyPosts = () => {
   const onDelete = async (postId: string) => {
     const confirm = window.confirm('해당 글을 삭제하시겠습니까?');
 
-    if (confirm && user?.uid) {
-      try {
+    try {
+      if (confirm && user) {
         await deleteCommunity(`community/${postId}`);
         setPosts((prev) => prev.filter((post) => post.id !== postId));
-
-        await deleteDocument(`/heart/${user.uid}/like/${postId}`);
-
-        removeLike(postId);
-
-        const newTotal = posts.length - 1;
-        const maxPage = Math.ceil(newTotal / itemsPerPage);
-        if (currentPage > maxPage) {
-          setCurrentPage(maxPage > 0 ? maxPage : 1);
-        }
-        console.log('글이 삭제 되었습니다.');
-      } catch (error) {
-        console.error(error);
       }
+
+      await deleteDocument(`/heart/${user?.uid}/like/${postId}`);
+
+      removeLike(postId);
+
+      const newTotal = posts.length - 1;
+      const maxPage = Math.ceil(newTotal / itemsPerPage);
+      if (currentPage > maxPage) {
+        setCurrentPage(maxPage > 0 ? maxPage : 1);
+      }
+
+      console.log('글이 삭제 되었습니다.');
+    } catch (error) {
+      console.error(error);
     }
 
     return;

@@ -78,18 +78,18 @@ const CommunityDetailHeader = ({ data, id }: DetailHeaderProps) => {
   const onDelete = async () => {
     const confirm = window.confirm('해당 글을 삭제하시겠습니까?');
 
-    if (confirm && user?.uid) {
-      try {
+    try {
+      if (confirm && user) {
         await deleteCommunity(`community/${id.id}`);
-
-        await deleteDocument(`/heart/${user.uid}/like/${id.id}`);
-
-        removeLike(id?.id);
-
-        navigate(`/community`);
-      } catch (error) {
-        console.error(error);
       }
+
+      await deleteDocument(`/heart/${user?.uid}/like/${id.id}`);
+
+      removeLike(id.id);
+
+      navigate(`/community`);
+    } catch (error) {
+      console.error(error);
     }
   };
 
