@@ -2,15 +2,20 @@
   width: 95px;
   height: 33px;
   display: flex;
-  padding: 5px 0;
+  padding: 5px 5px 5px 10px;
   border-radius: 16.5px;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
   display: flex;
   gap: 3px;
 
   img {
     width: 20px;
+  }
+  span {
+    display: flex;
+    width: 100%;
+    justify-content: center
   }
 }
 
@@ -39,6 +44,7 @@
   color: #fff;
   background-color: $color;
   display: flex;
+  width: 100%;
   padding: 0 10px;
   height: 23px;
 
