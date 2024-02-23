@@ -46,7 +46,7 @@ const FilterPlates = () => {
   return (
     <div className={styles.wrapper}>
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <motion.div
             initial="closed"
             animate="open"
@@ -63,6 +63,8 @@ const FilterPlates = () => {
               </motion.div>
             </div>
           </motion.div>
+        ) : (
+          <div></div>
         )}
       </AnimatePresence>
       <PlateHideButton isOpen={isOpen} setIsOpen={setIsOpen} />
