@@ -1,13 +1,12 @@
 @mixin plate_style {
+  gap: 3px;
   width: 95px;
   height: 33px;
   display: flex;
-  padding: 5px 5px 5px 10px;
-  border-radius: 16.5px;
-  align-items: center;
-  // justify-content: center;
   display: flex;
-  gap: 3px;
+  align-items: center;
+  border-radius: 16.5px;
+  padding: 5px 5px 5px 10px;
 
   img {
     width: 20px;

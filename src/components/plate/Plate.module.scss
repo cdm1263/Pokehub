@@ -95,8 +95,8 @@
   .type_plate__my.#{$type} {
     @include plate_pokemon_type($color);
     width: 45px;
-    padding: 0 7px;
     height: 11px;
+    padding: 0 7px;
 
     img {
       width: 7px;
