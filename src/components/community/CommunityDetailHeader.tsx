@@ -9,9 +9,14 @@ import { useCommunityCommentQuery } from './CommunityComment';
 import { IoIosHeart } from '@react-icons/all-files/io/IoIosHeart';
 import { MdModeComment } from '@react-icons/all-files/md/MdModeComment';
 import { ButtonCategory, ButtonDel, ButtonEdit } from '../button/Button';
-import { deleteCommunity, viewCount } from '@/lib/firebaseQueryCommunity';
+import {
+  deleteCommunity,
+  deleteDocument,
+  viewCount,
+} from '@/lib/firebaseQueryCommunity';
 import { MdRemoveRedEye } from '@react-icons/all-files/md/MdRemoveRedEye';
 import { FetchProfileImages } from '@/lib/util/fetchProfileImages';
+import useLikesPostStore from '@/store/useLikesPostStore';
 
 interface DetailHeaderProps {
   data: {
@@ -36,6 +41,7 @@ interface DetailHeaderProps {
 const CommunityDetailHeader = ({ data, id }: DetailHeaderProps) => {
   const { user } = useUserStore();
   const navigate = useNavigate();
+  const { removeLike } = useLikesPostStore();
 
   const { data: imageUrl } = useQuery(
     ['profileImages', data.userId],
@@ -75,6 +81,11 @@ const CommunityDetailHeader = ({ data, id }: DetailHeaderProps) => {
     if (confirm && user?.uid) {
       try {
         await deleteCommunity(`community/${id.id}`);
+
+        await deleteDocument(`/heart/${user.uid}/like/${id.id}`);
+
+        removeLike(id?.id);
+
         navigate(`/community`);
       } catch (error) {
         console.error(error);
