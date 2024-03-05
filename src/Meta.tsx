@@ -30,6 +30,10 @@ const Meta = (props: MetaProps) => {
   };
   return (
     <Helmet>
+      <meta
+        name="google-site-verification"
+        content="zgo44Q8-6VFgW3fRikSiR1cIKQkR2fob64YwkQ2PsDg"
+      />
       <title>{props.title}</title>
 
       <meta name="title" content={props.title} />
