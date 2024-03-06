@@ -34,6 +34,11 @@ const Meta = (props: MetaProps) => {
         name="google-site-verification"
         content="zgo44Q8-6VFgW3fRikSiR1cIKQkR2fob64YwkQ2PsDg"
       />
+      <meta
+        name="naver-site-verification"
+        content="38216ac5b7d535dc4fe9bff5dd0f6509c1759702"
+      />
+
       <title>{props.title}</title>
 
       <meta name="title" content={props.title} />
