@@ -182,22 +182,20 @@
 
   span {
     color: #ff5050;
-
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
 
-  &:disabled {
-    border: 2px solid #999;
-  }
-
-  &:disabled,
-  &:disabled span {
+  .disabledText {
     color: #999;
-    cursor: not-allowed;
   }
+}
+
+.stats__like,
+.disabledButton {
+  border: 2px solid #999;
 }
 
 .stats__like__animate.animateHeart {
