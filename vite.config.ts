@@ -19,7 +19,7 @@ export default defineConfig({
       },
       rendererOptions: {
         maxConcurrentRoutes: 1,
-        renderAfterTime: 10000,
+        renderAfterTime: 15000,
       },
       postProcess(renderedRoute) {
         renderedRoute.html = renderedRoute.html
