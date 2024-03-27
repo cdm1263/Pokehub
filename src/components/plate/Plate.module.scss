@@ -1,0 +1,161 @@
+@import 'src/styles/mixin.scss';
+@import 'src/styles/theme.scss';
+
+// FilterPlates
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 60px;
+
+  @include mobile {
+    gap: 11px;
+  }
+
+  .container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    border-bottom: 3px solid #000;
+    overflow: hidden;
+
+    @include mobile {
+      height: auto;
+      width: auto;
+      flex: 1;
+      padding: 30px 0;
+    }
+
+    .inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      gap: 30px;
+
+      @include mobile {
+        align-items: center;
+      }
+
+      .type_plates {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        @include mobile {
+          justify-content: center;
+          gap: 20px;
+        }
+      }
+    }
+  }
+}
+
+// Plate
+.plate_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.type_plate {
+  display: flex;
+  gap: 10px;
+}
+
+.type_image {
+  width: 100%;
+  height: 100%;
+}
+
+.type_plate__my {
+  display: flex;
+  width: 100%;
+  gap: 3px;
+}
+
+@each $type, $color in $type-colors {
+  .click_plate.#{$type} {
+    @include plate_click_style($color);
+  }
+
+  .unclick_plate.#{$type} {
+    @include plate_unclick_style(#d0d0d0);
+  }
+
+  .type_plate.#{$type} {
+    @include plate_pokemon_type($color);
+  }
+
+  .type_plate__my.#{$type} {
+    @include plate_pokemon_type($color);
+    width: 45px;
+    height: 11px;
+    padding: 0 7px;
+
+    img {
+      width: 7px;
+    }
+
+    span {
+      font-size: 7px;
+    }
+  }
+}
+
+//PlateHideButton
+.hide_button {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 0px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 24px solid #000;
+  width: 111px;
+
+  @include mobile {
+    transform: scale(2);
+  }
+
+  .mobile_button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20px;
+    margin: auto;
+    color: #fff;
+    display: none;
+    align-items: center;
+    font-size: 12px;
+    justify-content: center;
+
+    @include mobile {
+      display: flex;
+      font-family: GmarketSansMedium;
+    }
+  }
+
+  .pc_button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -18px;
+    margin: auto;
+    scale: 1.5;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+}

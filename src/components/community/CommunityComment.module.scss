@@ -1,0 +1,191 @@
+.border {
+  margin-top: 30px;
+}
+
+.commentContainer {
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 20px;
+  }
+}
+
+.heartButton {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  cursor: pointer;
+  color: #ffffff;
+  margin: 50px auto;
+  align-items: center;
+  border-radius: 50px;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #ff5050;
+  svg {
+    font-size: 18px;
+    color: #ff5050;
+  }
+  .heartText {
+    font-size: 14px;
+    color: #ff5050;
+    padding-top: 1px;
+    margin-left: 4px;
+  }
+}
+
+.heartButtonUn {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  cursor: pointer;
+  color: #ffffff;
+  margin: 50px auto;
+  align-items: center;
+  border-radius: 50px;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #cfcfcf;
+  svg {
+    font-size: 18px;
+    color: #cfcfcf;
+  }
+  .heartTextUn {
+    font-size: 14px;
+    color: #cfcfcf;
+    padding-top: 1px;
+    margin-left: 4px;
+  }
+}
+
+.Outline {
+  background-color: #ff5050;
+  svg {
+    color: #ffffff;
+  }
+  .heartText {
+    color: #ffffff;
+  }
+}
+
+.container {
+  margin: 40px 34px;
+  @media (max-width: 768px) {
+    margin: 40px 0px;
+  }
+}
+
+.commentBox {
+  display: flex;
+  border-radius: 4px;
+  flex-direction: column;
+  padding: 20px 34px 10px;
+  background-color: #fcfcfc;
+  border: 1px solid #e1e1e1;
+  @media (max-width: 768px) {
+    padding: 0;
+    border: none;
+    background-color: #ffffff00;
+  }
+}
+
+.commentTitle {
+  margin: 14px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.commentTextBox {
+  width: 100%;
+  height: 146px;
+  display: flex;
+  padding: 24px;
+  border-radius: 4px;
+  border: 1px solid #e1e1e1;
+  background-color: #ffffff;
+  textarea {
+    width: 100%;
+    resize: none;
+    display: flex;
+    font-size: 14px;
+    border-style: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.commentButtonBox {
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+
+.ButtonStyle {
+  width: 80px;
+  height: 30px;
+  display: flex;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  border-style: none;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+  &:hover {
+    color: white;
+    background-color: #0f60ce;
+  }
+}
+
+.infoBox {
+  display: flex;
+  font-size: 12px;
+  margin: 20px 0 8px 0;
+  justify-content: space-between;
+}
+
+.userBox {
+  gap: 8px;
+  display: flex;
+  margin-right: 5px;
+  align-items: center;
+  .createdAtText {
+    color: #b0b0b0;
+  }
+  .replyText {
+    cursor: pointer;
+  }
+  .editText {
+    cursor: pointer;
+    color: #0f60ce;
+  }
+  .deleteText {
+    cursor: pointer;
+    color: #ff5050;
+  }
+}
+
+.usersImg {
+  width: 23px;
+  height: 23px;
+  display: flex;
+  overflow: hidden;
+  margin-right: 6px;
+  border-radius: 100%;
+  border: 1px solid #cfcfcf;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ButtonStyleBox {
+  display: flex;
+  justify-content: flex-end;
+}
