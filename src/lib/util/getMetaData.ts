@@ -12,7 +12,7 @@ interface generateMetadataProps {
 export const getMetadata = (metadataProps?: generateMetadataProps) => {
   const { title, description, asPath, ogImage } = metadataProps || {};
 
-  const TITLE = title ? `${title} | 반디부디` : Meta.title;
+  const TITLE = title ? `${title}` : Meta.title;
   const DESCRIPTION = description || Meta.description;
   const PAGE_URL = asPath ? Meta.url + asPath : Meta.url;
   const OG_IMAGE = ogImage || Meta.image;
@@ -42,6 +42,9 @@ export const getMetadata = (metadataProps?: generateMetadataProps) => {
       images: {
         url: OG_IMAGE,
       },
+    },
+    icons: {
+      icon: '/favicon.ico',
     },
   };
 
