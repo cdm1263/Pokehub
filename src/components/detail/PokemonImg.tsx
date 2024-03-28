@@ -80,6 +80,7 @@ const PokemonImg = ({ pokemonState, isLoading }: PokemonInfoExtendsProps) => {
                 alt="Official Artwork"
                 width={280}
                 height={280}
+                priority
               />
             </>
           )}
