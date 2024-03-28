@@ -32,6 +32,6 @@ export const Meta = {
     '포켓몬스터 X',
     '포켓몬스터 Y',
   ],
-  url: 'localhost:3000',
+  url: 'http://localhost:3000',
   image: '/logo-pokehub.png',
 };
