@@ -32,6 +32,6 @@ export const Meta = {
     '포켓몬스터 X',
     '포켓몬스터 Y',
   ],
-  url: 'http://localhost:3000',
+  url: 'https://my-pokehub.vercel.app/',
   image: '/logo-pokehub.png',
 };
