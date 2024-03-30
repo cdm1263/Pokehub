@@ -46,6 +46,12 @@ export const getMetadata = (metadataProps?: generateMetadataProps) => {
     icons: {
       icon: '/favicon.ico',
     },
+    verification: {
+      google: Meta.googleVerification,
+      other: {
+        'naver-site-verification': Meta.naverVerification,
+      },
+    },
   };
 
   return metadata;
