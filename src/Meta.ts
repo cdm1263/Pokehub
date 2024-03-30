@@ -33,5 +33,7 @@ export const Meta = {
     '포켓몬스터 Y',
   ],
   url: 'https://my-pokehub.vercel.app/',
+  googleVerification: 'zgo44Q8-6VFgW3fRikSiR1cIKQkR2fob64YwkQ2PsDg',
+  naverVerification: '76ec65992c82b49007c5cdffffbc5aaecd5e91a9',
   image: '/logo-pokehub.png',
 };
