@@ -1,18 +1,11 @@
-'use client';
-import PokemonDex from '@/components/dex/PokemonDex';
-import dynamic from 'next/dynamic';
+import Dex from './main';
 
-const FilterPlates = dynamic(() => import('@/components/plate/FilterPlates'), {
-  ssr: false,
-});
-
-const Dex = () => {
+const page = () => {
   return (
-    <section style={{ marginTop: 0 }}>
-      <FilterPlates />
-      <PokemonDex />
-    </section>
+    <>
+      <Dex />
+    </>
   );
 };
 
-export default Dex;
+export default page;
