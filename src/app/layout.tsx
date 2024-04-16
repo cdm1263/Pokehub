@@ -1,14 +1,10 @@
 import Provider from '@/Provider';
-import dynamic from 'next/dynamic';
 import type { Viewport } from 'next';
 import AuthGuard from '@/provider/AuthGuard';
 import { getMetadata } from '@/lib/util/getMetaData';
 import '@/styles/global.scss';
 import LikedSnapshot from '@/components/users/LikedSnapshot';
-
-const Header = dynamic(() => import('@/components/header/Header'), {
-  ssr: false,
-});
+import Header from './Header';
 
 export const metadata = getMetadata();
 
@@ -33,6 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kr">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body>
         <script
           type="application/ld+json"
@@ -44,7 +44,7 @@ export default function RootLayout({
           <Provider>
             <LikedSnapshot />
             <Header />
-            {children}
+            <div> {children}</div>
             <div id="modal"></div>
           </Provider>
         </AuthGuard>
