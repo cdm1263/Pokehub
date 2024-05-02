@@ -14,12 +14,12 @@ jobs:
           node-version: '18'
       - uses: actions/cache@v2
         with:
-          path: ~/.npm
+          path: ~/.yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm install
-      - run: npm run lint
+      - run: yarn install
+      - run: yarn lint
 
   build:
     name: Build
@@ -33,9 +33,9 @@ jobs:
           node-version: '18'
       - uses: actions/cache@v2
         with:
-          path: ~/.npm
+          path: ~/.yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm install
-      - run: CI='false' npm run build
+      - run: yarn install
+      - run: CI='false' yarn build
