@@ -25,6 +25,7 @@ const nextConfig = {
       },
     ],
   },
+  output: 'export',
 };
 
 export default withPWA(nextConfig);

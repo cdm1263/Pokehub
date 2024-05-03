@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "sitemap": "node sitemap.js",
-    "build": "yarn sitemap && next build && next export",
+    "build": "yarn sitemap && next build",
     "start": "next start",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\""
