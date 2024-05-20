@@ -3,7 +3,6 @@ name: git push into another repo to deploy to vercel
 on:
   push:
     branches: [main]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +22,7 @@ jobs:
           destination-github-username: BearHumanS
           destination-repository-name: Team_side_project_pokemon
           user-email: ${{ secrets.HUN_EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
+          commit-message: ${{ github.event.head_commit.message }}
           target-branch: main
       - name: Pushes to Pokehub
         uses: cpina/github-action-push-to-another-repository@main
@@ -34,7 +33,7 @@ jobs:
           destination-github-username: cdm1263
           destination-repository-name: Pokehub
           user-email: ${{ secrets.CDM_EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
+          commit-message: ${{ github.event.head_commit.message }}
           target-branch: main
       - name: Pushes to Pokehub
         uses: cpina/github-action-push-to-another-repository@main
@@ -45,7 +44,7 @@ jobs:
           destination-github-username: DICEPT
           destination-repository-name: Pokehub
           user-email: ${{ secrets.DICEPT_EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
+          commit-message: ${{ github.event.head_commit.message }}
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
