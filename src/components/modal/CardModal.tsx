@@ -54,7 +54,7 @@ const CardModal = ({ onModalToggle, cardData, isOpen }: CardModalProps) => {
   };
 
   const card = cardData?.data;
-  console.log(card?.pokemonCardData[0]);
+
   const pokemonNickName = {
     pokemonNickName1: card?.pokemonCardData[1],
     pokemonNickName2: card?.pokemonCardData[2],
