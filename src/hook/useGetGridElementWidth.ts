@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 
 const useGetGridElementWidth = (gridWidth: number) => {
-  const [itemWidth, setItemWidth] = useState(0);
+  const [elementWidth, setElement] = useState(0);
 
   useEffect(() => {
-    const minItemWidth = 200;
+    const minElementWidth = 200;
     const gap = 20;
 
-    const maxItems = Math.floor((gridWidth + gap) / (minItemWidth + gap));
+    const maxElements = Math.floor((gridWidth + gap) / (minElementWidth + gap));
 
-    const totalGapWidth = (maxItems - 1) * gap;
+    const totalGapWidth = (maxElements - 1) * gap;
     const remainingWidth = gridWidth - totalGapWidth;
-    const itemWidth = remainingWidth / maxItems;
+    const elementWidth = remainingWidth / maxElements;
 
-    setItemWidth(itemWidth);
+    setElement(elementWidth);
   }, [gridWidth]);
 
-  return itemWidth;
+  return elementWidth;
 };
 
 export default useGetGridElementWidth;
